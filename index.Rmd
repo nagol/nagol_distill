@@ -1,0 +1,22 @@
+---
+title: "Logan Lossing"
+image: "profile_lossing.JPG"
+links:
+  - label: LinkedIn
+    url: "https://linkedin.com/in/loganlossing"
+  - label: Twitter
+    url: "https://twitter.com/NagolGnissol"
+  - label: GitHub
+    url: "https://github.com/nagol"
+  - label: Email
+    url: "mailto:loganlossing@gmail.com"
+output:
+  postcards::jolla
+site: distill::distill_website  
+
+---
+ 
+I am a classically trained data scientist living on the Central Coast of California. 
+I am a HUGE data
+
+R | Python | SQL | SAS | AWS

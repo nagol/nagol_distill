@@ -1,0 +1,27 @@
+{
+  "articles": [
+    {
+      "path": "about.html",
+      "title": "About this site",
+      "description": "Some additional details about the website",
+      "author": [],
+      "contents": "\n\n\n\n",
+      "last_modified": "2021-01-20T17:43:53-08:00"
+    },
+    {
+      "path": "blog.html",
+      "title": "Blog",
+      "author": [],
+      "contents": "\n\n\n\n",
+      "last_modified": "2021-01-20T17:43:54-08:00"
+    },
+    {
+      "path": "index.html",
+      "title": "Logan Lossing",
+      "author": [],
+      "contents": "\n\n          \n          \n          Logan Lossing\n          \n          \n          Home\n          Blog\n          About\n          ☰\n          \n          \n      \n        \n          \n            Logan Lossing\n          \n          \n            \n              I am a classically trained data scientist living on the Central Coast of California. I am a HUGE data\n              R | Python | SQL | SAS | AWS\n            \n            \n              I am a classically trained data scientist living on the Central Coast of California. I am a HUGE data\n              R | Python | SQL | SAS | AWS\n            \n          \n\n          \n            \n              \n                  \n                    \n                      LinkedIn\n                    \n                  \n                \n                                \n                  \n                    \n                      Twitter\n                    \n                  \n                \n                                \n                  \n                    \n                      GitHub\n                    \n                  \n                \n                                \n                  \n                    \n                      Email\n                    \n                  \n                \n                              \n          \n\n          \n            \n              \n                                \n                  \n                    LinkedIn\n                  \n                \n                                \n                  \n                    Twitter\n                  \n                \n                                \n                  \n                    GitHub\n                  \n                \n                                \n                  \n                    Email\n                  \n                \n                              \n            \n          \n        \n      \n    \n\n    \n    \n    ",
+      "last_modified": "2021-01-20T17:43:55-08:00"
+    }
+  ],
+  "collections": ["posts/posts.json"]
+}
