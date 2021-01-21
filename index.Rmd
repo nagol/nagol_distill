@@ -4,8 +4,6 @@ image: "profile_lossing.JPG"
 links:
   - label: LinkedIn
     url: "https://linkedin.com/in/loganlossing"
-  - label: Twitter
-    url: "https://twitter.com/NagolGnissol"
   - label: GitHub
     url: "https://github.com/nagol"
   - label: Email
@@ -16,7 +14,10 @@ site: distill::distill_website
 
 ---
  
-I am a classically trained data scientist living on the Central Coast of California. 
-I am a HUGE data
+Statistician and Full Stack Data Scientist
+
+I love all things code and data!
+I needed a place to keep track of tips and tricks learned along the way. 
+
 
 R | Python | SQL | SAS | AWS

@@ -1,8 +1,8 @@
 [
   {
     "path": "posts/2021-01-20-welcome/",
-    "title": "welcome",
-    "description": "A short description of the post.",
+    "title": "Welcome",
+    "description": "The journey begins...",
     "author": [
       {
         "name": "Logan Lossing",
@@ -11,9 +11,9 @@
     ],
     "date": "2021-01-20",
     "categories": [],
-    "contents": "\nDistill is a publication format for scientific and technical writing, native to the web.\nLearn more about using Distill at https://rstudio.github.io/distill.\n\n\n\n",
+    "contents": "\nTechnology is amazing. Modern frameworks and computing architectures are more powerful than ever. It can be quite time consuming when learning a new technology or refactoring code. Many times, the answers to our questions are found in helpful StackOverflow posts or blog articles that some wonderful human put together and shared with the world.\nInspired by the amazing work of others, I wanted to make a effort to contribute back. As a result, this blog was created.\n\n\n\n",
     "preview": {},
-    "last_modified": "2021-01-20T03:52:06-08:00",
+    "last_modified": "2021-01-21T04:56:52-08:00",
     "input_file": {}
   }
 ]
