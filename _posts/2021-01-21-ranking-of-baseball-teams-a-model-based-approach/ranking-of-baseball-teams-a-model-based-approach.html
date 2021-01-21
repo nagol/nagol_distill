@@ -1,0 +1,2339 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+  <meta name="generator" content="distill" />
+
+  <style type="text/css">
+  /* Hide doc at startup (prevent jankiness while JS renders/transforms) */
+  body {
+    visibility: hidden;
+  }
+  </style>
+
+ <!--radix_placeholder_import_source-->
+ <!--/radix_placeholder_import_source-->
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ad0000; } /* Alert */
+code span.an { color: #5e5e5e; } /* Annotation */
+code span.at { color: #20794d; } /* Attribute */
+code span.bn { color: #ad0000; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007ba5; } /* ControlFlow */
+code span.ch { color: #20794d; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #5e5e5e; } /* Comment */
+code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+code span.dt { color: #ad0000; } /* DataType */
+code span.dv { color: #ad0000; } /* DecVal */
+code span.er { color: #ad0000; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #ad0000; } /* Float */
+code span.fu { color: #4758ab; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #5e5e5e; } /* Information */
+code span.kw { color: #007ba5; } /* Keyword */
+code span.op { color: #5e5e5e; } /* Operator */
+code span.ot { color: #007ba5; } /* Other */
+code span.pp { color: #ad0000; } /* Preprocessor */
+code span.sc { color: #20794d; } /* SpecialChar */
+code span.ss { color: #20794d; } /* SpecialString */
+code span.st { color: #20794d; } /* String */
+code span.va { color: #111111; } /* Variable */
+code span.vs { color: #20794d; } /* VerbatimString */
+code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+</style>
+
+  <!--radix_placeholder_meta_tags-->
+  <title>Ranking of Baseball Teams - A Model Based Approach</title>
+
+  <meta property="description" itemprop="description" content="Teams play many games over the course of the season but they play teams in their&#10;division most often. Further, we need to account for situations where say Team A might    lose to Team B and beat Team C, but Team C has also won a game against Team B. How&#10;can we objectively rank teams where we only focus on who has beaten who?"/>
+
+
+  <!--  https://schema.org/Article -->
+  <meta property="article:published" itemprop="datePublished" content="2021-01-21"/>
+  <meta property="article:created" itemprop="dateCreated" content="2021-01-21"/>
+  <meta name="article:author" content="Logan Lossing"/>
+
+  <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
+  <meta property="og:title" content="Ranking of Baseball Teams - A Model Based Approach"/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:description" content="Teams play many games over the course of the season but they play teams in their&#10;division most often. Further, we need to account for situations where say Team A might    lose to Team B and beat Team C, but Team C has also won a game against Team B. How&#10;can we objectively rank teams where we only focus on who has beaten who?"/>
+  <meta property="og:locale" content="en_US"/>
+
+  <!--  https://dev.twitter.com/cards/types/summary -->
+  <meta property="twitter:card" content="summary"/>
+  <meta property="twitter:title" content="Ranking of Baseball Teams - A Model Based Approach"/>
+  <meta property="twitter:description" content="Teams play many games over the course of the season but they play teams in their&#10;division most often. Further, we need to account for situations where say Team A might    lose to Team B and beat Team C, but Team C has also won a game against Team B. How&#10;can we objectively rank teams where we only focus on who has beaten who?"/>
+
+  <!--/radix_placeholder_meta_tags-->
+  <!--radix_placeholder_rmarkdown_metadata-->
+
+  <script type="text/json" id="radix-rmarkdown-metadata">
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","preview","author","date","tags","output"]}},"value":[{"type":"character","attributes":{},"value":["Ranking of Baseball Teams - A Model Based Approach"]},{"type":"character","attributes":{},"value":["Teams play many games over the course of the season but they play teams in their\ndivision most often. Further, we need to account for situations where say Team A might    lose to Team B and beat Team C, but Team C has also won a game against Team B. How\ncan we objectively rank teams where we only focus on who has beaten who?\n"]},{"type":"character","attributes":{},"value":["heatMap.png"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Logan Lossing"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":[]}},"value":[]}]}]},{"type":"character","attributes":{},"value":["2021-01-21"]},{"type":"character","attributes":{},"value":["probability"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained","code_folding","toc","toc_depth","number_sections"]}},"value":[{"type":"logical","attributes":{},"value":[false]},{"type":"logical","attributes":{},"value":[true]},{"type":"logical","attributes":{},"value":[true]},{"type":"integer","attributes":{},"value":[2]},{"type":"logical","attributes":{},"value":[true]}]}]}]}
+  </script>
+  <!--/radix_placeholder_rmarkdown_metadata-->
+  
+  <script type="text/json" id="radix-resource-manifest">
+  {"type":"character","attributes":{},"value":["heatMap.png","ranking-of-baseball-teams-a-model-based-approach_files/anchor-4.2.2/anchor.min.js","ranking-of-baseball-teams-a-model-based-approach_files/bowser-1.9.3/bowser.min.js","ranking-of-baseball-teams-a-model-based-approach_files/distill-2.2.21/template.v2.js","ranking-of-baseball-teams-a-model-based-approach_files/header-attrs-2.6.6/header-attrs.js","ranking-of-baseball-teams-a-model-based-approach_files/jquery-1.11.3/jquery.min.js","ranking-of-baseball-teams-a-model-based-approach_files/popper-2.6.0/popper.min.js","ranking-of-baseball-teams-a-model-based-approach_files/tippy-6.2.7/tippy-bundle.umd.min.js","ranking-of-baseball-teams-a-model-based-approach_files/tippy-6.2.7/tippy-light-border.css","ranking-of-baseball-teams-a-model-based-approach_files/tippy-6.2.7/tippy.css","ranking-of-baseball-teams-a-model-based-approach_files/tippy-6.2.7/tippy.umd.min.js","ranking-of-baseball-teams-a-model-based-approach_files/webcomponents-2.0.0/webcomponents.js","ymat.csv"]}
+  </script>
+  <!--radix_placeholder_navigation_in_header-->
+  <!--/radix_placeholder_navigation_in_header-->
+  <!--radix_placeholder_distill-->
+
+  <style type="text/css">
+
+  body {
+    background-color: white;
+  }
+
+  .pandoc-table {
+    width: 100%;
+  }
+
+  .pandoc-table>caption {
+    margin-bottom: 10px;
+  }
+
+  .pandoc-table th:not([align]) {
+    text-align: left;
+  }
+
+  .pagedtable-footer {
+    font-size: 15px;
+  }
+
+  d-byline .byline {
+    grid-template-columns: 2fr 2fr;
+  }
+
+  d-byline .byline h3 {
+    margin-block-start: 1.5em;
+  }
+
+  d-byline .byline .authors-affiliations h3 {
+    margin-block-start: 0.5em;
+  }
+
+  .authors-affiliations .orcid-id {
+    width: 16px;
+    height:16px;
+    margin-left: 4px;
+    margin-right: 4px;
+    vertical-align: middle;
+    padding-bottom: 2px;
+  }
+
+  d-title .dt-tags {
+    margin-top: 1em;
+    grid-column: text;
+  }
+
+  .dt-tags .dt-tag {
+    text-decoration: none;
+    display: inline-block;
+    color: rgba(0,0,0,0.6);
+    padding: 0em 0.4em;
+    margin-right: 0.5em;
+    margin-bottom: 0.4em;
+    font-size: 70%;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  d-article table.gt_table td,
+  d-article table.gt_table th {
+    border-bottom: none;
+  }
+
+  .html-widget {
+    margin-bottom: 2.0em;
+  }
+
+  .l-screen-inset {
+    padding-right: 16px;
+  }
+
+  .l-screen .caption {
+    margin-left: 10px;
+  }
+
+  .shaded {
+    background: rgb(247, 247, 247);
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .shaded .html-widget {
+    margin-bottom: 0;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .shaded .shaded-content {
+    background: white;
+  }
+
+  .text-output {
+    margin-top: 0;
+    line-height: 1.5em;
+  }
+
+  .hidden {
+    display: none !important;
+  }
+
+  d-article {
+    padding-top: 2.5rem;
+    padding-bottom: 30px;
+  }
+
+  d-appendix {
+    padding-top: 30px;
+  }
+
+  d-article>p>img {
+    width: 100%;
+  }
+
+  d-article h2 {
+    margin: 1rem 0 1.5rem 0;
+  }
+
+  d-article h3 {
+    margin-top: 1.5rem;
+  }
+
+  d-article iframe {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    margin-bottom: 2.0em;
+    width: 100%;
+  }
+
+  /* Tweak code blocks */
+
+  d-article div.sourceCode code,
+  d-article pre code {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  }
+
+  d-article pre,
+  d-article div.sourceCode,
+  d-article div.sourceCode pre {
+    overflow: auto;
+  }
+
+  d-article div.sourceCode {
+    background-color: white;
+  }
+
+  d-article div.sourceCode pre {
+    padding-left: 10px;
+    font-size: 12px;
+    border-left: 2px solid rgba(0,0,0,0.1);
+  }
+
+  d-article pre {
+    font-size: 12px;
+    color: black;
+    background: none;
+    margin-top: 0;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.5;
+
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+  }
+
+  d-article pre a {
+    border-bottom: none;
+  }
+
+  d-article pre a:hover {
+    border-bottom: none;
+    text-decoration: underline;
+  }
+
+  d-article details {
+    grid-column: text;
+    margin-bottom: 0.8em;
+  }
+
+  @media(min-width: 768px) {
+
+  d-article pre,
+  d-article div.sourceCode,
+  d-article div.sourceCode pre {
+    overflow: visible !important;
+  }
+
+  d-article div.sourceCode pre {
+    padding-left: 18px;
+    font-size: 14px;
+  }
+
+  d-article pre {
+    font-size: 14px;
+  }
+
+  }
+
+  figure img.external {
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+    padding: 18px;
+    box-sizing: border-box;
+  }
+
+  /* CSS for d-contents */
+
+  .d-contents {
+    grid-column: text;
+    color: rgba(0,0,0,0.8);
+    font-size: 0.9em;
+    padding-bottom: 1em;
+    margin-bottom: 1em;
+    padding-bottom: 0.5em;
+    margin-bottom: 1em;
+    padding-left: 0.25em;
+    justify-self: start;
+  }
+
+  @media(min-width: 1000px) {
+    .d-contents.d-contents-float {
+      height: 0;
+      grid-column-start: 1;
+      grid-column-end: 4;
+      justify-self: center;
+      padding-right: 3em;
+      padding-left: 2em;
+    }
+  }
+
+  .d-contents nav h3 {
+    font-size: 18px;
+    margin-top: 0;
+    margin-bottom: 1em;
+  }
+
+  .d-contents li {
+    list-style-type: none
+  }
+
+  .d-contents nav > ul {
+    padding-left: 0;
+  }
+
+  .d-contents ul {
+    padding-left: 1em
+  }
+
+  .d-contents nav ul li {
+    margin-top: 0.6em;
+    margin-bottom: 0.2em;
+  }
+
+  .d-contents nav a {
+    font-size: 13px;
+    border-bottom: none;
+    text-decoration: none
+    color: rgba(0, 0, 0, 0.8);
+  }
+
+  .d-contents nav a:hover {
+    text-decoration: underline solid rgba(0, 0, 0, 0.6)
+  }
+
+  .d-contents nav > ul > li > a {
+    font-weight: 600;
+  }
+
+  .d-contents nav > ul > li > ul {
+    font-weight: inherit;
+  }
+
+  .d-contents nav > ul > li > ul > li {
+    margin-top: 0.2em;
+  }
+
+
+  .d-contents nav ul {
+    margin-top: 0;
+    margin-bottom: 0.25em;
+  }
+
+  .d-article-with-toc h2:nth-child(2) {
+    margin-top: 0;
+  }
+
+
+  /* Figure */
+
+  .figure {
+    position: relative;
+    margin-bottom: 2.5em;
+    margin-top: 1.5em;
+  }
+
+  .figure img {
+    width: 100%;
+  }
+
+  .figure .caption {
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 12px;
+    line-height: 1.5em;
+  }
+
+  .figure img.external {
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+    padding: 18px;
+    box-sizing: border-box;
+  }
+
+  .figure .caption a {
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  .figure .caption b,
+  .figure .caption strong, {
+    font-weight: 600;
+    color: rgba(0, 0, 0, 1.0);
+  }
+
+  /* Citations */
+
+  d-article .citation {
+    color: inherit;
+    cursor: inherit;
+  }
+
+  div.hanging-indent{
+    margin-left: 1em; text-indent: -1em;
+  }
+
+  /* Citation hover box */
+
+  .tippy-box[data-theme~=light-border] {
+    background-color: rgba(250, 250, 250, 0.95);
+  }
+
+  .tippy-content > p {
+    margin-bottom: 0;
+    padding: 2px;
+  }
+
+
+  /* Tweak 1000px media break to show more text */
+
+  @media(min-width: 1000px) {
+    .base-grid,
+    distill-header,
+    d-title,
+    d-abstract,
+    d-article,
+    d-appendix,
+    distill-appendix,
+    d-byline,
+    d-footnote-list,
+    d-citation-list,
+    distill-footer {
+      grid-template-columns: [screen-start] 1fr [page-start kicker-start] 80px [middle-start] 50px [text-start kicker-end] 65px 65px 65px 65px 65px 65px 65px 65px [text-end gutter-start] 65px [middle-end] 65px [page-end gutter-end] 1fr [screen-end];
+      grid-column-gap: 16px;
+    }
+
+    .grid {
+      grid-column-gap: 16px;
+    }
+
+    d-article {
+      font-size: 1.06rem;
+      line-height: 1.7em;
+    }
+    figure .caption, .figure .caption, figure figcaption {
+      font-size: 13px;
+    }
+  }
+
+  @media(min-width: 1180px) {
+    .base-grid,
+    distill-header,
+    d-title,
+    d-abstract,
+    d-article,
+    d-appendix,
+    distill-appendix,
+    d-byline,
+    d-footnote-list,
+    d-citation-list,
+    distill-footer {
+      grid-template-columns: [screen-start] 1fr [page-start kicker-start] 60px [middle-start] 60px [text-start kicker-end] 60px 60px 60px 60px 60px 60px 60px 60px [text-end gutter-start] 60px [middle-end] 60px [page-end gutter-end] 1fr [screen-end];
+      grid-column-gap: 32px;
+    }
+
+    .grid {
+      grid-column-gap: 32px;
+    }
+  }
+
+
+  /* Get the citation styles for the appendix (not auto-injected on render since
+     we do our own rendering of the citation appendix) */
+
+  d-appendix .citation-appendix,
+  .d-appendix .citation-appendix {
+    font-size: 11px;
+    line-height: 15px;
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+    padding-left: 18px;
+    border: 1px solid rgba(0,0,0,0.1);
+    background: rgba(0, 0, 0, 0.02);
+    padding: 10px 18px;
+    border-radius: 3px;
+    color: rgba(150, 150, 150, 1);
+    overflow: hidden;
+    margin-top: -12px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+
+  /* Include appendix styles here so they can be overridden */
+
+  d-appendix {
+    contain: layout style;
+    font-size: 0.8em;
+    line-height: 1.7em;
+    margin-top: 60px;
+    margin-bottom: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    color: rgba(0,0,0,0.5);
+    padding-top: 60px;
+    padding-bottom: 48px;
+  }
+
+  d-appendix h3 {
+    grid-column: page-start / text-start;
+    font-size: 15px;
+    font-weight: 500;
+    margin-top: 1em;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.65);
+  }
+
+  d-appendix h3 + * {
+    margin-top: 1em;
+  }
+
+  d-appendix ol {
+    padding: 0 0 0 15px;
+  }
+
+  @media (min-width: 768px) {
+    d-appendix ol {
+      padding: 0 0 0 30px;
+      margin-left: -30px;
+    }
+  }
+
+  d-appendix li {
+    margin-bottom: 1em;
+  }
+
+  d-appendix a {
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  d-appendix > * {
+    grid-column: text;
+  }
+
+  d-appendix > d-footnote-list,
+  d-appendix > d-citation-list,
+  d-appendix > distill-appendix {
+    grid-column: screen;
+  }
+
+  /* Include footnote styles here so they can be overridden */
+
+  d-footnote-list {
+    contain: layout style;
+  }
+
+  d-footnote-list > * {
+    grid-column: text;
+  }
+
+  d-footnote-list a.footnote-backlink {
+    color: rgba(0,0,0,0.3);
+    padding-left: 0.5em;
+  }
+
+
+
+  /* Anchor.js */
+
+  .anchorjs-link {
+    /*transition: all .25s linear; */
+    text-decoration: none;
+    border-bottom: none;
+  }
+  *:hover > .anchorjs-link {
+    margin-left: -1.125em !important;
+    text-decoration: none;
+    border-bottom: none;
+  }
+
+  /* Social footer */
+
+  .social_footer {
+    margin-top: 30px;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.67);
+  }
+
+  .disqus-comments {
+    margin-right: 30px;
+  }
+
+  .disqus-comment-count {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+  }
+
+  #disqus_thread {
+    margin-top: 30px;
+  }
+
+  .article-sharing a {
+    border-bottom: none;
+    margin-right: 8px;
+  }
+
+  .article-sharing a:hover {
+    border-bottom: none;
+  }
+
+  .sidebar-section.subscribe {
+    font-size: 12px;
+    line-height: 1.6em;
+  }
+
+  .subscribe p {
+    margin-bottom: 0.5em;
+  }
+
+
+  .article-footer .subscribe {
+    font-size: 15px;
+    margin-top: 45px;
+  }
+
+
+  .sidebar-section.custom {
+    font-size: 12px;
+    line-height: 1.6em;
+  }
+
+  .custom p {
+    margin-bottom: 0.5em;
+  }
+
+  /* Styles for listing layout (hide title) */
+  .layout-listing d-title, .layout-listing .d-title {
+    display: none;
+  }
+
+  /* Styles for posts lists (not auto-injected) */
+
+
+  .posts-with-sidebar {
+    padding-left: 45px;
+    padding-right: 45px;
+  }
+
+  .posts-list .description h2,
+  .posts-list .description p {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+  }
+
+  .posts-list .description h2 {
+    font-weight: 700;
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .posts-list h2.post-tag {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    padding-bottom: 12px;
+  }
+  .posts-list {
+    margin-top: 60px;
+    margin-bottom: 24px;
+  }
+
+  .posts-list .post-preview {
+    text-decoration: none;
+    overflow: hidden;
+    display: block;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 24px 0;
+  }
+
+  .post-preview-last {
+    border-bottom: none !important;
+  }
+
+  .posts-list .posts-list-caption {
+    grid-column: screen;
+    font-weight: 400;
+  }
+
+  .posts-list .post-preview h2 {
+    margin: 0 0 6px 0;
+    line-height: 1.2em;
+    font-style: normal;
+    font-size: 24px;
+  }
+
+  .posts-list .post-preview p {
+    margin: 0 0 12px 0;
+    line-height: 1.4em;
+    font-size: 16px;
+  }
+
+  .posts-list .post-preview .thumbnail {
+    box-sizing: border-box;
+    margin-bottom: 24px;
+    position: relative;
+    max-width: 500px;
+  }
+  .posts-list .post-preview img {
+    width: 100%;
+    display: block;
+  }
+
+  .posts-list .metadata {
+    font-size: 12px;
+    line-height: 1.4em;
+    margin-bottom: 18px;
+  }
+
+  .posts-list .metadata > * {
+    display: inline-block;
+  }
+
+  .posts-list .metadata .publishedDate {
+    margin-right: 2em;
+  }
+
+  .posts-list .metadata .dt-authors {
+    display: block;
+    margin-top: 0.3em;
+    margin-right: 2em;
+  }
+
+  .posts-list .dt-tags {
+    display: block;
+    line-height: 1em;
+  }
+
+  .posts-list .dt-tags .dt-tag {
+    display: inline-block;
+    color: rgba(0,0,0,0.6);
+    padding: 0.3em 0.4em;
+    margin-right: 0.2em;
+    margin-bottom: 0.4em;
+    font-size: 60%;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .posts-list img {
+    opacity: 1;
+  }
+
+  .posts-list img[data-src] {
+    opacity: 0;
+  }
+
+  .posts-more {
+    clear: both;
+  }
+
+
+  .posts-sidebar {
+    font-size: 16px;
+  }
+
+  .posts-sidebar h3 {
+    font-size: 16px;
+    margin-top: 0;
+    margin-bottom: 0.5em;
+    font-weight: 400;
+    text-transform: uppercase;
+  }
+
+  .sidebar-section {
+    margin-bottom: 30px;
+  }
+
+  .categories ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .categories li {
+    color: rgba(0, 0, 0, 0.8);
+    margin-bottom: 0;
+  }
+
+  .categories li>a {
+    border-bottom: none;
+  }
+
+  .categories li>a:hover {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+  }
+
+  .categories .active {
+    font-weight: 600;
+  }
+
+  .categories .category-count {
+    color: rgba(0, 0, 0, 0.4);
+  }
+
+
+  @media(min-width: 768px) {
+    .posts-list .post-preview h2 {
+      font-size: 26px;
+    }
+    .posts-list .post-preview .thumbnail {
+      float: right;
+      width: 30%;
+      margin-bottom: 0;
+    }
+    .posts-list .post-preview .description {
+      float: left;
+      width: 45%;
+    }
+    .posts-list .post-preview .metadata {
+      float: left;
+      width: 20%;
+      margin-top: 8px;
+    }
+    .posts-list .post-preview p {
+      margin: 0 0 12px 0;
+      line-height: 1.5em;
+      font-size: 16px;
+    }
+    .posts-with-sidebar .posts-list {
+      float: left;
+      width: 75%;
+    }
+    .posts-with-sidebar .posts-sidebar {
+      float: right;
+      width: 20%;
+      margin-top: 60px;
+      padding-top: 24px;
+      padding-bottom: 24px;
+    }
+  }
+
+
+  /* Improve display for browsers without grid (IE/Edge <= 15) */
+
+  .downlevel {
+    line-height: 1.6em;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+    margin: 0;
+  }
+
+  .downlevel .d-title {
+    padding-top: 6rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .downlevel .d-title h1 {
+    font-size: 50px;
+    font-weight: 700;
+    line-height: 1.1em;
+    margin: 0 0 0.5rem;
+  }
+
+  .downlevel .d-title p {
+    font-weight: 300;
+    font-size: 1.2rem;
+    line-height: 1.55em;
+    margin-top: 0;
+  }
+
+  .downlevel .d-byline {
+    padding-top: 0.8em;
+    padding-bottom: 0.8em;
+    font-size: 0.8rem;
+    line-height: 1.8em;
+  }
+
+  .downlevel .section-separator {
+    border: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .downlevel .d-article {
+    font-size: 1.06rem;
+    line-height: 1.7em;
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+  }
+
+
+  .downlevel .d-appendix {
+    padding-left: 0;
+    padding-right: 0;
+    max-width: none;
+    font-size: 0.8em;
+    line-height: 1.7em;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.5);
+    padding-top: 40px;
+    padding-bottom: 48px;
+  }
+
+  .downlevel .footnotes ol {
+    padding-left: 13px;
+  }
+
+  .downlevel .base-grid,
+  .downlevel .distill-header,
+  .downlevel .d-title,
+  .downlevel .d-abstract,
+  .downlevel .d-article,
+  .downlevel .d-appendix,
+  .downlevel .distill-appendix,
+  .downlevel .d-byline,
+  .downlevel .d-footnote-list,
+  .downlevel .d-citation-list,
+  .downlevel .distill-footer,
+  .downlevel .appendix-bottom,
+  .downlevel .posts-container {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+
+  @media(min-width: 768px) {
+    .downlevel .base-grid,
+    .downlevel .distill-header,
+    .downlevel .d-title,
+    .downlevel .d-abstract,
+    .downlevel .d-article,
+    .downlevel .d-appendix,
+    .downlevel .distill-appendix,
+    .downlevel .d-byline,
+    .downlevel .d-footnote-list,
+    .downlevel .d-citation-list,
+    .downlevel .distill-footer,
+    .downlevel .appendix-bottom,
+    .downlevel .posts-container {
+    padding-left: 150px;
+    padding-right: 150px;
+    max-width: 900px;
+  }
+  }
+
+  .downlevel pre code {
+    display: block;
+    border-left: 2px solid rgba(0, 0, 0, .1);
+    padding: 0 0 0 20px;
+    font-size: 14px;
+  }
+
+  .downlevel code, .downlevel pre {
+    color: black;
+    background: none;
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.5;
+
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+  }
+
+  .downlevel .posts-list .post-preview {
+    color: inherit;
+  }
+
+
+
+  </style>
+
+  <script type="application/javascript">
+
+  function is_downlevel_browser() {
+    if (bowser.isUnsupportedBrowser({ msie: "12", msedge: "16"},
+                                   window.navigator.userAgent)) {
+      return true;
+    } else {
+      return window.load_distill_framework === undefined;
+    }
+  }
+
+  // show body when load is complete
+  function on_load_complete() {
+
+    // add anchors
+    if (window.anchors) {
+      window.anchors.options.placement = 'left';
+      window.anchors.add('d-article > h2, d-article > h3, d-article > h4, d-article > h5');
+    }
+
+
+    // set body to visible
+    document.body.style.visibility = 'visible';
+
+    // force redraw for leaflet widgets
+    if (window.HTMLWidgets) {
+      var maps = window.HTMLWidgets.findAll(".leaflet");
+      $.each(maps, function(i, el) {
+        var map = this.getMap();
+        map.invalidateSize();
+        map.eachLayer(function(layer) {
+          if (layer instanceof L.TileLayer)
+            layer.redraw();
+        });
+      });
+    }
+
+    // trigger 'shown' so htmlwidgets resize
+    $('d-article').trigger('shown');
+  }
+
+  function init_distill() {
+
+    init_common();
+
+    // create front matter
+    var front_matter = $('<d-front-matter></d-front-matter>');
+    $('#distill-front-matter').wrap(front_matter);
+
+    // create d-title
+    $('.d-title').changeElementType('d-title');
+
+    // create d-byline
+    var byline = $('<d-byline></d-byline>');
+    $('.d-byline').replaceWith(byline);
+
+    // create d-article
+    var article = $('<d-article></d-article>');
+    $('.d-article').wrap(article).children().unwrap();
+
+    // move posts container into article
+    $('.posts-container').appendTo($('d-article'));
+
+    // create d-appendix
+    $('.d-appendix').changeElementType('d-appendix');
+
+    // flag indicating that we have appendix items
+    var appendix = $('.appendix-bottom').children('h3').length > 0;
+
+    // replace footnotes with <d-footnote>
+    $('.footnote-ref').each(function(i, val) {
+      appendix = true;
+      var href = $(this).attr('href');
+      var id = href.replace('#', '');
+      var fn = $('#' + id);
+      var fn_p = $('#' + id + '>p');
+      fn_p.find('.footnote-back').remove();
+      var text = fn_p.html();
+      var dtfn = $('<d-footnote></d-footnote>');
+      dtfn.html(text);
+      $(this).replaceWith(dtfn);
+    });
+    // remove footnotes
+    $('.footnotes').remove();
+
+    // move refs into #references-listing
+    $('#references-listing').replaceWith($('#refs'));
+
+    $('h1.appendix, h2.appendix').each(function(i, val) {
+      $(this).changeElementType('h3');
+    });
+    $('h3.appendix').each(function(i, val) {
+      var id = $(this).attr('id');
+      $('.d-contents a[href="#' + id + '"]').parent().remove();
+      appendix = true;
+      $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('d-appendix'));
+    });
+
+    // show d-appendix if we have appendix content
+    $("d-appendix").css('display', appendix ? 'grid' : 'none');
+
+    // localize layout chunks to just output
+    $('.layout-chunk').each(function(i, val) {
+
+      // capture layout
+      var layout = $(this).attr('data-layout');
+
+      // apply layout to markdown level block elements
+      var elements = $(this).children().not('details, div.sourceCode, pre, script');
+      elements.each(function(i, el) {
+        var layout_div = $('<div class="' + layout + '"></div>');
+        if (layout_div.hasClass('shaded')) {
+          var shaded_content = $('<div class="shaded-content"></div>');
+          $(this).wrap(shaded_content);
+          $(this).parent().wrap(layout_div);
+        } else {
+          $(this).wrap(layout_div);
+        }
+      });
+
+
+      // unwrap the layout-chunk div
+      $(this).children().unwrap();
+    });
+
+    // remove code block used to force  highlighting css
+    $('.distill-force-highlighting-css').parent().remove();
+
+    // remove empty line numbers inserted by pandoc when using a
+    // custom syntax highlighting theme
+    $('code.sourceCode a:empty').remove();
+
+    // load distill framework
+    load_distill_framework();
+
+    // wait for window.distillRunlevel == 4 to do post processing
+    function distill_post_process() {
+
+      if (!window.distillRunlevel || window.distillRunlevel < 4)
+        return;
+
+      // hide author/affiliations entirely if we have no authors
+      var front_matter = JSON.parse($("#distill-front-matter").html());
+      var have_authors = front_matter.authors && front_matter.authors.length > 0;
+      if (!have_authors)
+        $('d-byline').addClass('hidden');
+
+      // article with toc class
+      $('.d-contents').parent().addClass('d-article-with-toc');
+
+      // strip links that point to #
+      $('.authors-affiliations').find('a[href="#"]').removeAttr('href');
+
+      // add orcid ids
+      $('.authors-affiliations').find('.author').each(function(i, el) {
+        var orcid_id = front_matter.authors[i].orcidID;
+        if (orcid_id) {
+          var a = $('<a></a>');
+          a.attr('href', 'https://orcid.org/' + orcid_id);
+          var img = $('<img></img>');
+          img.addClass('orcid-id');
+          img.attr('alt', 'ORCID ID');
+          img.attr('src','data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg==');
+          a.append(img);
+          $(this).append(a);
+        }
+      });
+
+      // hide elements of author/affiliations grid that have no value
+      function hide_byline_column(caption) {
+        $('d-byline').find('h3:contains("' + caption + '")').parent().css('visibility', 'hidden');
+      }
+
+      // affiliations
+      var have_affiliations = false;
+      for (var i = 0; i<front_matter.authors.length; ++i) {
+        var author = front_matter.authors[i];
+        if (author.affiliation !== "&nbsp;") {
+          have_affiliations = true;
+          break;
+        }
+      }
+      if (!have_affiliations)
+        $('d-byline').find('h3:contains("Affiliations")').css('visibility', 'hidden');
+
+      // published date
+      if (!front_matter.publishedDate)
+        hide_byline_column("Published");
+
+      // document object identifier
+      var doi = $('d-byline').find('h3:contains("DOI")');
+      var doi_p = doi.next().empty();
+      if (!front_matter.doi) {
+        // if we have a citation and valid citationText then link to that
+        if ($('#citation').length > 0 && front_matter.citationText) {
+          doi.html('Citation');
+          $('<a href="#citation"></a>')
+            .text(front_matter.citationText)
+            .appendTo(doi_p);
+        } else {
+          hide_byline_column("DOI");
+        }
+      } else {
+        $('<a></a>')
+           .attr('href', "https://doi.org/" + front_matter.doi)
+           .html(front_matter.doi)
+           .appendTo(doi_p);
+      }
+
+       // change plural form of authors/affiliations
+      if (front_matter.authors.length === 1) {
+        var grid = $('.authors-affiliations');
+        grid.children('h3:contains("Authors")').text('Author');
+        grid.children('h3:contains("Affiliations")').text('Affiliation');
+      }
+
+      // remove d-appendix and d-footnote-list local styles
+      $('d-appendix > style:first-child').remove();
+      $('d-footnote-list > style:first-child').remove();
+
+      // move appendix-bottom entries to the bottom
+      $('.appendix-bottom').appendTo('d-appendix').children().unwrap();
+      $('.appendix-bottom').remove();
+
+      // hoverable references
+      $('span.citation[data-cites]').each(function() {
+        var refHtml = $('#ref-' + $(this).attr('data-cites')).html();
+        window.tippy(this, {
+          allowHTML: true,
+          content: refHtml,
+          maxWidth: 500,
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'light-border',
+          placement: 'bottom-start'
+        });
+      });
+
+      // clear polling timer
+      clearInterval(tid);
+
+      // show body now that everything is ready
+      on_load_complete();
+    }
+
+    var tid = setInterval(distill_post_process, 50);
+    distill_post_process();
+
+  }
+
+  function init_downlevel() {
+
+    init_common();
+
+     // insert hr after d-title
+    $('.d-title').after($('<hr class="section-separator"/>'));
+
+    // check if we have authors
+    var front_matter = JSON.parse($("#distill-front-matter").html());
+    var have_authors = front_matter.authors && front_matter.authors.length > 0;
+
+    // manage byline/border
+    if (!have_authors)
+      $('.d-byline').remove();
+    $('.d-byline').after($('<hr class="section-separator"/>'));
+    $('.d-byline a').remove();
+
+    // remove toc
+    $('.d-contents').remove();
+
+    // move appendix elements
+    $('h1.appendix, h2.appendix').each(function(i, val) {
+      $(this).changeElementType('h3');
+    });
+    $('h3.appendix').each(function(i, val) {
+      $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('.d-appendix'));
+    });
+
+
+    // inject headers into references and footnotes
+    var refs_header = $('<h3></h3>');
+    refs_header.text('References');
+    $('#refs').prepend(refs_header);
+
+    var footnotes_header = $('<h3></h3');
+    footnotes_header.text('Footnotes');
+    $('.footnotes').children('hr').first().replaceWith(footnotes_header);
+
+    // move appendix-bottom entries to the bottom
+    $('.appendix-bottom').appendTo('.d-appendix').children().unwrap();
+    $('.appendix-bottom').remove();
+
+    // remove appendix if it's empty
+    if ($('.d-appendix').children().length === 0)
+      $('.d-appendix').remove();
+
+    // prepend separator above appendix
+    $('.d-appendix').before($('<hr class="section-separator" style="clear: both"/>'));
+
+    // trim code
+    $('pre>code').each(function(i, val) {
+      $(this).html($.trim($(this).html()));
+    });
+
+    // move posts-container right before article
+    $('.posts-container').insertBefore($('.d-article'));
+
+    $('body').addClass('downlevel');
+
+    on_load_complete();
+  }
+
+
+  function init_common() {
+
+    // jquery plugin to change element types
+    (function($) {
+      $.fn.changeElementType = function(newType) {
+        var attrs = {};
+
+        $.each(this[0].attributes, function(idx, attr) {
+          attrs[attr.nodeName] = attr.nodeValue;
+        });
+
+        this.replaceWith(function() {
+          return $("<" + newType + "/>", attrs).append($(this).contents());
+        });
+      };
+    })(jQuery);
+
+    // prevent underline for linked images
+    $('a > img').parent().css({'border-bottom' : 'none'});
+
+    // mark non-body figures created by knitr chunks as 100% width
+    $('.layout-chunk').each(function(i, val) {
+      var figures = $(this).find('img, .html-widget');
+      if ($(this).attr('data-layout') !== "l-body") {
+        figures.css('width', '100%');
+      } else {
+        figures.css('max-width', '100%');
+        figures.filter("[width]").each(function(i, val) {
+          var fig = $(this);
+          fig.css('width', fig.attr('width') + 'px');
+        });
+
+      }
+    });
+
+    // auto-append index.html to post-preview links in file: protocol
+    // and in rstudio ide preview
+    $('.post-preview').each(function(i, val) {
+      if (window.location.protocol === "file:")
+        $(this).attr('href', $(this).attr('href') + "index.html");
+    });
+
+    // get rid of index.html references in header
+    if (window.location.protocol !== "file:") {
+      $('.distill-site-header a[href]').each(function(i,val) {
+        $(this).attr('href', $(this).attr('href').replace("index.html", "./"));
+      });
+    }
+
+    // add class to pandoc style tables
+    $('tr.header').parent('thead').parent('table').addClass('pandoc-table');
+    $('.kable-table').children('table').addClass('pandoc-table');
+
+    // add figcaption style to table captions
+    $('caption').parent('table').addClass("figcaption");
+
+    // initialize posts list
+    if (window.init_posts_list)
+      window.init_posts_list();
+
+    // implmement disqus comment link
+    $('.disqus-comment-count').click(function() {
+      window.headroom_prevent_pin = true;
+      $('#disqus_thread').toggleClass('hidden');
+      if (!$('#disqus_thread').hasClass('hidden')) {
+        var offset = $(this).offset();
+        $(window).resize();
+        $('html, body').animate({
+          scrollTop: offset.top - 35
+        });
+      }
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    if (is_downlevel_browser())
+      init_downlevel();
+    else
+      window.addEventListener('WebComponentsReady', init_distill);
+  });
+
+  </script>
+
+  <!--/radix_placeholder_distill-->
+  <script src="ranking-of-baseball-teams-a-model-based-approach_files/header-attrs-2.6.6/header-attrs.js"></script>
+  <script src="ranking-of-baseball-teams-a-model-based-approach_files/jquery-1.11.3/jquery.min.js"></script>
+  <script src="ranking-of-baseball-teams-a-model-based-approach_files/popper-2.6.0/popper.min.js"></script>
+  <link href="ranking-of-baseball-teams-a-model-based-approach_files/tippy-6.2.7/tippy.css" rel="stylesheet" />
+  <link href="ranking-of-baseball-teams-a-model-based-approach_files/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
+  <script src="ranking-of-baseball-teams-a-model-based-approach_files/tippy-6.2.7/tippy.umd.min.js"></script>
+  <script src="ranking-of-baseball-teams-a-model-based-approach_files/anchor-4.2.2/anchor.min.js"></script>
+  <script src="ranking-of-baseball-teams-a-model-based-approach_files/bowser-1.9.3/bowser.min.js"></script>
+  <script src="ranking-of-baseball-teams-a-model-based-approach_files/webcomponents-2.0.0/webcomponents.js"></script>
+  <script src="ranking-of-baseball-teams-a-model-based-approach_files/distill-2.2.21/template.v2.js"></script>
+  <!--radix_placeholder_site_in_header-->
+  <!--/radix_placeholder_site_in_header-->
+
+
+</head>
+
+<body>
+
+<!--radix_placeholder_front_matter-->
+
+<script id="distill-front-matter" type="text/json">
+{"title":"Ranking of Baseball Teams - A Model Based Approach","description":"Teams play many games over the course of the season but they play teams in their\ndivision most often. Further, we need to account for situations where say Team A might    lose to Team B and beat Team C, but Team C has also won a game against Team B. How\ncan we objectively rank teams where we only focus on who has beaten who?","authors":[{"author":"Logan Lossing","authorURL":{},"affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2021-01-21T00:00:00.000+00:00","citationText":"Lossing, 2021"}
+</script>
+
+<!--/radix_placeholder_front_matter-->
+<!--radix_placeholder_navigation_before_body-->
+<!--/radix_placeholder_navigation_before_body-->
+<!--radix_placeholder_site_before_body-->
+<!--/radix_placeholder_site_before_body-->
+
+<div class="d-title">
+<h1>Ranking of Baseball Teams - A Model Based Approach</h1>
+<!--radix_placeholder_categories-->
+<!--/radix_placeholder_categories-->
+<p><p>Teams play many games over the course of the season but they play teams in their division most often. Further, we need to account for situations where say Team A might lose to Team B and beat Team C, but Team C has also won a game against Team B. How can we objectively rank teams where we only focus on who has beaten who?</p></p>
+</div>
+
+<div class="d-byline">
+  Logan Lossing true 
+  
+<br/>2021-01-21
+</div>
+
+<div class="d-article">
+<div class="d-contents d-contents-float">
+<nav class="l-text toc figcaption" id="TOC">
+<h3>Contents</h3>
+<ul>
+<li><a href="#the-model">The Model</a></li>
+<li><a href="#deriving-a-minorization-maximization-algorithm-for-maximizing-lgamma">Deriving a Minorization-Maximization Algorithm for Maximizing <span class="math inline">\(L(\gamma)\)</span></a>
+<ul>
+<li><a href="#implementaion-of-the-mm-algorithm">Implementaion of the MM Algorithm</a></li>
+</ul></li>
+<li><a href="#reparameterization-and-newtons-scoring-method">Reparameterization and Newton’s Scoring Method</a>
+<ul>
+<li><a href="#implmentation-of-newtons-method">Implmentation of Newton’s Method</a></li>
+</ul></li>
+<li><a href="#results">Results</a></li>
+</ul>
+</nav>
+</div>
+<p><strong>Originally published in 2014</strong></p>
+<p>In this post, we wish to use Fisher’s Scoring Method and the MM algorithm to fit a Bradley-Terry model in an effort to rank the baseball teams of the American League. An interesting property of this model is its simplicity; only information about which teams have played each other in the regular season and, for each game played, noting which team won is used in the ranking.</p>
+<p>The data used to illustrate the implementation of these algorithms in this post consists of the regular season match records of every team in the American League in the MLB for the 2013. For simplicity, games against National league opponents are ignored.</p>
+<h2 id="the-model">The Model</h2>
+<p>Consider a league of p teams (p=15 for the our example), where each team has a strength parameter <span class="math inline">\(\gamma_i &gt;0\)</span>. Team <span class="math inline">\(i\)</span> beats team <span class="math inline">\(j\)</span> with probability <span class="math inline">\(\frac{\gamma_i}{\gamma_i + \gamma_j}\)</span>. Let <span class="math inline">\(y_{ij}\)</span> represent the number of times that team <span class="math inline">\(i\)</span> beats team <span class="math inline">\(j\)</span>, and for convenience we take <span class="math inline">\(y_{ii} = 0\)</span>, i = 1,2,...,p. If we assume independence between games then the log-likehood of this model is:</p>
+<p><span class="math display">\[L(\gamma) = \sum_{i,j}{y_{ij}\left [ \ln(\gamma_i) - \ln(\gamma_i + \gamma_j) \right]}\]</span></p>
+<p>Is the log-likelihood concave?</p>
+<p>To determine the concavity of the log-likelihood function, we will take a look at the Hessian. Expanding the log-likelihood a little helps with taking the derivatives. Doing so we obtain,</p>
+<p><span class="math display">\[L(\gamma) = y_{12}(\ln\gamma_1 - \ln(\gamma_1 + \gamma_2)) + y_{13}(\ln\gamma_2 - \ln(\gamma_1 + \gamma_3)) + ... + y_{p(p-1)}(\ln\gamma_p - \ln(\gamma_{p} + \gamma_{p-1}))\]</span></p>
+<p>Thus the gradient is given by:</p>
+<p><span class="math display">\[\nabla L(\gamma)_k = \left \{ \sum_{i=1}^p{y_{ik} \left ( \frac{1}{\gamma_i} - \frac{1}{\gamma_i + \gamma_k} \right ) } - \sum_{i=1}^p{y_{ki} \left ( \frac{1}{\gamma_i + \gamma_k} \right )} \right \}, \quad \text{for} \quad k = 1,2,...,p\]</span></p>
+<p>Again, careful differentiation yield the Hessian given by:</p>
+<p><span class="math display">\[\nabla^2L(\gamma)_{lk} = 
+\begin{cases}
+\sum_{j=1}^p{y_{lj}\left [{ \frac{-1}{\gamma_l^2} + \frac{1}{(\gamma_l + \gamma_j)^2}}\right]} + \sum_{j=1}^p{y_{jk}(\frac{1}{(\gamma_j + \gamma_k)^2})}, &amp; k = l \\
+(y_{lk} + y_{kl})\frac{1}{(\gamma_l + \gamma_k)^2}, &amp; k \neq l
+\end{cases}\]</span></p>
+<p>Now, is the log-likelihood concave? No, it does not appear to be so. To see this consider the scenario where one team is particularly bad and fails to win any games against any opponents in a given year. If this is the case, the Observed Information Matrix will have a negative on the diagonal and thus the likelihood cannot be concave.</p>
+<h1 id="deriving-a-minorization-maximization-algorithm-for-maximizing-lgamma">Deriving a Minorization-Maximization Algorithm for Maximizing <span class="math inline">\(L(\gamma)\)</span></h1>
+<p>For this section, we want to find a minorizing function <span class="math inline">\(g(\gamma|\gamma^{(t)})\)</span> that has the property that <span class="math inline">\(g(\gamma^{(t)}|\gamma^{(t)}) = L(\gamma^{(t)})\)</span> at <span class="math inline">\(\gamma = \gamma^{(t)}\)</span> and otherwise, for all <span class="math inline">\(\gamma\)</span> we have that <span class="math inline">\(g(\gamma|\gamma^{(t)}) &lt; L(\gamma)\)</span>. These conditions are referred to as dominance and tangency conditions.</p>
+<p>The supporting hyperplane inequality states that a differentiable function <span class="math inline">\(f(\cdot)\)</span> is convex in U <span class="math inline">\(\iff\)</span> <span class="math inline">\(f(x) \ge f(y) + \langle \nabla f(y), x-y \rangle\)</span> for all <span class="math inline">\(x,y \in U\)</span>.</p>
+<p>Condider the function <span class="math inline">\(f(x) = -\ln(x)\)</span> a convex function. Thus the supporting hyperplane inequality yields <span class="math inline">\(-\ln(x) \ge -\ln(y) + \frac{-(x-y)}{x}\)</span>. Letting <span class="math inline">\(x = \gamma_i + \gamma_j\)</span> and <span class="math inline">\(y = \gamma_i^{(t)} + \gamma_j^{(t)}\)</span> then we obtain:</p>
+<p><span class="math display">\[\begin{aligned}
+-\ln(\gamma_i + \gamma_j) &amp;\ge -\ln(\gamma_i^{(t)} + \gamma_j^{(t)}) + \frac{-(\gamma_i + \gamma_j-\gamma_i^{(t)} + \gamma_j^{(t)})}{\gamma_i^{(t)} + \gamma_j^{(t)}} \\
+&amp;= -\frac{\gamma_i + \gamma_j}{\gamma_i^{(t)} + \gamma_j^{(t)})} + c(t) \quad \text{where c(t) is a constant with regard optimization}\end{aligned}\]</span></p>
+<p>Note, that the above inequality yield strict inequality when <span class="math inline">\(\gamma \neq \gamma^{(t)}\)</span> and equality precisely when <span class="math inline">\(\gamma = \gamma^{(t)}\)</span>.</p>
+<p>Plugging this expression into the log-likelihood from above we obtain an expression for the minorizing function that satisfies both properties listed above: dominance and tangency at <span class="math inline">\(\gamma^{(t)}\)</span>. This minorizing function is given below.</p>
+<p><span class="math display">\[\begin{aligned}
+g(\gamma|\gamma^{(t)}) &amp;= \sum_{i,j}{y_{ij}\left [ \ln(\gamma_i) -\ln(\gamma_i^{(t)} - \gamma_j^{(t)}) + \frac{-(\gamma_i + \gamma_j-\gamma_i^{(t)} - \gamma_j^{(t)})}{\gamma_i^{(t)} + \gamma_j^{(t)}} \right]} \\
+&amp;= \sum_{i,j}{y_{ij}\left [ \ln(\gamma_i)  + \frac{-(\gamma_i + \gamma_j)}{\gamma_i^{(t)} + \gamma_j^{(t)}}  + c(t) \right]} \end{aligned}\]</span></p>
+<p>The benefit here is that the MM updates can be calculated analytically and thus computed with incredible efficiency.</p>
+<p>To do this we first differentiate to obtain:</p>
+<p><span class="math display">\[\nabla g(\gamma)_k = \sum_{j=1}^p{y_{kj} \left (\frac{1}{\gamma_k} - \frac{1}{\gamma_k^{(t)} + \gamma_j^{(t)}} \right )} - \sum_{j=1}^p{y_{jk} \left (\frac{1}{\gamma_k^{(t)} + \gamma_j^{(t)}} \right )}\]</span></p>
+<p>Setting this equal to zero and solving for <span class="math inline">\(\gamma_k\)</span> then we have our updates.</p>
+<p><span class="math display">\[\gamma_k^{(t+1)} = \frac{\sum_{j=1}^p{y_{kj}}}{\sum_{j=1}^P{\left [ \frac{y_{jk} + y_{kj}}{\gamma_k^{(t)} + \gamma_j^{(t)}}\right ]}}\]</span></p>
+<h2 id="implementaion-of-the-mm-algorithm">Implementaion of the MM Algorithm</h2>
+<p>The following is my code implementing the MM algorithm for these data. This algorithim is amazingly simple and efficient for these data. First it is necessary to read in the data and create a few functions to allow the main routine to be uncluttered. Also note, the parameters of this model are not identifiable without some remedy which was, in this case, to set <span class="math inline">\(\gamma_1 = 1\)</span>.</p>
+<p>First, we need to get the data from ESPN, we can scrape the standings using the following Python routine:</p>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<p><summary>Show code</summary></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">from</span> bs4 <span class="im">import</span> BeautifulSoup</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="im">import</span> urllib2</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="im">import</span> re</span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="im">import</span> csv</span>
+<span id="cb1-5"><a href="#cb1-5"></a></span>
+<span id="cb1-6"><a href="#cb1-6"></a>csv_filename <span class="op">=</span> <span class="st">&#39;AL-standings.csv&#39;</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a></span>
+<span id="cb1-8"><a href="#cb1-8"></a>year <span class="op">=</span> <span class="st">&#39;2013&#39;</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a>url <span class="op">=</span> <span class="st">&#39;http://espn.go.com/mlb/standings/grid/_/year/&#39;</span> <span class="op">+</span> year</span>
+<span id="cb1-10"><a href="#cb1-10"></a></span>
+<span id="cb1-11"><a href="#cb1-11"></a>page <span class="op">=</span> urllib2.urlopen(url)</span>
+<span id="cb1-12"><a href="#cb1-12"></a>soup <span class="op">=</span> BeautifulSoup(page.read())</span>
+<span id="cb1-13"><a href="#cb1-13"></a></span>
+<span id="cb1-14"><a href="#cb1-14"></a><span class="co"># Extracts the table for the American League (AL) and the rows for each team</span></span>
+<span id="cb1-15"><a href="#cb1-15"></a>AL_table <span class="op">=</span> soup.find(text <span class="op">=</span> re.<span class="bu">compile</span>(<span class="st">&quot;American&quot;</span>)).find_parent(<span class="st">&quot;table&quot;</span>)</span>
+<span id="cb1-16"><a href="#cb1-16"></a>AL_rows <span class="op">=</span> AL_table.findAll(<span class="st">&#39;tr&#39;</span>, class_ <span class="op">=</span> re.<span class="bu">compile</span>(<span class="st">&quot;team&quot;</span>))</span>
+<span id="cb1-17"><a href="#cb1-17"></a></span>
+<span id="cb1-18"><a href="#cb1-18"></a><span class="co"># Creates a list of the AL teams and then appends NL for National League</span></span>
+<span id="cb1-19"><a href="#cb1-19"></a>AL_teams <span class="op">=</span> [team_row.find(<span class="st">&#39;b&#39;</span>).text <span class="cf">for</span> team_row <span class="kw">in</span> AL_rows]</span>
+<span id="cb1-20"><a href="#cb1-20"></a>AL_teams.append(<span class="st">&quot;NL&quot;</span>)</span>
+<span id="cb1-21"><a href="#cb1-21"></a></span>
+<span id="cb1-22"><a href="#cb1-22"></a><span class="co"># Opens a CSV file for the AL standings</span></span>
+<span id="cb1-23"><a href="#cb1-23"></a><span class="cf">with</span> <span class="bu">open</span>(csv_filename, <span class="st">&#39;wb&#39;</span>) <span class="im">as</span> f:</span>
+<span id="cb1-24"><a href="#cb1-24"></a>    csv_out <span class="op">=</span> csv.writer(f)</span>
+<span id="cb1-25"><a href="#cb1-25"></a>    csv_out.writerow([<span class="st">&#39;Team&#39;</span>, <span class="st">&#39;Opponent&#39;</span>, <span class="st">&#39;Wins&#39;</span>, <span class="st">&#39;Losses&#39;</span>])</span>
+<span id="cb1-26"><a href="#cb1-26"></a>    </span>
+<span id="cb1-27"><a href="#cb1-27"></a>    <span class="co"># For each team in the AL table, identifies the team&#39;s name, the opponent,</span></span>
+<span id="cb1-28"><a href="#cb1-28"></a>    <span class="co"># and their wins and losses (WL) against that opponent. Then outputs the</span></span>
+<span id="cb1-29"><a href="#cb1-29"></a>    <span class="co"># results to the open CSV file</span></span>
+<span id="cb1-30"><a href="#cb1-30"></a>    <span class="cf">for</span> team_row <span class="kw">in</span> AL_rows:</span>
+<span id="cb1-31"><a href="#cb1-31"></a>        team <span class="op">=</span> team_row.find(<span class="st">&#39;b&#39;</span>).text</span>
+<span id="cb1-32"><a href="#cb1-32"></a>        </span>
+<span id="cb1-33"><a href="#cb1-33"></a>        <span class="co"># A cell has the following form:</span></span>
+<span id="cb1-34"><a href="#cb1-34"></a>        <span class="co"># &lt;td align=&quot;right&quot;&gt;</span></span>
+<span id="cb1-35"><a href="#cb1-35"></a>        <span class="co"># 7-9&lt;/td&gt;</span></span>
+<span id="cb1-36"><a href="#cb1-36"></a>        WL_cells <span class="op">=</span> team_row.findAll(<span class="st">&#39;td&#39;</span>, align <span class="op">=</span> <span class="st">&quot;right&quot;</span>)</span>
+<span id="cb1-37"><a href="#cb1-37"></a>        </span>
+<span id="cb1-38"><a href="#cb1-38"></a>        <span class="co"># Extracts the values for both wins and losses from each WL table cell</span></span>
+<span id="cb1-39"><a href="#cb1-39"></a>        wins_losses <span class="op">=</span> [td_cell.text.strip(<span class="st">&#39;</span><span class="ch">\n</span><span class="st">&#39;</span>).split(<span class="st">&#39;-&#39;</span>) <span class="cf">for</span> td_cell <span class="kw">in</span> WL_cells]</span>
+<span id="cb1-40"><a href="#cb1-40"></a>        </span>
+<span id="cb1-41"><a href="#cb1-41"></a>        <span class="co"># Writes the current team&#39;s standings to the CSV file</span></span>
+<span id="cb1-42"><a href="#cb1-42"></a>        <span class="cf">for</span> i, opponent <span class="kw">in</span> <span class="bu">enumerate</span>(AL_teams):</span>
+<span id="cb1-43"><a href="#cb1-43"></a>            <span class="cf">if</span> team <span class="op">!=</span> opponent:</span>
+<span id="cb1-44"><a href="#cb1-44"></a>                csv_out.writerow([team, opponent, wins_losses[i][<span class="dv">0</span>], wins_losses[i][<span class="dv">1</span>]])</span></code></pre></div>
+</details>
+</div>
+<p>After writing the data to csv, we then read the data back in with R to finish the analysis. In the code below, you can see we have square matrix with each row representing a team in the AL and each column representing each of the possible AL opponents.</p>
+<p>For a fixed row, the number in a specific column corresponds to the number of games won vs the opponent listed with that column label. Example: In the first row, second column we see 11. This means that the BAL(timore) Orioles beat the BOS(ton) Red Sox 11 times during regular season play. The entry in row 2, column 1 is an 8, meaning that the BOS(ton) Red Sox beat the BAL(timore) Orioles 8 times during regular season play. No other data is used for this analysis. (The results are suprisingly good for such a simple model!)</p>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>Show code</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'>## Import Data</span>
+<span class='va'>ymat</span> <span class='op'>&lt;-</span><span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span><span class='op'>(</span><span class='va'>path_to_data</span>, header <span class='op'>=</span> <span class='cn'>TRUE</span>, as.is <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>ymat</span><span class='op'>)</span>
+</code></pre>
+</div>
+</details>
+<pre><code>    BAL BOS CHW CLE DET HOU KC LAA MIN NYY OAK SEA TB TEX TOR
+BAL   0  11   4   3   4   4  3   5   3   9   5   2  6   5  10
+BOS   8   0   4   6   3   6  2   3   4  13   3   6 12   2  11
+CHW   3   2   0   2   7   3  9   3   8   3   2   3  2   4   4
+CLE   4   1  17   0   4   6 10   4  13   1   5   5  2   5   4
+DET   2   4  12  15   0   6  9   0  11   3   3   5  3   3   5
+HOU   2   1   4   1   1   0  2  10   1   1   4   9  2   2   3</code></pre>
+<details>
+<summary>Show code</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>ymat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span><span class='op'>(</span><span class='va'>ymat</span>,<span class='fl'>1</span>,<span class='va'>as.numeric</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span><span class='op'>(</span><span class='va'>ymat</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span><span class='op'>(</span><span class='va'>ymat</span><span class='op'>)</span>
+<span class='va'>ymat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/t.html'>t</a></span><span class='op'>(</span><span class='va'>ymat</span><span class='op'>)</span>
+
+<span class='co'>##############################################################################</span>
+<span class='co'>##  Calculating the likelihood</span>
+<span class='va'>sum.matrix.product.diagonals</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>matA</span>,<span class='va'>matB</span><span class='op'>)</span><span class='op'>{</span>
+  <span class='co'>## Two nxn matrices, only forms the diagonal entries of the product</span>
+  <span class='va'>len</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span><span class='op'>(</span><span class='va'>matA</span><span class='op'>)</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span>
+  <span class='kw'><a href='https://rdrr.io/r/base/function.html'>return</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>sapply</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='va'>len</span>,<span class='kw'>function</span><span class='op'>(</span><span class='va'>i</span><span class='op'>)</span> <span class='va'>matA</span><span class='op'>[</span><span class='va'>i</span>,<span class='op'>]</span><span class='op'>%*%</span><span class='va'>matB</span><span class='op'>[</span>,<span class='va'>i</span><span class='op'>]</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+<span class='op'>}</span>
+<span class='va'>loglikelihood.gamma</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>gam</span>,<span class='va'>dat</span><span class='op'>)</span><span class='op'>{</span>
+  <span class='co'>##  Inputs:  parameter vector gam and data matrix dat</span>
+  <span class='co'>##  Returns: scalar value of the log-likelihood</span>
+  <span class='va'>len</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>gam</span><span class='op'>)</span>
+  <span class='va'>entries</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/outer.html'>outer</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='va'>len</span>,<span class='fl'>1</span><span class='op'>:</span><span class='va'>len</span>,<span class='kw'>function</span><span class='op'>(</span><span class='va'>i</span>,<span class='va'>j</span><span class='op'>)</span> <span class='va'>gam</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span><span class='op'>/</span><span class='op'>(</span><span class='va'>gam</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span><span class='op'>+</span><span class='va'>gam</span><span class='op'>[</span><span class='va'>j</span><span class='op'>]</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='va'>log.matrix</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='va'>entries</span><span class='op'>)</span>
+  <span class='kw'><a href='https://rdrr.io/r/base/function.html'>return</a></span><span class='op'>(</span><span class='fu'>sum.matrix.product.diagonals</span><span class='op'>(</span><span class='va'>log.matrix</span>,<span class='fu'><a href='https://rdrr.io/r/base/t.html'>t</a></span><span class='op'>(</span><span class='va'>dat</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+<span class='op'>}</span>
+<span class='co'>##############################################################################</span>
+<span class='co'>## Calculating the Gradient</span>
+<span class='va'>gradient.loglik</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>gam</span>,<span class='va'>dat</span><span class='op'>)</span><span class='op'>{</span>
+  <span class='va'>len</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>gam</span><span class='op'>)</span>
+  <span class='va'>mat1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/outer.html'>outer</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='va'>len</span>,<span class='fl'>1</span><span class='op'>:</span><span class='va'>len</span>,<span class='kw'>function</span><span class='op'>(</span><span class='va'>i</span>,<span class='va'>j</span><span class='op'>)</span> <span class='va'>gam</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span><span class='op'>/</span><span class='op'>(</span><span class='va'>gam</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span><span class='op'>*</span><span class='op'>(</span><span class='va'>gam</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span><span class='op'>+</span><span class='va'>gam</span><span class='op'>[</span><span class='va'>j</span><span class='op'>]</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>*</span><span class='va'>dat</span>
+  <span class='va'>mat2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/t.html'>t</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/outer.html'>outer</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='va'>len</span>,<span class='fl'>1</span><span class='op'>:</span><span class='va'>len</span>,<span class='kw'>function</span><span class='op'>(</span><span class='va'>i</span>,<span class='va'>j</span><span class='op'>)</span> <span class='fl'>1</span><span class='op'>/</span><span class='op'>(</span><span class='va'>gam</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span><span class='op'>+</span><span class='va'>gam</span><span class='op'>[</span><span class='va'>j</span><span class='op'>]</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>*</span><span class='va'>dat</span>
+  <span class='va'>gradient</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/colSums.html'>colSums</a></span><span class='op'>(</span><span class='va'>mat1</span><span class='op'>)</span> <span class='op'>-</span> <span class='fu'><a href='https://rdrr.io/r/base/colSums.html'>colSums</a></span><span class='op'>(</span><span class='va'>mat2</span><span class='op'>)</span>
+  <span class='kw'><a href='https://rdrr.io/r/base/function.html'>return</a></span><span class='op'>(</span><span class='va'>gradient</span><span class='op'>)</span>
+<span class='op'>}</span>
+<span class='co'>##############################################################################</span>
+<span class='co'>## MM Update</span>
+<span class='va'>MM.compute.gam.update</span><span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>gam</span>,<span class='va'>dat</span><span class='op'>)</span><span class='op'>{</span>
+  <span class='co'>## Given the current value of the gam at time t, and the data matrix</span>
+  <span class='co'>## Calcumates the the updated value for t+1, returns a vector</span>
+  <span class='va'>num</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/colSums.html'>rowSums</a></span><span class='op'>(</span><span class='va'>dat</span><span class='op'>)</span>
+  <span class='va'>denom</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/colSums.html'>rowSums</a></span><span class='op'>(</span><span class='op'>(</span><span class='va'>dat</span><span class='op'>+</span><span class='fu'><a href='https://rdrr.io/r/base/t.html'>t</a></span><span class='op'>(</span><span class='va'>dat</span><span class='op'>)</span><span class='op'>)</span><span class='op'>/</span><span class='fu'><a href='https://rdrr.io/r/base/outer.html'>outer</a></span><span class='op'>(</span><span class='va'>gam</span>,<span class='va'>gam</span>,<span class='st'>"+"</span> <span class='op'>)</span><span class='op'>)</span>
+  <span class='va'>updateRank</span> <span class='op'>&lt;-</span> <span class='va'>num</span> <span class='op'>/</span> <span class='va'>denom</span>
+  <span class='kw'><a href='https://rdrr.io/r/base/function.html'>return</a></span><span class='op'>(</span><span class='va'>updateRank</span><span class='op'>)</span> 
+<span class='op'>}</span>
+<span class='co'>######################################################################</span>
+<span class='co'>##  Good Starting Values</span>
+<span class='va'>initial.estimate</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>dat</span><span class='op'>)</span><span class='op'>{</span>
+  <span class='co'>## Take the win% of all games played as a reasonable starting point</span>
+  <span class='va'>gamma.MM</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/colSums.html'>rowSums</a></span><span class='op'>(</span><span class='va'>dat</span><span class='op'>)</span><span class='op'>/</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/colSums.html'>rowSums</a></span><span class='op'>(</span><span class='va'>dat</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/base/colSums.html'>colSums</a></span><span class='op'>(</span><span class='va'>dat</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='va'>gamma.MM</span> <span class='op'>&lt;-</span> <span class='va'>gamma.MM</span><span class='op'>/</span><span class='va'>gamma.MM</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span>
+  <span class='kw'><a href='https://rdrr.io/r/base/function.html'>return</a></span><span class='op'>(</span><span class='va'>gamma.MM</span><span class='op'>)</span>
+<span class='op'>}</span>
+</code></pre>
+</div>
+</details>
+</div>
+<p>Now that all the setup functions have been loaded we can bring in the main routine that actually will return the estimated strengths for each team in the American League.</p>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>Show code</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>strength.fit.MM</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>dat</span>, <span class='va'>gamma0</span> <span class='op'>=</span> <span class='cn'>NULL</span>,<span class='va'>maxiters</span> <span class='op'>=</span> <span class='fl'>1000</span>,<span class='va'>tolfun</span> <span class='op'>=</span> <span class='fl'>1e-6</span><span class='op'>)</span><span class='op'>{</span>
+
+  <span class='kw'>if</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/NULL.html'>is.null</a></span><span class='op'>(</span><span class='va'>gamma0</span><span class='op'>)</span><span class='op'>)</span><span class='op'>{</span>
+    <span class='va'>gamma.t</span> <span class='op'>&lt;-</span> <span class='fu'>initial.estimate</span><span class='op'>(</span><span class='va'>dat</span><span class='op'>)</span>
+  <span class='op'>}</span> <span class='kw'>else</span><span class='op'>{</span><span class='va'>gamma.t</span> <span class='op'>&lt;-</span> <span class='va'>gamma0</span><span class='op'>}</span>
+  
+  <span class='kw'>for</span><span class='op'>(</span><span class='va'>i</span> <span class='kw'>in</span> <span class='fl'>1</span><span class='op'>:</span><span class='va'>maxiters</span><span class='op'>)</span><span class='op'>{</span>
+    
+    <span class='va'>gamma.tp1</span> <span class='op'>&lt;-</span> <span class='fu'>MM.compute.gam.update</span><span class='op'>(</span><span class='va'>gamma.t</span>,<span class='va'>dat</span><span class='op'>)</span> <span class='co'>##  Update</span>
+    <span class='va'>gamma.tp1</span> <span class='op'>&lt;-</span> <span class='va'>gamma.tp1</span><span class='op'>/</span><span class='va'>gamma.tp1</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span> <span class='co'>## Normalize for identifiability</span>
+    
+    <span class='va'>loglik.tp1</span> <span class='op'>&lt;-</span> <span class='fu'>loglikelihood.gamma</span><span class='op'>(</span><span class='va'>gamma.tp1</span>,<span class='va'>dat</span><span class='op'>)</span>  <span class='co'>## loglik at update</span>
+    <span class='va'>loglik.tp</span> <span class='op'>&lt;-</span> <span class='fu'>loglikelihood.gamma</span><span class='op'>(</span><span class='va'>gamma.t</span>,<span class='va'>dat</span><span class='op'>)</span> <span class='co'>## loglik at previous</span>
+    <span class='va'>improve.lik</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>abs</a></span><span class='op'>(</span><span class='va'>loglik.tp1</span> <span class='op'>-</span> <span class='va'>loglik.tp</span><span class='op'>)</span> <span class='co'>## Amount of improvement</span>
+    
+    <span class='kw'>if</span><span class='op'>(</span><span class='va'>improve.lik</span><span class='op'>&lt;</span><span class='va'>tolfun</span><span class='op'>)</span><span class='op'>{</span> <span class='co'>## Have I converged?</span>
+      <span class='va'>gradient</span> <span class='op'>&lt;-</span> <span class='fu'>gradient.loglik</span><span class='op'>(</span><span class='va'>gamma.tp1</span>,<span class='va'>dat</span><span class='op'>)</span>
+      <span class='kw'><a href='https://rdrr.io/r/base/function.html'>return</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='st'>"Strengths"</span> <span class='op'>=</span> <span class='va'>gamma.tp1</span>, <span class='st'>"Iterations"</span> <span class='op'>=</span> <span class='va'>i</span>,
+        <span class='st'>"Maximum"</span> <span class='op'>=</span> <span class='va'>loglik.tp1</span>,<span class='st'>"Gradient"</span> <span class='op'>=</span> <span class='va'>gradient</span><span class='op'>)</span><span class='op'>)</span>
+    <span class='op'>}</span> <span class='kw'>else</span><span class='op'>{</span> <span class='va'>gamma.t</span> <span class='op'>&lt;-</span> <span class='va'>gamma.tp1</span><span class='op'>}</span> <span class='co'>## If not, CONTINUE TO ITERATE</span>
+    
+  <span class='op'>}</span> <span class='co'># end for</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='st'>"No Convergence"</span><span class='op'>)</span>
+  <span class='kw'><a href='https://rdrr.io/r/base/function.html'>return</a></span><span class='op'>(</span><span class='va'>gamma.tp1</span><span class='op'>)</span>
+<span class='op'>}</span>
+<span class='va'>ranking</span> <span class='op'>&lt;-</span> <span class='fu'>strength.fit.MM</span><span class='op'>(</span><span class='va'>ymat</span><span class='op'>)</span>
+<span class='va'>ranking</span>
+</code></pre>
+</div>
+</details>
+<pre><code>$Strengths
+      BAL       BOS       CHW       CLE       DET       HOU        KC 
+1.0000000 1.2510850 0.5642156 1.1030067 1.1009506 0.3857875 0.9993401 
+      LAA       MIN       NYY       OAK       SEA        TB       TEX 
+0.7532999 0.6160583 1.0492604 1.1049180 0.6650877 1.1384163 1.0401907 
+      TOR 
+0.7518629 
+
+$Iterations
+[1] 18
+
+$Maximum
+[1] -711.5312
+
+$Gradient
+          BAL           BOS           CHW           CLE           DET 
+ 0.000000e+00  0.000000e+00  0.000000e+00  0.000000e+00  0.000000e+00 
+          HOU            KC           LAA           MIN           NYY 
+ 0.000000e+00  7.105427e-15 -7.105427e-15  0.000000e+00 -7.105427e-15 
+          OAK           SEA            TB           TEX           TOR 
+ 0.000000e+00  7.105427e-15  0.000000e+00  0.000000e+00  0.000000e+00 </code></pre>
+</div>
+<p>In the results section, the results of the analysis will be described in detail. Now it is of interest to perform the exact same analysis using a Newton Algorithim.</p>
+<h1 id="reparameterization-and-newtons-scoring-method">Reparameterization and Newton’s Scoring Method</h1>
+<p>For this section, consider the reparameterization <span class="math inline">\(\gamma_i = e^{\lambda_i}\)</span> for <span class="math inline">\(\lambda \in \mathbb{R}\)</span>. The log-likelihood now becomes:</p>
+<p><span class="math display">\[L(\lambda) = \sum_{i,j}{y_{ij}\left [ \lambda_i - \ln(e^{\lambda_i} + e^{\lambda_i}) \right]}\]</span></p>
+<p>Differentiating yields the following gradient:</p>
+<p><span class="math display">\[\nabla L(\lambda)_k = \sum_{j=1}^k{y_{kj} \left ( 1 - \frac{e^{\lambda_k}}{e^{\lambda_k + \lambda_j}} \right )} + \sum_{j=1}^p{y_{jk}\left ( \frac{-e^{\lambda_k}}{e^{\lambda_k} + e^{\lambda_j} }\right)}\]</span></p>
+<p>The Hessian is given by:</p>
+<p><span class="math display">\[\nabla^2 L(\lambda)_{kj} = 
+\begin{cases}
+-\left [  \sum_{j=1}^p{(y_{kj} + y_{jk})\left ( \frac{e^{\lambda_k + \lambda_j}}{ (e^{\lambda_j} + e^{\lambda_k})^2} \right )} \right ], &amp; k = j \\
+\frac{(y_{kj} + y_{jk})e^{\lambda_j + \lambda_k}}{(e^{\lambda_j} + e^{\lambda_k})^2}, &amp; k \neq j
+\end{cases}\]</span></p>
+<p>For this reparameterized likelihood, the resulting Hessian matrix is negative definite and thus the log-likelihood under this representation is concave. This result is due to the closure of log-convex functions under addition (see "Convex Optimization"-Stephen Boyd pg.105) Further, since we have reparameterized our parameters to the real line, there is no need to worry about backtracking in the implementation of Newton’s Method.</p>
+<p>It is now time to obtain the estimates of our parameters using Newton’s Method. The implementation of this method is below.</p>
+<h2 id="implmentation-of-newtons-method">Implmentation of Newton’s Method</h2>
+<p>This method has quite a few more "moving parts" than did the MM implementation. Not only does the likelihood need to be computed, but also the gradient and Hessian matrices. The set-up for the actual main routine is below.</p>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>Show code</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>loglikelihood.lambda</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>lam</span>,<span class='va'>dat</span><span class='op'>)</span><span class='op'>{</span>
+  <span class='va'>len</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>lam</span><span class='op'>)</span>
+  <span class='va'>entries</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/outer.html'>outer</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='va'>len</span>,<span class='fl'>1</span><span class='op'>:</span><span class='va'>len</span>,<span class='kw'>function</span><span class='op'>(</span><span class='va'>i</span>,<span class='va'>j</span><span class='op'>)</span> <span class='va'>lam</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span><span class='op'>-</span><span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span><span class='op'>(</span><span class='va'>lam</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span><span class='op'>)</span><span class='op'>+</span><span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span><span class='op'>(</span><span class='va'>lam</span><span class='op'>[</span><span class='va'>j</span><span class='op'>]</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>)</span>
+  <span class='va'>log.lik</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>dat</span><span class='op'>*</span><span class='va'>entries</span><span class='op'>)</span>
+  <span class='kw'><a href='https://rdrr.io/r/base/function.html'>return</a></span><span class='op'>(</span><span class='va'>log.lik</span><span class='op'>)</span>
+<span class='op'>}</span>
+<span class='co'>##############################################################################</span>
+<span class='co'>## Good starting point</span>
+<span class='va'>initial.estimate.lambda</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>dat</span><span class='op'>)</span><span class='op'>{</span>
+  <span class='va'>lambda.Newt</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/colSums.html'>rowSums</a></span><span class='op'>(</span><span class='va'>dat</span><span class='op'>)</span><span class='op'>/</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/colSums.html'>rowSums</a></span><span class='op'>(</span><span class='va'>dat</span><span class='op'>)</span><span class='op'>+</span><span class='fu'><a href='https://rdrr.io/r/base/colSums.html'>colSums</a></span><span class='op'>(</span><span class='va'>dat</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='va'>lambda.Newt</span> <span class='op'>&lt;-</span> <span class='va'>lambda.Newt</span> <span class='op'>-</span> <span class='va'>lambda.Newt</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span>
+  <span class='kw'><a href='https://rdrr.io/r/base/function.html'>return</a></span><span class='op'>(</span><span class='va'>lambda.Newt</span><span class='op'>)</span> 
+<span class='op'>}</span>
+<span class='co'>###############################################################################</span>
+<span class='co'>## Gradient</span>
+<span class='va'>gradient.loglik.lam</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>lam</span>,<span class='va'>dat</span><span class='op'>)</span><span class='op'>{</span>
+  <span class='va'>len</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>lam</span><span class='op'>)</span>
+  <span class='va'>mat1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/outer.html'>outer</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='va'>len</span>,<span class='fl'>1</span><span class='op'>:</span><span class='va'>len</span>,<span class='kw'>function</span><span class='op'>(</span><span class='va'>i</span>,<span class='va'>j</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span><span class='op'>(</span><span class='va'>lam</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span><span class='op'>)</span><span class='op'>/</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span><span class='op'>(</span><span class='va'>lam</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span><span class='op'>(</span><span class='va'>lam</span><span class='op'>[</span><span class='va'>j</span><span class='op'>]</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='va'>mat1</span> <span class='op'>&lt;-</span> <span class='va'>mat1</span><span class='op'>*</span><span class='op'>(</span><span class='va'>dat</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/base/t.html'>t</a></span><span class='op'>(</span><span class='va'>dat</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='va'>gradient</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/colSums.html'>rowSums</a></span><span class='op'>(</span><span class='va'>dat</span><span class='op'>)</span> <span class='op'>-</span> <span class='fu'><a href='https://rdrr.io/r/base/colSums.html'>rowSums</a></span><span class='op'>(</span><span class='va'>mat1</span><span class='op'>)</span>
+  <span class='kw'><a href='https://rdrr.io/r/base/function.html'>return</a></span><span class='op'>(</span><span class='va'>gradient</span><span class='op'>)</span>
+<span class='op'>}</span>
+<span class='co'>###############################################################################</span>
+<span class='co'>## Observed Fisher Information Matrix</span>
+<span class='va'>obs.info.lam</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>lam</span>,<span class='va'>dat</span><span class='op'>)</span><span class='op'>{</span>
+  <span class='va'>len</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>lam</span><span class='op'>)</span>
+  <span class='va'>mat1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/outer.html'>outer</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='va'>len</span>,<span class='fl'>1</span><span class='op'>:</span><span class='va'>len</span>,
+    <span class='kw'>function</span><span class='op'>(</span><span class='va'>i</span>,<span class='va'>j</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span><span class='op'>(</span><span class='va'>lam</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span><span class='op'>+</span><span class='va'>lam</span><span class='op'>[</span><span class='va'>j</span><span class='op'>]</span><span class='op'>)</span><span class='op'>/</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span><span class='op'>(</span><span class='va'>lam</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span><span class='op'>)</span><span class='op'>+</span><span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span><span class='op'>(</span><span class='va'>lam</span><span class='op'>[</span><span class='va'>j</span><span class='op'>]</span><span class='op'>)</span><span class='op'>)</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>)</span><span class='op'>*</span><span class='op'>(</span><span class='va'>dat</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/base/t.html'>t</a></span><span class='op'>(</span><span class='va'>dat</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='va'>diagonals</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/colSums.html'>rowSums</a></span><span class='op'>(</span><span class='va'>mat1</span><span class='op'>)</span>
+  <span class='va'>mat1</span> <span class='op'>&lt;-</span> <span class='op'>-</span><span class='fl'>1</span><span class='op'>*</span><span class='va'>mat1</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/diag.html'>diag</a></span><span class='op'>(</span><span class='va'>mat1</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>diagonals</span>
+  <span class='kw'><a href='https://rdrr.io/r/base/function.html'>return</a></span><span class='op'>(</span><span class='va'>mat1</span><span class='op'>)</span>
+<span class='op'>}</span>
+<span class='co'>#############################################################################</span>
+<span class='co'>## Modified Cholesky Decomposition, creates positive definite approximation</span>
+<span class='va'>modifiedCholeskyUpdate</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>matrixA</span>,<span class='va'>matrixL.km1</span><span class='op'>)</span><span class='op'>{</span>
+  <span class='co'>############################################################</span>
+  <span class='co'>##  Inputs:  matrixA- is the KxK matrix we are decomposing</span>
+  <span class='co'>##           matrixL.km1- the K-1xK-1 lower triangular matrix</span>
+  <span class='co'>##                        obtained from previous iterations</span>
+  <span class='co'>##  Outputs: matrixL.k- the KxK lower tri matrix</span>
+  <span class='co'>#############################################################</span>
+  
+  <span class='va'>dimension</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span><span class='op'>(</span><span class='va'>matrixA</span><span class='op'>)</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span>
+  
+  <span class='va'>a.k.vector</span> <span class='op'>&lt;-</span> <span class='va'>matrixA</span><span class='op'>[</span><span class='op'>-</span><span class='va'>dimension</span>,<span class='va'>dimension</span>,drop<span class='op'>=</span><span class='cn'>F</span><span class='op'>]</span>
+  <span class='va'>a.kk</span> <span class='op'>&lt;-</span> <span class='va'>matrixA</span><span class='op'>[</span><span class='va'>dimension</span>,<span class='va'>dimension</span>,drop<span class='op'>=</span><span class='cn'>F</span><span class='op'>]</span>
+  
+  <span class='va'>l.k.vector</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/backsolve.html'>forwardsolve</a></span><span class='op'>(</span><span class='va'>matrixL.km1</span>,<span class='va'>a.k.vector</span>,k<span class='op'>=</span><span class='va'>dimension</span><span class='op'>-</span><span class='fl'>1</span><span class='op'>)</span>
+  <span class='va'>check</span> <span class='op'>&lt;-</span> <span class='va'>a.kk</span> <span class='op'>-</span> <span class='fu'><a href='https://rdrr.io/r/base/t.html'>t</a></span><span class='op'>(</span><span class='va'>l.k.vector</span><span class='op'>)</span><span class='op'>%*%</span><span class='va'>l.k.vector</span>
+  <span class='kw'>if</span><span class='op'>(</span><span class='va'>check</span> <span class='op'>&gt;</span><span class='fl'>0</span><span class='op'>)</span><span class='op'>{</span>
+    <span class='va'>l.kk</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span><span class='op'>(</span><span class='va'>a.kk</span> <span class='op'>-</span> <span class='fu'><a href='https://rdrr.io/r/base/t.html'>t</a></span><span class='op'>(</span><span class='va'>l.k.vector</span><span class='op'>)</span><span class='op'>%*%</span><span class='va'>l.k.vector</span><span class='op'>)</span>
+  <span class='op'>}</span><span class='kw'>else</span><span class='op'>{</span><span class='va'>l.kk</span> <span class='op'>&lt;-</span> <span class='fl'>.01</span><span class='op'>}</span>
+  
+  <span class='va'>matrixL.k</span> <span class='op'>&lt;-</span><span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span><span class='va'>matrixL.km1</span>,<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='va'>dimension</span><span class='op'>-</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='va'>last.row</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>l.k.vector</span>,<span class='va'>l.kk</span><span class='op'>)</span>
+  <span class='va'>matrixL.k</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span><span class='op'>(</span><span class='va'>matrixL.k</span>,<span class='va'>last.row</span><span class='op'>)</span>
+  <span class='va'>matrixL.k</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span><span class='op'>(</span><span class='va'>matrixL.k</span><span class='op'>)</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span><span class='op'>(</span><span class='va'>matrixL.k</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='cn'>NULL</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span><span class='op'>(</span><span class='va'>matrixL.k</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='cn'>NULL</span>
+  <span class='kw'><a href='https://rdrr.io/r/base/function.html'>return</a></span><span class='op'>(</span><span class='va'>matrixL.k</span><span class='op'>)</span>
+<span class='op'>}</span>
+<span class='va'>modifiedCholeskyDecomp</span> <span class='op'>&lt;-</span><span class='kw'>function</span><span class='op'>(</span><span class='va'>matrixA</span><span class='op'>)</span><span class='op'>{</span>
+  <span class='co'>##################################################################</span>
+  <span class='co'>##  Inputs:  matrixA- is the nxn matrix we are decomposing     </span>
+  <span class='co'>##  Outputs: L- the nxn lower tri matrix such that matrixA = LL^t</span>
+  <span class='co'>##################################################################</span>
+  
+  <span class='va'>dimension</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span><span class='op'>(</span><span class='va'>matrixA</span><span class='op'>)</span>
+  <span class='kw'>if</span><span class='op'>(</span><span class='va'>dimension</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span> <span class='op'>!=</span> <span class='va'>dimension</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>]</span><span class='op'>)</span><span class='op'>{</span><span class='kw'><a href='https://rdrr.io/r/base/function.html'>return</a></span><span class='op'>(</span>Warning <span class='op'>=</span> <span class='st'>"Non-Square Matrix"</span><span class='op'>)</span><span class='op'>}</span>
+  <span class='kw'>if</span><span class='op'>(</span><span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/isSymmetric.html'>isSymmetric</a></span><span class='op'>(</span><span class='va'>matrixA</span><span class='op'>)</span><span class='op'>)</span><span class='op'>{</span><span class='kw'><a href='https://rdrr.io/r/base/function.html'>return</a></span><span class='op'>(</span>Warning <span class='op'>=</span> <span class='st'>"NOT SYMMETRIC"</span><span class='op'>)</span><span class='op'>}</span>
+  
+  <span class='va'>A2</span> <span class='op'>&lt;-</span> <span class='va'>matrixA</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>,<span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>,drop<span class='op'>=</span><span class='cn'>F</span><span class='op'>]</span>
+  
+  <span class='kw'>if</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='va'>matrixA</span><span class='op'>[</span><span class='fl'>1</span>,<span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span> <span class='op'>&gt;=</span> <span class='fl'>0</span><span class='op'>)</span><span class='op'>{</span>
+    <span class='va'>L1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span><span class='op'>(</span><span class='va'>matrixA</span><span class='op'>[</span><span class='fl'>1</span>,<span class='fl'>1</span>,drop<span class='op'>=</span><span class='cn'>F</span><span class='op'>]</span><span class='op'>)</span>
+  <span class='op'>}</span><span class='kw'>else</span><span class='op'>{</span> <span class='va'>L1</span> <span class='op'>&lt;-</span> <span class='fl'>.01</span><span class='op'>}</span>
+  
+  <span class='kw'>for</span><span class='op'>(</span><span class='va'>i</span> <span class='kw'>in</span> <span class='fl'>1</span><span class='op'>:</span><span class='op'>(</span><span class='va'>dimension</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>-</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span><span class='op'>{</span>
+    <span class='va'>L1</span> <span class='op'>&lt;-</span> <span class='fu'>modifiedCholeskyUpdate</span><span class='op'>(</span><span class='va'>A2</span>,<span class='va'>L1</span><span class='op'>)</span>
+    <span class='kw'>if</span><span class='op'>(</span><span class='va'>i</span><span class='op'>&lt;</span><span class='va'>dimension</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>-</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>{</span>
+      <span class='va'>A2</span> <span class='op'>&lt;-</span> <span class='va'>matrixA</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='op'>(</span><span class='va'>i</span><span class='op'>+</span><span class='fl'>2</span><span class='op'>)</span>,<span class='fl'>1</span><span class='op'>:</span><span class='op'>(</span><span class='va'>i</span><span class='op'>+</span><span class='fl'>2</span><span class='op'>)</span>,drop <span class='op'>=</span> <span class='cn'>F</span><span class='op'>]</span>
+    <span class='op'>}</span>
+  <span class='op'>}</span>
+  <span class='kw'><a href='https://rdrr.io/r/base/function.html'>return</a></span><span class='op'>(</span>L <span class='op'>=</span> <span class='va'>L1</span><span class='op'>)</span>
+<span class='op'>}</span>
+</code></pre>
+</div>
+</details>
+</div>
+<p>Now that all the necessary functions have been created, we can call the main routine and obtain some estimates. This implementation is below.</p>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>Show code</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>strength.fit.Newton</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>dat</span>,<span class='va'>lambda0</span><span class='op'>=</span><span class='cn'>NULL</span>,<span class='va'>maxiters</span><span class='op'>=</span><span class='fl'>100</span>,<span class='va'>tolfun</span><span class='op'>=</span><span class='fl'>1e-6</span><span class='op'>)</span><span class='op'>{</span>
+  
+  <span class='kw'>if</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/NULL.html'>is.null</a></span><span class='op'>(</span><span class='va'>lambda0</span><span class='op'>)</span><span class='op'>)</span><span class='op'>{</span>
+    <span class='va'>lambda.t</span> <span class='op'>&lt;-</span> <span class='fu'>initial.estimate.lambda</span><span class='op'>(</span><span class='va'>dat</span><span class='op'>)</span>
+  <span class='op'>}</span> <span class='kw'>else</span><span class='op'>{</span><span class='va'>lambda.t</span> <span class='op'>&lt;-</span> <span class='va'>lambda0</span><span class='op'>}</span>
+  <span class='va'>len</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>lambda.t</span><span class='op'>)</span>
+  
+  <span class='kw'>for</span><span class='op'>(</span><span class='va'>i</span> <span class='kw'>in</span> <span class='fl'>1</span><span class='op'>:</span><span class='va'>maxiters</span><span class='op'>)</span><span class='op'>{</span>
+    
+    <span class='va'>gradient.t</span> <span class='op'>&lt;-</span> <span class='fu'>gradient.loglik.lam</span><span class='op'>(</span><span class='va'>lambda.t</span>,<span class='va'>dat</span><span class='op'>)</span> 
+    <span class='va'>lower</span> <span class='op'>&lt;-</span> <span class='fu'>modifiedCholeskyDecomp</span><span class='op'>(</span><span class='fu'>obs.info.lam</span><span class='op'>(</span><span class='va'>lambda.t</span>,<span class='va'>dat</span><span class='op'>)</span><span class='op'>)</span> <span class='co'>## Find dir to ascend</span>
+    <span class='va'>l.inverse.times.gradient</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/backsolve.html'>forwardsolve</a></span><span class='op'>(</span><span class='va'>lower</span>,<span class='va'>gradient.t</span><span class='op'>)</span>
+    <span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/backsolve.html'>backsolve</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/t.html'>t</a></span><span class='op'>(</span><span class='va'>lower</span><span class='op'>)</span>,<span class='va'>l.inverse.times.gradient</span><span class='op'>)</span>
+    
+    <span class='va'>lambda.tp1</span> <span class='op'>&lt;-</span> <span class='va'>lambda.t</span> <span class='op'>+</span> <span class='va'>x</span>  <span class='co'>## Get update</span>
+    <span class='va'>lambda.tp1</span> <span class='op'>&lt;-</span> <span class='va'>lambda.tp1</span><span class='op'>-</span><span class='va'>lambda.tp1</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span>  <span class='co'>## Normalize</span>
+    
+    <span class='va'>loglik.tp1</span> <span class='op'>&lt;-</span> <span class='fu'>loglikelihood.lambda</span><span class='op'>(</span><span class='va'>lambda.tp1</span>,<span class='va'>dat</span><span class='op'>)</span>  <span class='co'>## loglik at update</span>
+    <span class='va'>loglik.tp</span> <span class='op'>&lt;-</span> <span class='fu'>loglikelihood.lambda</span><span class='op'>(</span><span class='va'>lambda.t</span>,<span class='va'>dat</span><span class='op'>)</span> <span class='co'>## loglik at previous</span>
+    <span class='va'>improve.lik</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>abs</a></span><span class='op'>(</span><span class='va'>loglik.tp1</span> <span class='op'>-</span> <span class='va'>loglik.tp</span><span class='op'>)</span>  <span class='co'>## Improvement in likelihood</span>
+    
+    <span class='kw'>if</span><span class='op'>(</span><span class='va'>improve.lik</span><span class='op'>&lt;</span><span class='va'>tolfun</span><span class='op'>)</span><span class='op'>{</span>  <span class='co'>## Have we CONVERGED?</span>
+      <span class='va'>gradient</span> <span class='op'>&lt;-</span> <span class='fu'>gradient.loglik.lam</span><span class='op'>(</span><span class='va'>lambda.tp1</span>,<span class='va'>dat</span><span class='op'>)</span>
+      <span class='kw'><a href='https://rdrr.io/r/base/function.html'>return</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='st'>"Strengths"</span> <span class='op'>=</span> <span class='va'>lambda.tp1</span>, <span class='st'>"Iterations"</span> <span class='op'>=</span> <span class='va'>i</span>,<span class='st'>"Maximum"</span> <span class='op'>=</span> <span class='va'>loglik.tp1</span>,
+              <span class='st'>"Gradient"</span> <span class='op'>=</span> <span class='va'>gradient</span><span class='op'>)</span><span class='op'>)</span>
+    <span class='op'>}</span> <span class='kw'>else</span><span class='op'>{</span> <span class='va'>lambda.t</span> <span class='op'>&lt;-</span> <span class='va'>lambda.tp1</span><span class='op'>}</span>
+    
+  <span class='op'>}</span> <span class='co'># end for</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='st'>"No Convergence"</span><span class='op'>)</span>
+  <span class='kw'><a href='https://rdrr.io/r/base/function.html'>return</a></span><span class='op'>(</span><span class='va'>lambda.tp1</span><span class='op'>)</span>
+<span class='op'>}</span>
+<span class='va'>strengths</span> <span class='op'>&lt;-</span> <span class='fu'>strength.fit.Newton</span><span class='op'>(</span><span class='va'>ymat</span><span class='op'>)</span>
+<span class='va'>strengths</span>
+</code></pre>
+</div>
+</details>
+<pre><code>$Strengths
+          BAL           BOS           CHW           CLE           DET 
+ 0.0000000000  0.2240370238 -0.5724141333  0.0979381904  0.0960691213 
+          HOU            KC           LAA           MIN           NYY 
+-0.9525885657 -0.0007575662 -0.2834240107 -0.4845092637  0.0480898408 
+          OAK           SEA            TB           TEX           TOR 
+ 0.0996121698 -0.4079668384  0.1296495476  0.0392569072 -0.2852165434 
+
+$Iterations
+[1] 3
+
+$Maximum
+[1] -711.5312
+
+$Gradient
+          BAL           BOS           CHW           CLE           DET 
+ 1.697572e-09  2.494630e-09 -3.477396e-11  2.190689e-09  2.179974e-09 
+          HOU            KC           LAA           MIN           NYY 
+-3.202133e-08  1.669122e-09  3.090079e-09  4.267733e-10  1.770061e-09 
+          OAK           SEA            TB           TEX           TOR 
+ 5.669420e-09  2.072611e-09  2.230038e-09  5.205393e-09  1.359737e-09 </code></pre>
+</div>
+<p>Look! We have obtained the same results as before and in very few iterations, the strength of this method.</p>
+<h3 id="what-structure-of-the-hessian-could-be-exploited-when-p-is-very-large">What Structure of the Hessian Could be Exploited When P is Very Large?</h3>
+<p>If this method was to be applied to a very large tournament, then it would be likely that most competitors would only play a tiny fraction of the possible opponents. This would result in a very sparse Hessian matrix whose structure could be exploited using Newton’s Method.</p>
+<div style="page-break-after: always;"></div>
+<h1 id="results">Results</h1>
+<p>Now that we have investigated how to obtain estimates for the strength parameters in our model, what do they tell us about the American League in MLB baseball?</p>
+<table>
+<thead>
+<tr class="header">
+<th>Team</th>
+<th>Strength</th>
+<th>Win%</th>
+<th>Total Wins</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>BOS</td>
+<td>1.25</td>
+<td>0.58</td>
+<td>83.00</td>
+</tr>
+<tr class="even">
+<td>TB</td>
+<td>1.14</td>
+<td>0.56</td>
+<td>80.00</td>
+</tr>
+<tr class="odd">
+<td>OAK</td>
+<td>1.10</td>
+<td>0.58</td>
+<td>83.00</td>
+</tr>
+<tr class="even">
+<td>CLE</td>
+<td>1.10</td>
+<td>0.57</td>
+<td>81.00</td>
+</tr>
+<tr class="odd">
+<td>DET</td>
+<td>1.10</td>
+<td>0.57</td>
+<td>81.00</td>
+</tr>
+<tr class="even">
+<td>NYY</td>
+<td>1.05</td>
+<td>0.54</td>
+<td>76.00</td>
+</tr>
+<tr class="odd">
+<td>TEX</td>
+<td>1.04</td>
+<td>0.57</td>
+<td>81.00</td>
+</tr>
+<tr class="even">
+<td>BAL</td>
+<td>1.00</td>
+<td>0.52</td>
+<td>74.00</td>
+</tr>
+<tr class="odd">
+<td>KC</td>
+<td>1.00</td>
+<td>0.54</td>
+<td>77.00</td>
+</tr>
+<tr class="even">
+<td>LAA</td>
+<td>0.75</td>
+<td>0.48</td>
+<td>68.00</td>
+</tr>
+<tr class="odd">
+<td>TOR</td>
+<td>0.75</td>
+<td>0.44</td>
+<td>63.00</td>
+</tr>
+<tr class="even">
+<td>SEA</td>
+<td>0.67</td>
+<td>0.44</td>
+<td>63.00</td>
+</tr>
+<tr class="odd">
+<td>MIN</td>
+<td>0.62</td>
+<td>0.41</td>
+<td>58.00</td>
+</tr>
+<tr class="even">
+<td>CHW</td>
+<td>0.56</td>
+<td>0.39</td>
+<td>55.00</td>
+</tr>
+<tr class="odd">
+<td>HOU</td>
+<td>0.39</td>
+<td>0.30</td>
+<td>43.00</td>
+</tr>
+</tbody>
+</table>
+<p>First consider the table above. The “Strength" column shows us, from best to worst, the rankings provided by this model via estimation of the strength parameters. The”Win%" column shows each teams actual percentage of games won. It is interesting to note the differences in ranking and actual winning%.</p>
+<p>This discrepancy appears to be related to certain divisions in the American League having more strong teams than others. Since teams within a division play more, this model adjusts for playing better opponents. It is also interesting to note that the Boston Red Sox are ranked number one in this model and would actually go on to win the World Series in 2013.</p>
+<p>Since we have a way to turn our strength parameter estimates into probailities, the table below shows the probability any team in the AL would win in a match against any other opponent. The way to read the table is to pick a row, and then the numbers in that row are the probability that the team indicated by the row would beat the team in the column.</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th>BAL</th>
+<th>BOS</th>
+<th>CHW</th>
+<th>CLE</th>
+<th>DET</th>
+<th>HOU</th>
+<th>KC</th>
+<th>LAA</th>
+<th>MIN</th>
+<th>NYY</th>
+<th>OAK</th>
+<th>SEA</th>
+<th>TB</th>
+<th>TEX</th>
+<th>TOR</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>BAL</td>
+<td></td>
+<td>0.44</td>
+<td>0.64</td>
+<td>0.48</td>
+<td>0.48</td>
+<td>0.72</td>
+<td>0.50</td>
+<td>0.57</td>
+<td>0.62</td>
+<td>0.49</td>
+<td>0.47</td>
+<td>0.60</td>
+<td>0.47</td>
+<td>0.49</td>
+<td>0.57</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>BOS</td>
+<td>0.56</td>
+<td></td>
+<td>0.69</td>
+<td>0.53</td>
+<td>0.53</td>
+<td>0.76</td>
+<td>0.56</td>
+<td>0.62</td>
+<td>0.67</td>
+<td>0.54</td>
+<td>0.53</td>
+<td>0.65</td>
+<td>0.52</td>
+<td>0.55</td>
+<td>0.62</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>CHW</td>
+<td>0.36</td>
+<td>0.31</td>
+<td></td>
+<td>0.34</td>
+<td>0.34</td>
+<td>0.59</td>
+<td>0.36</td>
+<td>0.43</td>
+<td>0.48</td>
+<td>0.35</td>
+<td>0.34</td>
+<td>0.46</td>
+<td>0.33</td>
+<td>0.35</td>
+<td>0.43</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>CLE</td>
+<td>0.52</td>
+<td>0.47</td>
+<td>0.66</td>
+<td></td>
+<td>0.50</td>
+<td>0.74</td>
+<td>0.53</td>
+<td>0.59</td>
+<td>0.64</td>
+<td>0.51</td>
+<td>0.50</td>
+<td>0.62</td>
+<td>0.49</td>
+<td>0.52</td>
+<td>0.59</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>DET</td>
+<td>0.52</td>
+<td>0.47</td>
+<td>0.66</td>
+<td>0.50</td>
+<td></td>
+<td>0.74</td>
+<td>0.52</td>
+<td>0.59</td>
+<td>0.64</td>
+<td>0.51</td>
+<td>0.50</td>
+<td>0.62</td>
+<td>0.49</td>
+<td>0.51</td>
+<td>0.59</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>HOU</td>
+<td>0.28</td>
+<td>0.24</td>
+<td>0.41</td>
+<td>0.26</td>
+<td>0.26</td>
+<td></td>
+<td>0.28</td>
+<td>0.34</td>
+<td>0.39</td>
+<td>0.27</td>
+<td>0.26</td>
+<td>0.37</td>
+<td>0.25</td>
+<td>0.27</td>
+<td>0.34</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>KC</td>
+<td>0.50</td>
+<td>0.44</td>
+<td>0.64</td>
+<td>0.47</td>
+<td>0.48</td>
+<td>0.72</td>
+<td></td>
+<td>0.57</td>
+<td>0.62</td>
+<td>0.49</td>
+<td>0.47</td>
+<td>0.60</td>
+<td>0.47</td>
+<td>0.49</td>
+<td>0.57</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>LAA</td>
+<td>0.43</td>
+<td>0.38</td>
+<td>0.57</td>
+<td>0.41</td>
+<td>0.41</td>
+<td>0.66</td>
+<td>0.43</td>
+<td></td>
+<td>0.55</td>
+<td>0.42</td>
+<td>0.41</td>
+<td>0.53</td>
+<td>0.40</td>
+<td>0.42</td>
+<td>0.50</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>MIN</td>
+<td>0.38</td>
+<td>0.33</td>
+<td>0.52</td>
+<td>0.36</td>
+<td>0.36</td>
+<td>0.61</td>
+<td>0.38</td>
+<td>0.45</td>
+<td></td>
+<td>0.37</td>
+<td>0.36</td>
+<td>0.48</td>
+<td>0.35</td>
+<td>0.37</td>
+<td>0.45</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>NYY</td>
+<td>0.51</td>
+<td>0.46</td>
+<td>0.65</td>
+<td>0.49</td>
+<td>0.49</td>
+<td>0.73</td>
+<td>0.51</td>
+<td>0.58</td>
+<td>0.63</td>
+<td></td>
+<td>0.49</td>
+<td>0.61</td>
+<td>0.48</td>
+<td>0.50</td>
+<td>0.58</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>OAK</td>
+<td>0.53</td>
+<td>0.47</td>
+<td>0.66</td>
+<td>0.50</td>
+<td>0.50</td>
+<td>0.74</td>
+<td>0.53</td>
+<td>0.59</td>
+<td>0.64</td>
+<td>0.51</td>
+<td></td>
+<td>0.62</td>
+<td>0.49</td>
+<td>0.52</td>
+<td>0.59</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>SEA</td>
+<td>0.40</td>
+<td>0.35</td>
+<td>0.54</td>
+<td>0.38</td>
+<td>0.38</td>
+<td>0.63</td>
+<td>0.40</td>
+<td>0.47</td>
+<td>0.52</td>
+<td>0.39</td>
+<td>0.38</td>
+<td></td>
+<td>0.37</td>
+<td>0.39</td>
+<td>0.47</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>TB</td>
+<td>0.53</td>
+<td>0.48</td>
+<td>0.67</td>
+<td>0.51</td>
+<td>0.51</td>
+<td>0.75</td>
+<td>0.53</td>
+<td>0.60</td>
+<td>0.65</td>
+<td>0.52</td>
+<td>0.51</td>
+<td>0.63</td>
+<td></td>
+<td>0.52</td>
+<td>0.60</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>TEX</td>
+<td>0.51</td>
+<td>0.45</td>
+<td>0.65</td>
+<td>0.48</td>
+<td>0.49</td>
+<td>0.73</td>
+<td>0.51</td>
+<td>0.58</td>
+<td>0.63</td>
+<td>0.50</td>
+<td>0.48</td>
+<td>0.61</td>
+<td>0.48</td>
+<td></td>
+<td>0.58</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>TOR</td>
+<td>0.43</td>
+<td>0.38</td>
+<td>0.57</td>
+<td>0.41</td>
+<td>0.41</td>
+<td>0.66</td>
+<td>0.43</td>
+<td>0.50</td>
+<td>0.55</td>
+<td>0.42</td>
+<td>0.41</td>
+<td>0.53</td>
+<td>0.40</td>
+<td>0.42</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Finally, it is always nice to visualize the above table so that we can easily see which teams are good and which teams are not so good. A heat map version of the above table can do just this. The plot below conveys the exact same information but rather than being interested in specific values, we are more interested in the patterns, easily pointing out which teams have performed poorly in the 2013 regular season. For example, the lowest ranked team, the Houston Astros, have a red band all the way across their row, showing a low probability of beating any opponent wheras the Boston Red Sox’s row is mostly blue and purple, showing their dominance over the rest of the league.</p>
+<figure>
+<img src="heatMap.png" alt="" /><figcaption>Heat Map of the Estimated Win Probabilities for Teams in the American League</figcaption>
+</figure>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<!--radix_placeholder_article_footer-->
+<!--/radix_placeholder_article_footer-->
+</div>
+
+<div class="d-appendix">
+</div>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+<!--radix_placeholder_site_after_body-->
+<!--/radix_placeholder_site_after_body-->
+<!--radix_placeholder_appendices-->
+<div class="appendix-bottom"></div>
+<!--/radix_placeholder_appendices-->
+<!--radix_placeholder_navigation_after_body-->
+<!--/radix_placeholder_navigation_after_body-->
+
+</body>
+
+</html>

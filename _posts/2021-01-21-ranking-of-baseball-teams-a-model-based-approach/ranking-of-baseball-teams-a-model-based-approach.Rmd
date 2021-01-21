@@ -1,0 +1,535 @@
+---
+title: "Ranking of Baseball Teams - A Model Based Approach"
+description: |
+  Teams play many games over the course of the season but they play teams in their
+  division most often. Further, we need to account for situations where say Team A might    lose to Team B and beat Team C, but Team C has also won a game against Team B. How
+  can we objectively rank teams where we only focus on who has beaten who?
+preview: heatMap.png
+author:
+  - name: Logan Lossing
+    url: {}
+date: 2021-01-21
+tags: ['probability']
+output:
+  distill::distill_article:
+    self_contained: false
+    code_folding: true
+    toc: true
+    toc_depth: 2
+    number_sections: true
+---
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+path_to_data <- "~/Documents/nagol_distill/_posts/2021-01-21-ranking-of-baseball-teams-a-model-based-approach/ymat.csv"
+
+library(here)
+library(tidyverse)
+```
+
+\maketitle 
+
+**Originally published in 2014**
+
+In this post, we wish to use Fisher's Scoring Method and the MM
+algorithm to fit a Bradley-Terry model in an effort to rank the baseball teams of the American League. An interesting property of this model is its simplicity; only information about which teams have played each other in the regular season and, for each game played, noting which team won is used in the ranking. 
+
+The data used to illustrate the implementation of these algorithms in this post consists of
+the regular season match records of every team in the American League in
+the MLB for the 2013. For simplicity, games against National league opponents are ignored. 
+
+The Model
+---------
+
+Consider a league of p teams (p=15 for the our example), where each team
+has a strength parameter $\gamma_i >0$. Team $i$ beats team $j$ with
+probability $\frac{\gamma_i}{\gamma_i + \gamma_j}$. Let $y_{ij}$
+represent the number of times that team $i$ beats team $j$, and for
+convenience we take $y_{ii} = 0$, i = 1,2,\...,p. If we assume
+independence between games then the log-likehood of this model is:
+
+$$L(\gamma) = \sum_{i,j}{y_{ij}\left [ \ln(\gamma_i) - \ln(\gamma_i + \gamma_j) \right]}$$
+
+Is the log-likelihood concave?
+
+To determine the concavity of the log-likelihood function, we will take
+a look at the Hessian. Expanding the log-likelihood a little helps with
+taking the derivatives. Doing so we obtain,
+
+$$L(\gamma) = y_{12}(\ln\gamma_1 - \ln(\gamma_1 + \gamma_2)) + y_{13}(\ln\gamma_2 - \ln(\gamma_1 + \gamma_3)) + ... + y_{p(p-1)}(\ln\gamma_p - \ln(\gamma_{p} + \gamma_{p-1}))$$
+
+Thus the gradient is given by:
+
+$$\nabla L(\gamma)_k = \left \{ \sum_{i=1}^p{y_{ik} \left ( \frac{1}{\gamma_i} - \frac{1}{\gamma_i + \gamma_k} \right ) } - \sum_{i=1}^p{y_{ki} \left ( \frac{1}{\gamma_i + \gamma_k} \right )} \right \}, \quad \text{for} \quad k = 1,2,...,p$$
+
+Again, careful differentiation yield the Hessian given by:
+
+$$\nabla^2L(\gamma)_{lk} = 
+\begin{cases}
+\sum_{j=1}^p{y_{lj}\left [{ \frac{-1}{\gamma_l^2} + \frac{1}{(\gamma_l + \gamma_j)^2}}\right]} + \sum_{j=1}^p{y_{jk}(\frac{1}{(\gamma_j + \gamma_k)^2})}, & k = l \\
+(y_{lk} + y_{kl})\frac{1}{(\gamma_l + \gamma_k)^2}, & k \neq l
+\end{cases}$$
+
+Now, is the log-likelihood concave? No, it does not appear to be so. To
+see this consider the scenario where one team is particularly bad and
+fails to win any games against any opponents in a given year. If this is
+the case, the Observed Information Matrix will have a negative on the
+diagonal and thus the likelihood cannot be concave.
+
+Deriving a Minorization-Maximization Algorithm for Maximizing $L(\gamma)$
+=========================================================================
+
+For this section, we want to find a minorizing function
+$g(\gamma|\gamma^{(t)})$ that has the property that
+$g(\gamma^{(t)}|\gamma^{(t)}) = L(\gamma^{(t)})$ at
+$\gamma = \gamma^{(t)}$ and otherwise, for all $\gamma$ we have that
+$g(\gamma|\gamma^{(t)}) < L(\gamma)$. These conditions are referred to
+as dominance and tangency conditions.
+
+The supporting hyperplane inequality states that a differentiable
+function $f(\cdot)$ is convex in U $\iff$
+$f(x) \ge f(y) + \langle \nabla f(y), x-y \rangle$ for all $x,y \in U$.
+
+Condider the function $f(x) = -\ln(x)$ a convex function. Thus the
+supporting hyperplane inequality yields
+$-\ln(x) \ge -\ln(y) + \frac{-(x-y)}{x}$. Letting
+$x = \gamma_i + \gamma_j$ and $y = \gamma_i^{(t)} + \gamma_j^{(t)}$ then
+we obtain:
+
+$$\begin{aligned}
+-\ln(\gamma_i + \gamma_j) &\ge -\ln(\gamma_i^{(t)} + \gamma_j^{(t)}) + \frac{-(\gamma_i + \gamma_j-\gamma_i^{(t)} + \gamma_j^{(t)})}{\gamma_i^{(t)} + \gamma_j^{(t)}} \\
+&= -\frac{\gamma_i + \gamma_j}{\gamma_i^{(t)} + \gamma_j^{(t)})} + c(t) \quad \text{where c(t) is a constant with regard optimization}\end{aligned}$$
+
+Note, that the above inequality yield strict inequality when
+$\gamma \neq \gamma^{(t)}$ and equality precisely when
+$\gamma = \gamma^{(t)}$.
+
+Plugging this expression into the log-likelihood from above we obtain an
+expression for the minorizing function that satisfies both properties
+listed above: dominance and tangency at $\gamma^{(t)}$. This minorizing
+function is given below.
+
+$$\begin{aligned}
+g(\gamma|\gamma^{(t)}) &= \sum_{i,j}{y_{ij}\left [ \ln(\gamma_i) -\ln(\gamma_i^{(t)} - \gamma_j^{(t)}) + \frac{-(\gamma_i + \gamma_j-\gamma_i^{(t)} - \gamma_j^{(t)})}{\gamma_i^{(t)} + \gamma_j^{(t)}} \right]} \\
+&= \sum_{i,j}{y_{ij}\left [ \ln(\gamma_i)  + \frac{-(\gamma_i + \gamma_j)}{\gamma_i^{(t)} + \gamma_j^{(t)}}  + c(t) \right]} \end{aligned}$$
+
+The benefit here is that the MM updates can be calculated analytically
+and thus computed with incredible efficiency.
+
+To do this we first differentiate to obtain:
+
+$$\nabla g(\gamma)_k = \sum_{j=1}^p{y_{kj} \left (\frac{1}{\gamma_k} - \frac{1}{\gamma_k^{(t)} + \gamma_j^{(t)}} \right )} - \sum_{j=1}^p{y_{jk} \left (\frac{1}{\gamma_k^{(t)} + \gamma_j^{(t)}} \right )}$$
+
+Setting this equal to zero and solving for $\gamma_k$ then we have our
+updates.
+
+$$\gamma_k^{(t+1)} = \frac{\sum_{j=1}^p{y_{kj}}}{\sum_{j=1}^P{\left [ \frac{y_{jk} + y_{kj}}{\gamma_k^{(t)} + \gamma_j^{(t)}}\right ]}}$$
+
+Implementaion of the MM Algorithm
+---------------------------------
+
+The following is my code implementing the MM algorithm for these data.
+This algorithim is amazingly simple and efficient for these data. First
+it is necessary to read in the data and create a few functions to allow
+the main routine to be uncluttered. Also note, the parameters of this
+model are not identifiable without some remedy which was, in this case,
+to set $\gamma_1 = 1$.
+
+First, we need to get the data from ESPN, we can scrape the standings using the following Python routine:
+
+```{python scraper, eval=FALSE, python.reticulate = FALSE}
+from bs4 import BeautifulSoup
+import urllib2
+import re
+import csv
+
+csv_filename = 'AL-standings.csv'
+
+year = '2013'
+url = 'http://espn.go.com/mlb/standings/grid/_/year/' + year
+
+page = urllib2.urlopen(url)
+soup = BeautifulSoup(page.read())
+
+# Extracts the table for the American League (AL) and the rows for each team
+AL_table = soup.find(text = re.compile("American")).find_parent("table")
+AL_rows = AL_table.findAll('tr', class_ = re.compile("team"))
+
+# Creates a list of the AL teams and then appends NL for National League
+AL_teams = [team_row.find('b').text for team_row in AL_rows]
+AL_teams.append("NL")
+
+# Opens a CSV file for the AL standings
+with open(csv_filename, 'wb') as f:
+    csv_out = csv.writer(f)
+    csv_out.writerow(['Team', 'Opponent', 'Wins', 'Losses'])
+    
+    # For each team in the AL table, identifies the team's name, the opponent,
+    # and their wins and losses (WL) against that opponent. Then outputs the
+    # results to the open CSV file
+    for team_row in AL_rows:
+        team = team_row.find('b').text
+        
+        # A cell has the following form:
+        # <td align="right">
+        # 7-9</td>
+        WL_cells = team_row.findAll('td', align = "right")
+        
+        # Extracts the values for both wins and losses from each WL table cell
+        wins_losses = [td_cell.text.strip('\n').split('-') for td_cell in WL_cells]
+        
+        # Writes the current team's standings to the CSV file
+        for i, opponent in enumerate(AL_teams):
+            if team != opponent:
+                csv_out.writerow([team, opponent, wins_losses[i][0], wins_losses[i][1]])
+```
+
+After writing the data to csv, we then read the data back in with R to finish the analysis. In the code below, you can see we have square matrix with each row representing a team in the AL and each column representing each of the possible AL opponents. 
+
+For a fixed row, the number in a specific column corresponds to the number of games won vs the opponent listed with that column label. Example: In the first row, second column we see 11. This means that the BAL(timore) Orioles beat the BOS(ton) Red Sox 11 times during regular season play. The entry in row 2, column 1 is an 8, meaning that the BOS(ton) Red Sox beat the BAL(timore) Orioles 8 times during regular season play. No other data is used for this analysis. (The results are suprisingly good for such a simple model!)
+
+```{r GettingReady, echo=TRUE}
+## Import Data
+ymat <-read.csv(path_to_data, header = TRUE, as.is = TRUE)
+head(ymat)
+ymat <- apply(ymat,1,as.numeric)
+rownames(ymat) <- colnames(ymat)
+ymat <- t(ymat)
+
+##############################################################################
+##  Calculating the likelihood
+sum.matrix.product.diagonals <- function(matA,matB){
+  ## Two nxn matrices, only forms the diagonal entries of the product
+  len <- dim(matA)[1]
+  return(sum(sapply(1:len,function(i) matA[i,]%*%matB[,i])))
+}
+loglikelihood.gamma <- function(gam,dat){
+  ##  Inputs:  parameter vector gam and data matrix dat
+  ##  Returns: scalar value of the log-likelihood
+  len <- length(gam)
+  entries <- outer(1:len,1:len,function(i,j) gam[i]/(gam[i]+gam[j]))
+  log.matrix <- log(entries)
+  return(sum.matrix.product.diagonals(log.matrix,t(dat)))
+}
+##############################################################################
+## Calculating the Gradient
+gradient.loglik <- function(gam,dat){
+  len <- length(gam)
+  mat1 <- outer(1:len,1:len,function(i,j) gam[i]/(gam[i]*(gam[i]+gam[j])))*dat
+  mat2 <- t(outer(1:len,1:len,function(i,j) 1/(gam[i]+gam[j])))*dat
+  gradient <- colSums(mat1) - colSums(mat2)
+  return(gradient)
+}
+##############################################################################
+## MM Update
+MM.compute.gam.update<- function(gam,dat){
+  ## Given the current value of the gam at time t, and the data matrix
+  ## Calcumates the the updated value for t+1, returns a vector
+  num <- rowSums(dat)
+  denom <- rowSums((dat+t(dat))/outer(gam,gam,"+" ))
+  updateRank <- num / denom
+  return(updateRank) 
+}
+######################################################################
+##  Good Starting Values
+initial.estimate <- function(dat){
+  ## Take the win% of all games played as a reasonable starting point
+  gamma.MM <- rowSums(dat)/(rowSums(dat) + colSums(dat))
+  gamma.MM <- gamma.MM/gamma.MM[1]
+  return(gamma.MM)
+}
+```
+
+Now that all the setup functions have been loaded we can bring in the
+main routine that actually will return the estimated strengths for each
+team in the American League.
+
+```{r MM, echo = TRUE}
+strength.fit.MM <- function(dat, gamma0 = NULL,maxiters = 1000,tolfun = 1e-6){
+
+  if(is.null(gamma0)){
+    gamma.t <- initial.estimate(dat)
+  } else{gamma.t <- gamma0}
+  
+  for(i in 1:maxiters){
+    
+    gamma.tp1 <- MM.compute.gam.update(gamma.t,dat) ##  Update
+    gamma.tp1 <- gamma.tp1/gamma.tp1[1] ## Normalize for identifiability
+    
+    loglik.tp1 <- loglikelihood.gamma(gamma.tp1,dat)  ## loglik at update
+    loglik.tp <- loglikelihood.gamma(gamma.t,dat) ## loglik at previous
+    improve.lik <- abs(loglik.tp1 - loglik.tp) ## Amount of improvement
+    
+    if(improve.lik<tolfun){ ## Have I converged?
+      gradient <- gradient.loglik(gamma.tp1,dat)
+      return(list("Strengths" = gamma.tp1, "Iterations" = i,
+        "Maximum" = loglik.tp1,"Gradient" = gradient))
+    } else{ gamma.t <- gamma.tp1} ## If not, CONTINUE TO ITERATE
+    
+  } # end for
+  print("No Convergence")
+  return(gamma.tp1)
+}
+ranking <- strength.fit.MM(ymat)
+ranking
+```
+
+In the results section, the results of the analysis will be described in
+detail. Now it is of interest to perform the exact same analysis using a
+Newton Algorithim.
+
+Reparameterization and Newton's Scoring Method
+==============================================
+
+For this section, consider the reparameterization
+$\gamma_i = e^{\lambda_i}$ for $\lambda \in \mathbb{R}$. The
+log-likelihood now becomes:
+
+$$L(\lambda) = \sum_{i,j}{y_{ij}\left [ \lambda_i - \ln(e^{\lambda_i} + e^{\lambda_i}) \right]}$$
+
+Differentiating yields the following gradient:
+
+$$\nabla L(\lambda)_k = \sum_{j=1}^k{y_{kj} \left ( 1 - \frac{e^{\lambda_k}}{e^{\lambda_k + \lambda_j}} \right )} + \sum_{j=1}^p{y_{jk}\left ( \frac{-e^{\lambda_k}}{e^{\lambda_k} + e^{\lambda_j} }\right)}$$
+
+The Hessian is given by:
+
+$$\nabla^2 L(\lambda)_{kj} = 
+\begin{cases}
+-\left [  \sum_{j=1}^p{(y_{kj} + y_{jk})\left ( \frac{e^{\lambda_k + \lambda_j}}{ (e^{\lambda_j} + e^{\lambda_k})^2} \right )} \right ], & k = j \\
+\frac{(y_{kj} + y_{jk})e^{\lambda_j + \lambda_k}}{(e^{\lambda_j} + e^{\lambda_k})^2}, & k \neq j
+\end{cases}$$
+
+For this reparameterized likelihood, the resulting Hessian matrix is
+negative definite and thus the log-likelihood under this representation
+is concave. This result is due to the closure of log-convex functions
+under addition (see "Convex Optimization\"-Stephen Boyd pg.105) Further,
+since we have reparameterized our parameters to the real line, there is
+no need to worry about backtracking in the implementation of Newton's
+Method.
+
+It is now time to obtain the estimates of our parameters using Newton's
+Method. The implementation of this method is below.
+
+Implmentation of Newton's Method
+--------------------------------
+
+This method has quite a few more "moving parts\" than did the MM
+implementation. Not only does the likelihood need to be computed, but
+also the gradient and Hessian matrices. The set-up for the actual main
+routine is below.
+
+```{r NewtonSetup,echo=TRUE}
+loglikelihood.lambda <- function(lam,dat){
+  len <- length(lam)
+  entries <- outer(1:len,1:len,function(i,j) lam[i]-log(exp(lam[i])+exp(lam[j])) )
+  log.lik <- sum(dat*entries)
+  return(log.lik)
+}
+##############################################################################
+## Good starting point
+initial.estimate.lambda <- function(dat){
+  lambda.Newt <- log(rowSums(dat)/(rowSums(dat)+colSums(dat)))
+  lambda.Newt <- lambda.Newt - lambda.Newt[1]
+  return(lambda.Newt) 
+}
+###############################################################################
+## Gradient
+gradient.loglik.lam <- function(lam,dat){
+  len <- length(lam)
+  mat1 <- outer(1:len,1:len,function(i,j) exp(lam[i])/(exp(lam[i]) + exp(lam[j])))
+  mat1 <- mat1*(dat + t(dat))
+  gradient <- rowSums(dat) - rowSums(mat1)
+  return(gradient)
+}
+###############################################################################
+## Observed Fisher Information Matrix
+obs.info.lam <- function(lam,dat){
+  len <- length(lam)
+  mat1 <- outer(1:len,1:len,
+    function(i,j) exp(lam[i]+lam[j])/(exp(lam[i])+exp(lam[j]))^2)*(dat + t(dat))
+  diagonals <- rowSums(mat1)
+  mat1 <- -1*mat1
+  diag(mat1) <- diagonals
+  return(mat1)
+}
+#############################################################################
+## Modified Cholesky Decomposition, creates positive definite approximation
+modifiedCholeskyUpdate <- function(matrixA,matrixL.km1){
+  ############################################################
+  ##  Inputs:  matrixA- is the KxK matrix we are decomposing
+  ##           matrixL.km1- the K-1xK-1 lower triangular matrix
+  ##                        obtained from previous iterations
+  ##  Outputs: matrixL.k- the KxK lower tri matrix
+  #############################################################
+  
+  dimension <- dim(matrixA)[1]
+  
+  a.k.vector <- matrixA[-dimension,dimension,drop=F]
+  a.kk <- matrixA[dimension,dimension,drop=F]
+  
+  l.k.vector <- forwardsolve(matrixL.km1,a.k.vector,k=dimension-1)
+  check <- a.kk - t(l.k.vector)%*%l.k.vector
+  if(check >0){
+    l.kk <- sqrt(a.kk - t(l.k.vector)%*%l.k.vector)
+  }else{l.kk <- .01}
+  
+  matrixL.k <-cbind(matrixL.km1,rep(0,dimension-1))
+  last.row <- c(l.k.vector,l.kk)
+  matrixL.k <- rbind(matrixL.k,last.row)
+  matrixL.k <- as.matrix(matrixL.k)
+  rownames(matrixL.k) <- NULL
+  colnames(matrixL.k) <- NULL
+  return(matrixL.k)
+}
+modifiedCholeskyDecomp <-function(matrixA){
+  ##################################################################
+  ##  Inputs:  matrixA- is the nxn matrix we are decomposing     
+  ##  Outputs: L- the nxn lower tri matrix such that matrixA = LL^t
+  ##################################################################
+  
+  dimension <- dim(matrixA)
+  if(dimension[1] != dimension[2]){return(Warning = "Non-Square Matrix")}
+  if(!isSymmetric(matrixA)){return(Warning = "NOT SYMMETRIC")}
+  
+  A2 <- matrixA[1:2,1:2,drop=F]
+  
+  if(as.numeric(matrixA[1,1]) >= 0){
+    L1 <- sqrt(matrixA[1,1,drop=F])
+  }else{ L1 <- .01}
+  
+  for(i in 1:(dimension[1]-1)){
+    L1 <- modifiedCholeskyUpdate(A2,L1)
+    if(i<dimension[1]-1){
+      A2 <- matrixA[1:(i+2),1:(i+2),drop = F]
+    }
+  }
+  return(L = L1)
+}
+```
+
+Now that all the necessary functions have been created, we can call the
+main routine and obtain some estimates. This implementation is below.
+
+```{r Newton,echo=TRUE }
+strength.fit.Newton <- function(dat,lambda0=NULL,maxiters=100,tolfun=1e-6){
+  
+  if(is.null(lambda0)){
+    lambda.t <- initial.estimate.lambda(dat)
+  } else{lambda.t <- lambda0}
+  len <- length(lambda.t)
+  
+  for(i in 1:maxiters){
+    
+    gradient.t <- gradient.loglik.lam(lambda.t,dat) 
+    lower <- modifiedCholeskyDecomp(obs.info.lam(lambda.t,dat)) ## Find dir to ascend
+    l.inverse.times.gradient <- forwardsolve(lower,gradient.t)
+    x <- backsolve(t(lower),l.inverse.times.gradient)
+    
+    lambda.tp1 <- lambda.t + x  ## Get update
+    lambda.tp1 <- lambda.tp1-lambda.tp1[1]  ## Normalize
+    
+    loglik.tp1 <- loglikelihood.lambda(lambda.tp1,dat)  ## loglik at update
+    loglik.tp <- loglikelihood.lambda(lambda.t,dat) ## loglik at previous
+    improve.lik <- abs(loglik.tp1 - loglik.tp)  ## Improvement in likelihood
+    
+    if(improve.lik<tolfun){  ## Have we CONVERGED?
+      gradient <- gradient.loglik.lam(lambda.tp1,dat)
+      return(list("Strengths" = lambda.tp1, "Iterations" = i,"Maximum" = loglik.tp1,
+              "Gradient" = gradient))
+    } else{ lambda.t <- lambda.tp1}
+    
+  } # end for
+  print("No Convergence")
+  return(lambda.tp1)
+}
+strengths <- strength.fit.Newton(ymat)
+strengths
+```
+
+
+Look! We have obtained the same results as before and in very few
+iterations, the strength of this method.
+
+### What Structure of the Hessian Could be Exploited When P is Very Large?
+
+If this method was to be applied to a very large tournament, then it
+would be likely that most competitors would only play a tiny fraction of
+the possible opponents. This would result in a very sparse Hessian
+matrix whose structure could be exploited using Newton's Method.
+
+\newpage
+Results
+=======
+
+Now that we have investigated how to obtain estimates for the strength
+parameters in our model, what do they tell us about the American League
+in MLB baseball?
+
+| Team | Strength | Win% | Total Wins |
+|------|----------|------|------------|
+| BOS  | 1.25     | 0.58 | 83.00      |
+| TB   | 1.14     | 0.56 | 80.00      |
+| OAK  | 1.10     | 0.58 | 83.00      |
+| CLE  | 1.10     | 0.57 | 81.00      |
+| DET  | 1.10     | 0.57 | 81.00      |
+| NYY  | 1.05     | 0.54 | 76.00      |
+| TEX  | 1.04     | 0.57 | 81.00      |
+| BAL  | 1.00     | 0.52 | 74.00      |
+| KC   | 1.00     | 0.54 | 77.00      |
+| LAA  | 0.75     | 0.48 | 68.00      |
+| TOR  | 0.75     | 0.44 | 63.00      |
+| SEA  | 0.67     | 0.44 | 63.00      |
+| MIN  | 0.62     | 0.41 | 58.00      |
+| CHW  | 0.56     | 0.39 | 55.00      |
+| HOU  | 0.39     | 0.30 | 43.00      |
+
+First consider the table above. The "Strength\" column shows us, from best to
+worst, the rankings provided by this model via estimation of the
+strength parameters. The "Win%\" column shows each teams actual
+percentage of games won. It is interesting to note the differences in
+ranking and actual winning%.
+
+This discrepancy appears to be related to certain divisions in the
+American League having more strong teams than others. Since teams within
+a division play more, this model adjusts for playing better opponents.
+It is also interesting to note that the Boston Red Sox are ranked number
+one in this model and would actually go on to win the World Series in
+2013.
+
+Since we have a way to turn our strength parameter estimates into
+probailities, the table below shows the probability any team in the AL would win
+in a match against any other opponent. The way to read the table is to
+pick a row, and then the numbers in that row are the probability that
+the team indicated by the row would beat the team in the column.
+
+|     | BAL  | BOS  | CHW  | CLE  | DET  | HOU  | KC   | LAA  | MIN  | NYY  | OAK  | SEA  | TB   | TEX  | TOR  |   |
+|-----|------|------|------|------|------|------|------|------|------|------|------|------|------|------|------|---|
+| BAL |      | 0.44 | 0.64 | 0.48 | 0.48 | 0.72 | 0.50 | 0.57 | 0.62 | 0.49 | 0.47 | 0.60 | 0.47 | 0.49 | 0.57 |   |
+| BOS | 0.56 |      | 0.69 | 0.53 | 0.53 | 0.76 | 0.56 | 0.62 | 0.67 | 0.54 | 0.53 | 0.65 | 0.52 | 0.55 | 0.62 |   |
+| CHW | 0.36 | 0.31 |      | 0.34 | 0.34 | 0.59 | 0.36 | 0.43 | 0.48 | 0.35 | 0.34 | 0.46 | 0.33 | 0.35 | 0.43 |   |
+| CLE | 0.52 | 0.47 | 0.66 |      | 0.50 | 0.74 | 0.53 | 0.59 | 0.64 | 0.51 | 0.50 | 0.62 | 0.49 | 0.52 | 0.59 |   |
+| DET | 0.52 | 0.47 | 0.66 | 0.50 |      | 0.74 | 0.52 | 0.59 | 0.64 | 0.51 | 0.50 | 0.62 | 0.49 | 0.51 | 0.59 |   |
+| HOU | 0.28 | 0.24 | 0.41 | 0.26 | 0.26 |      | 0.28 | 0.34 | 0.39 | 0.27 | 0.26 | 0.37 | 0.25 | 0.27 | 0.34 |   |
+| KC  | 0.50 | 0.44 | 0.64 | 0.47 | 0.48 | 0.72 |      | 0.57 | 0.62 | 0.49 | 0.47 | 0.60 | 0.47 | 0.49 | 0.57 |   |
+| LAA | 0.43 | 0.38 | 0.57 | 0.41 | 0.41 | 0.66 | 0.43 |      | 0.55 | 0.42 | 0.41 | 0.53 | 0.40 | 0.42 | 0.50 |   |
+| MIN | 0.38 | 0.33 | 0.52 | 0.36 | 0.36 | 0.61 | 0.38 | 0.45 |      | 0.37 | 0.36 | 0.48 | 0.35 | 0.37 | 0.45 |   |
+| NYY | 0.51 | 0.46 | 0.65 | 0.49 | 0.49 | 0.73 | 0.51 | 0.58 | 0.63 |      | 0.49 | 0.61 | 0.48 | 0.50 | 0.58 |   |
+| OAK | 0.53 | 0.47 | 0.66 | 0.50 | 0.50 | 0.74 | 0.53 | 0.59 | 0.64 | 0.51 |      | 0.62 | 0.49 | 0.52 | 0.59 |   |
+| SEA | 0.40 | 0.35 | 0.54 | 0.38 | 0.38 | 0.63 | 0.40 | 0.47 | 0.52 | 0.39 | 0.38 |      | 0.37 | 0.39 | 0.47 |   |
+| TB  | 0.53 | 0.48 | 0.67 | 0.51 | 0.51 | 0.75 | 0.53 | 0.60 | 0.65 | 0.52 | 0.51 | 0.63 |      | 0.52 | 0.60 |   |
+| TEX | 0.51 | 0.45 | 0.65 | 0.48 | 0.49 | 0.73 | 0.51 | 0.58 | 0.63 | 0.50 | 0.48 | 0.61 | 0.48 |      | 0.58 |   |
+| TOR | 0.43 | 0.38 | 0.57 | 0.41 | 0.41 | 0.66 | 0.43 | 0.50 | 0.55 | 0.42 | 0.41 | 0.53 | 0.40 | 0.42 |      |   |
+
+Finally, it is always nice to visualize the above table so that we can
+easily see which teams are good and which teams are not so good. A heat
+map version of the above table can do just this. The plot below conveys the exact same information but rather than being interested in specific values, we are more interested in the patterns, easily pointing out which teams have performed poorly in the 2013 regular season. For example, the lowest ranked team, the Houston
+Astros, have a red band all the way across their row, showing a low
+probability of beating any opponent wheras the Boston Red Sox's row is
+mostly blue and purple, showing their dominance over the rest of the
+league.
+
+![Heat Map of the Estimated Win Probabilities for Teams in the American
+League](heatMap.png)

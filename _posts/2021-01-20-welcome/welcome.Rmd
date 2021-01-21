@@ -16,9 +16,8 @@ knitr::opts_chunk$set(echo = FALSE)
 ```
 
 Technology is amazing. Modern frameworks and computing architectures are more powerful than
-ever. It can be quite time consuming when learning a new technology or refactoring code. 
-Many times, the answers to our questions are found in helpful StackOverflow posts
-or blog articles that some wonderful human put together and shared with the world.
+ever. It can be quite time consuming to learn a new technology or refactoring code.
+Many times, the insights we were looking for or the answers to our questions are found in helpful StackOverflow posts, online texts, or blog articles that some wonderful human put together and shared with the world.
 
 Inspired by the amazing work of others, I wanted to make a effort to contribute
 back. As a result, this blog was created.
