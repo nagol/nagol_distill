@@ -1,7 +1,7 @@
 name: "."
 title: "datalyfe"
 description: |
-  mfeo
+  Data is Life
 theme: postcards.css
 output_dir: "docs"
 navbar:

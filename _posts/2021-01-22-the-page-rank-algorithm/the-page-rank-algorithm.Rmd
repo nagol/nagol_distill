@@ -1,0 +1,440 @@
+---
+title: "The Page Rank Algorithm"
+description: |
+  Google's Page Rank Algorithm was an early tool that helped determine the
+  relevance of search results.
+  
+  How does the algorithm work? How can we implement the algorithm?
+  
+  In this post, we investigate the mathematics behind the Page Rank algorithm and
+  implement several different methods for obtaining results using R.
+author:
+  - name: Logan Lossing
+    url: {}
+date: 01-22-2021
+tags: ['probability', 'R', 'linear algebra']
+categories:
+  - R
+  - linear algebra
+  - probability
+output:
+  distill::distill_article:
+    self_contained: false
+    code_folding: false
+    toc: true
+    toc_depth: 2
+    number_sections: true
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+```
+
+
+\maketitle 
+
+**Originally published in 2014**
+
+The Page Rank Problem: An Exploration
+=====================================
+
+When searching for a particular keyword on the internet, we want our
+search engine to return "relevant\" websites. There are many possible
+ways of defining what we mean by relevant, but the one that the Google
+founders came up with in the 1990's was the Page Rank method.
+
+The crux of the idea of the Page Rank method is that the "importance\"
+of a particular web-page can be defined to be the number of web-pages
+that link to it. The authors at
+<http://www.math.cornell.edu/~mec/Winter2009/RalucaRemus/Lecture3/lecture3.html>
+did a great job in explaining what this means, and I borrow their
+explanation here.
+
+> "If we create a web page i and include a hyperlink to the web page j,
+> this means that we consider j important and relevant for our topic. If
+> there are a lot of pages that link to j, this means that the common
+> belief is that page j is important. If on the other hand, j has only
+> one backlink, but that comes from an authoritative site k, (like
+> www.google.com, www.cnn.com, www.cornell.edu) we say that k transfers
+> its authority to j; in other words, k asserts that j is important.
+> Whether we talk about popularity or authority, we can iteratively
+> assign a rank to each web page, based on the ranks of the pages that
+> point to it.\"
+>
+> \- Cornell Math Explorers Club Website
+
+Using this idea of importance, we can turn a directed graph, one that
+represents the network structure of webpages (nodes are websites, edges
+are links), into a transition matrix for a Markov Chain. Then we can
+think of the most "relevant\" websites as those with the highest
+probabilities in the stationary distribution of the Markov Chain.
+
+There are, however, two issues that we need to adjust for. The first is
+that our graph may not be fully connected. That is, we are not
+guaranteed that a path exists to every website from every other
+website. This causes us to get stuck in one part of the graph and not be
+able to assess the importance of other parts of the graph. The second
+issue is "dangling nodes,\" websites that have links to them but they do
+not link anywhere else. In order to adjust for this, we have the idea of
+a "random surfer.\"
+
+A "random surfer\" is an entity that will randomly surf around the graph
+according to some basic rules. Let $r_{i}$ be the out degree of webpage
+i. The out degree of a webpages is defined to be the number of webpages
+that it links to. When arriving to webpage i then they do one of the
+following things:
+
+1.  If $r_{i} > 0$ then with probability p they uniformly chose a link
+    on that page and with probability 1-p they choose a link uniformly
+    from the space of n-pages
+
+2.  If $r_{i} = 0$ then they choose a random page uniformly from the
+    space of n-pages
+
+We can notate this as follows.
+
+1.  Let A be an (nxn) adjacency matrix where
+    $a_{ij} = \mathbb{1}(\text{webpage i links to webpage j})$
+
+2.  Define p to be the probability that a random surfer follows a link
+    on the current page (1-p is called the \"teleportation\" parameter)
+
+3.  $r_{i}$ be the out degree of webpage i. The out degree of a webpages
+    is defined to be the number of webpages that it links to
+
+4.  The transition matrix P has entries
+    $p_{ij} = \mathbb{1}(r_{i}>0)\Big (\frac{pa_{ij}}{r_{i}} \Big ) + \mathbb{1}(r_{i}=0) \Big ( \frac{1-p}{n} \Big )$
+
+In matrix form, this can be written as:
+
+$$P = pR^{+}A + z1_{n}^T$$
+
+where, $R = \text{diag}(r_{1},...,r_{n})$ and
+$z_{j} = \mathbb{1}(r_{i}>0)(\frac{1-p}{n}) + \mathbb{1}(r_{i}=0)(\frac{1}{n})$
+
+Given this Markov Chain setup, we can find the stationary distribution
+which corresponds to the ranks (probabilities) of each page.
+
+It turns out that P is a positive row stochastic matrix and thus $P^T$
+is column stochastic. The Perron-Frobenius Theorem guarantees that any
+column stochastic matrix has the following properties:
+
+1.  1 is an eigenvalue of multiplicity one
+
+2.  1 is the largest eigenvalue, all others are smaller in modulus
+
+3.  There exists a unique eigenvector corresponding to 1 that has all
+    positive entries and sums to 1
+
+This theorem thus gives us a few interesting ways to look at this
+problem, yielding several possible methods of solution.
+
+The first way to think about this is as an eigen-problem. We want to
+find the eigenvector corresponding to eigenvalue 1. Since this
+eigenvalue is multiplicity one then there is only one such eigenvector
+(up to a constant). That is, we want to find x such that $P^Tx = x$.
+There are many possible ways to solve such and eigen-problem such as
+Singular-Value Decomposition(SVD) or iteratively using the Power-Method.
+
+The second way to think about this problem is as a linear system of
+equations. $P^Tx = x \iff (I-P^T)x = 0$. We can solve such a linear
+system using \... or iteratively using the Jacobi Method, Gauss-Seidel,
+or Bi-Conjugate Gradient Methods.
+
+In the rest of this document we explore these different methods of
+solving the Page Rank Problem using a data set of 500 webpages connected
+to the [www.stat.ncsu.edu](www.stat.ncsu.edu) webpage. (Go Wolfpack!)
+
+Summary Statistics of the NCSU Data
+-----------------------------------
+
+The [A.txt](https://github.com/nagol/nagol.github.io/blob/master/content/post/stat-ncsu/A.txt) data set is a (500x500) adjacency matrix of the top
+500 web-pages linking to the [www.stat.ncsu.edu](www.stat.ncsu.edu)
+website.
+
+1.  The total number of edges is equal to
+    $\sum_{i}{\sum_{j}{a_{ij}}} = 14,102$.
+
+2.  The out degree of the matrix is $r_{i} = \sum_{j}{a_{ij}}$. The max
+    out degree was 126, and the min was 0.
+
+3.  There were 97 dangling nodes.
+
+These calculations were performed with the following code:
+
+```{r pathToData, echo=FALSE}
+path_to_dataA <- "./stat-ncsu/A.txt"
+path_to_dataU <- "./stat-ncsu/U.txt"
+```
+
+```{r SummaryStatistics,echo=TRUE}
+adj.matrix <- read.table(path_to_dataA,header=FALSE,sep = ",")
+labels <- read.table(path_to_dataU,header=FALSE,sep = ",",as.is=TRUE)
+adj.matrix <- as.matrix(t(adj.matrix))
+labels<-as.matrix(labels)
+
+(number.of.pages <- dim(adj.matrix)[1])
+(number.of.edges <- sum(adj.matrix))
+
+##  ri- the out degree = sum_j (Aij)
+out.degree <- apply(adj.matrix,1,sum)
+(min(out.degree))
+(max(out.degree))
+(number.of.dangling.nodes <- sum(out.degree==0))
+
+in.degree <- apply(adj.matrix,2,sum)
+(max(in.degree))
+(min(in.degree))
+```
+
+
+Let's quickly take a second to look at the sparsity pattern in the
+adjacency matrix. This is accomplished using the function
+*fields::image.plot()* from the \"fields\" package. The code to make this
+plot is below.
+
+```{r MakePlot, message=FALSE, warning=FALSE}
+require(fields)
+par(mar = rep(2, 4)) ## Margins
+brk <- c(0,.25,.5,.75,1)
+image.plot(adj.matrix[,500:1],col=c("yellow","yellow","cadetblue","cadetblue"),axes=FALSE,main="Visualizing the Adjacency Matrix",breaks=brk,lab.breaks=c("","Not","","Connected",""),horizontal=TRUE,legend.shrink = .5,legend.mar = 2.5,border="blue")
+```
+
+
+We can see that the majority of the matrix is zeros, thus this is a
+sparse matrix. This structure can be exploited to speed up the solving
+of this system. We also see that many pages have nearly identical
+linking structures.
+
+Solving the Page Rank Problem
+=============================
+
+For the analyses that follow, we set the \"teleportation\" parameter to
+be .15, thus p=.85 The first few methods of solution will look at the
+problem from the perspective of a linear system, the second as an
+eigen-problem.
+
+Before preceding, we need to read-in/create all the necessary variables
+and matrices. This is handled in the output below.
+
+```{r, SetUp}
+p <- .85  ## teleportation parameter
+n <- 500
+R.diag <- ifelse( out.degree > 0,1/out.degree,0)
+zi <- ifelse(out.degree>0,(1-p)/n,1/n)
+P <- p*R.diag*adj.matrix + zi%o%rep(1,n)
+i.minus.pt <- diag(1,nrow=500,ncol=500) - t(P)
+```
+
+
+Using a Dense Linear System Solver
+----------------------------------
+
+We are trying solve the linear equation $(I-P^T)x = 0$, thus
+$x \in \mathcal{N}(I-P^T)$. The Perron-Frobenius Theorem guarantees that
+there is a single vector in the $\mathcal{N}(I-P^T)$, thus we need not
+worry about uniqueness. QR decomposition is going to make solving this
+system very easy.
+
+If we perform a QR decomposition on $(I-P^T)^T$ with rank r, then the
+first r columns form an orthonormal basis for the column space of
+$(I-P^T)^T$ while the remaining n-r columns form an orthonormal basis
+for the null space of $(I-P^T)$. Since $(I-P^T)^T$ is only rank
+deficient by one, the last column of Q, when properly normalized, will
+be our solution.
+
+Below is my implementation of this method and the first five elements of
+my solution vector.
+
+```{r QR_solution,echo=TRUE}
+qr.i.minus.ptt <- qr(t(i.minus.pt))
+Q <- qr.Q(qr.i.minus.ptt)
+solution.qr <- Q[,500]
+solution.qr <- solution.qr/sum(solution.qr)
+solution.qr[1:5]
+```
+
+
+A very similar method to solving this problem in almost the exact same
+fashion, would be to use the *svd()* function. Singular-Value
+Decomposition also allows us to find a basis for the null space of
+$(I-P^T)^T$, and this can be accomplished with the following code.
+
+```{r SVD_solution,echo=TRUE}
+svd.P <- svd(i.minus.pt)
+solution.svd <- svd.P$v[,500,drop=F]
+solution.svd <- solution.svd/sum(solution.svd)
+solution.svd[1:5]
+```
+
+
+Using a Simple Iterative Linear System Solver
+---------------------------------------------
+
+Now we want to solve for the same vector as before, using an iterative
+solver. A very straight-forward method for doing this is the Jacobi
+method.
+
+Below is my implementation of the Jacobi Method for this problem.
+
+```{r Jacobi_solution,echo=TRUE, cache=TRUE}
+JacobiSolver <- function(matrixA,b,init.guess,tol,max.iter=5000){
+  ####################################################################
+  ##  Want to solve linear system Ax = b using iterative Jacobi method
+  ##  Input:
+  ##  init.guess = best initial guess for x
+  ##  tol = the tolerance for convergence (looking at max difference)
+  ##  max.iter = stopping condition if convergence not reached
+  ##  Output:
+  ##  solution x with information about convergence
+  ####################################################################
+  if(prod(diag(matrixA)!=0)==0){
+    print("All diagonal elements must be non-zero")
+    return(0)
+  }
+  L.plus.U <- matrixA
+  D <- diag(matrixA)
+  diag(L.plus.U) <- 0
+
+  x.old <- init.guess  ## Initial Conditions
+  x.ten <- init.guess
+  max.iterations <- max.iter
+  tolerance <- tol
+  count = 0
+  for(i in 1:max.iterations){
+    ##  Update
+    x.new <- -1*(1/D)*L.plus.U%*%x.old + (1/D)*b
+
+    ##  Check if converging
+    if(i%%10 == 0){
+      diff <- abs(x.new-x.ten)
+      x.ten <- x.new
+      if(max(diff)<tolerance){ print(noquote("Converged!"));break;}
+    }
+
+    ##  Get ready for the next loop
+    x.old <- x.new
+    count <- count +1
+    if(i == max.iterations){print("Not-Converged");return(0)}
+  }
+  solution.Jacobi <- x.new/sum(x.new)
+  print(noquote(paste("Iterative proceedure looped",count,"number of times.")))
+  return(solution.Jacobi)
+}
+##  Make sure it works!
+x.old <- matrix(1/n,nrow=500,ncol=1)
+solution.Jacobi <- JacobiSolver(i.minus.pt,rep(0,500),x.old,.000001)
+solution.Jacobi[1:5]
+```
+
+
+Using a Dense Eigen-Solver
+--------------------------
+
+As an eigen-problem we are trying to find the eigen-vector associated
+with the maximum eigenvalue 1, which is of multiplicity 1. One great way
+to do this in $\mathbb{R}$ is with the *eigen()* function, which
+implements Full Symmetric Eigen-Decomposition (tri-diagonalization + QR
+with implicit shift). This function finds all eigenvalues of a matrix,
+and on request, will find the eigenvectors as well.
+
+For this problem, we know we want to find the eigenvector corresponding
+to the eigenvalue 1. That is, we are trying to find x such that
+$P^Tx=x$. This is accomplished with the following code.
+
+```{r EigenDense,echo=TRUE}
+solution <- abs(eigen(t(P),symmetric=FALSE)$vectors[,1,drop=F])
+solution <- solution/sum(solution)
+solution[1:5]
+```
+
+
+Using a Simple Iterative Eigen-Solver
+-------------------------------------
+
+The Power Method is a very simple algorithm for finding the maximum
+eigenvalue and eigenvector for a matrix. We know by the Perron-Frobenius
+Theorem that 1 is the largest eigenvalue, thus applying this method to
+$P^T$ will provide the solution to our problem.
+
+My implementation of the Power Method for $P^T$ is below.
+
+```{r Power_Method,echo=TRUE}
+PowerMethodSolver <- function(matrixA,init.guess,tol,max.iter=5000){
+  ####################################################################
+  ##  Want to find large eigenvalue and associated eigenvector
+  ##  Ax = LAMBDAx
+  ##  Input:
+  ##  init.guess = best initial guess for x
+  ##  tol = the tolerance for convergence (looking at max difference)
+  ##  max.iter = stopping condition if convergence not reached
+  ##  Output:
+  ##  solution x with information about convergence
+  ####################################################################
+  x.old <- init.guess  ## Initial Conditions
+  x.ten <- x.old
+  max.iterations <- max.iter
+  tolerance <- tol
+  count = 0
+
+  for(i in 1:max.iterations){
+
+    ##  Calculate next iteration
+    x.new <- matrixA%*%x.old
+    x.new <- x.new/sqrt(sum(x.new^2))
+
+    ##  Check if converging
+    if(i%%10 == 0){
+      diff <- abs(x.new-x.ten)
+      x.ten <- x.new
+      if(max(diff)<tolerance){ print("Converged!");break;}
+    }
+
+    ##  Update
+    x.old <- x.new
+    count <- count+1
+    if(i == max.iterations){print("Not-Converged");return(0)}
+
+  }
+  solution.power <- x.new/sum(x.new)
+  print(noquote(paste("Method iterated",count,"number of times.")))
+  return(solution.power)
+}
+##  Make sure it works!
+x.old <- matrix(1/n,nrow=500,ncol=1)  ## Initial Conditions
+solution.power <- PowerMethodSolver(t(P),x.old,.000001)
+solution.power[1:5]
+```
+
+
+The Results
+===========
+
+Now that we have solved this problem in a number of different ways, we
+can answer the question that we set out to answer; what are the top 20
+websites connected to the [www.stat.ncsu.edu](www.stat.ncsu.edu)
+website?
+
+We can find these websites with the highest stationary state
+probabilities with the following code.
+
+```{r RESULTS}
+results <- cbind(solution,labels)
+colnames(results) <- c("Stationary Probabilities","Websites")
+sorted.index <- order(solution,decreasing=TRUE)
+sort.solution <- results[sorted.index,]
+sort.solution[1:20,]
+```
+
+
+Extension of this Analysis to the Entire Internet
+-------------------------------------------------
+
+The internet today contains some 43.5 Billion webpages. To solve the
+Page Rank problem with today's computational power is really only
+possible using iterative methods that can make use of "warm starts\",
+where solutions from previous days runs can be used as good starting
+values, significantly reducing the necessary number of iterations for
+convergence.

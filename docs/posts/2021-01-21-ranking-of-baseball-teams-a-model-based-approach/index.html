@@ -85,9 +85,9 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </style>
 
   <!--radix_placeholder_meta_tags-->
-<title>datalyfe: Ranking of Baseball Teams - A Model Based Approach</title>
+<title>datalyfe: Ranking Baseball Teams - A Model Based Approach</title>
 
-<meta property="description" itemprop="description" content="Teams play many games over the course of the season but they play teams in their&#10;division most often. Further, we need to account for situations where say Team A might    lose to Team B and beat Team C, but Team C has also won a game against Team B. How&#10;can we objectively rank teams where we only focus on who has beaten who?"/>
+<meta property="description" itemprop="description" content="In this post we work out the mathematics and implement two methods for fitting&#10;simple unstructured Bradley-Terry models from scratch."/>
 
 
 <!--  https://schema.org/Article -->
@@ -96,22 +96,22 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <meta name="article:author" content="Logan Lossing"/>
 
 <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
-<meta property="og:title" content="datalyfe: Ranking of Baseball Teams - A Model Based Approach"/>
+<meta property="og:title" content="datalyfe: Ranking Baseball Teams - A Model Based Approach"/>
 <meta property="og:type" content="article"/>
-<meta property="og:description" content="Teams play many games over the course of the season but they play teams in their&#10;division most often. Further, we need to account for situations where say Team A might    lose to Team B and beat Team C, but Team C has also won a game against Team B. How&#10;can we objectively rank teams where we only focus on who has beaten who?"/>
+<meta property="og:description" content="In this post we work out the mathematics and implement two methods for fitting&#10;simple unstructured Bradley-Terry models from scratch."/>
 <meta property="og:locale" content="en_US"/>
 <meta property="og:site_name" content="datalyfe"/>
 
 <!--  https://dev.twitter.com/cards/types/summary -->
 <meta property="twitter:card" content="summary"/>
-<meta property="twitter:title" content="datalyfe: Ranking of Baseball Teams - A Model Based Approach"/>
-<meta property="twitter:description" content="Teams play many games over the course of the season but they play teams in their&#10;division most often. Further, we need to account for situations where say Team A might    lose to Team B and beat Team C, but Team C has also won a game against Team B. How&#10;can we objectively rank teams where we only focus on who has beaten who?"/>
+<meta property="twitter:title" content="datalyfe: Ranking Baseball Teams - A Model Based Approach"/>
+<meta property="twitter:description" content="In this post we work out the mathematics and implement two methods for fitting&#10;simple unstructured Bradley-Terry models from scratch."/>
 
 <!--/radix_placeholder_meta_tags-->
   <!--radix_placeholder_rmarkdown_metadata-->
 
 <script type="text/json" id="radix-rmarkdown-metadata">
-{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","preview","author","date","tags","output"]}},"value":[{"type":"character","attributes":{},"value":["Ranking of Baseball Teams - A Model Based Approach"]},{"type":"character","attributes":{},"value":["Teams play many games over the course of the season but they play teams in their\ndivision most often. Further, we need to account for situations where say Team A might    lose to Team B and beat Team C, but Team C has also won a game against Team B. How\ncan we objectively rank teams where we only focus on who has beaten who?"]},{"type":"character","attributes":{},"value":["heatMap.png"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Logan Lossing"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":[]}},"value":[]}]}]},{"type":"character","attributes":{},"value":["2021-01-21"]},{"type":"character","attributes":{},"value":["probability"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained","code_folding","toc","toc_depth","number_sections"]}},"value":[{"type":"logical","attributes":{},"value":[false]},{"type":"logical","attributes":{},"value":[true]},{"type":"logical","attributes":{},"value":[true]},{"type":"integer","attributes":{},"value":[2]},{"type":"logical","attributes":{},"value":[true]}]}]}]}
+{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","preview","author","date","tags","categories","output"]}},"value":[{"type":"character","attributes":{},"value":["Ranking Baseball Teams - A Model Based Approach"]},{"type":"character","attributes":{},"value":["In this post we work out the mathematics and implement two methods for fitting\nsimple unstructured Bradley-Terry models from scratch."]},{"type":"character","attributes":{},"value":["heatMap.png"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Logan Lossing"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":[]}},"value":[]}]}]},{"type":"character","attributes":{},"value":["2021-01-21"]},{"type":"character","attributes":{},"value":["probability","R","python"]},{"type":"character","attributes":{},"value":["R","python","linear algebra","calculus","probability"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained","code_folding","toc","toc_depth","number_sections"]}},"value":[{"type":"logical","attributes":{},"value":[false]},{"type":"logical","attributes":{},"value":[false]},{"type":"logical","attributes":{},"value":[true]},{"type":"integer","attributes":{},"value":[2]},{"type":"logical","attributes":{},"value":[true]}]}]}]}
 </script>
 <!--/radix_placeholder_rmarkdown_metadata-->
   
@@ -2348,7 +2348,7 @@ d-appendix d-footnote-list a.footnote-backlink {
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Ranking of Baseball Teams - A Model Based Approach","description":"Teams play many games over the course of the season but they play teams in their\ndivision most often. Further, we need to account for situations where say Team A might    lose to Team B and beat Team C, but Team C has also won a game against Team B. How\ncan we objectively rank teams where we only focus on who has beaten who?","authors":[{"author":"Logan Lossing","authorURL":{},"affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2021-01-21T00:00:00.000+00:00","citationText":"Lossing, 2021"}
+{"title":"Ranking Baseball Teams - A Model Based Approach","description":"In this post we work out the mathematics and implement two methods for fitting\nsimple unstructured Bradley-Terry models from scratch.","authors":[{"author":"Logan Lossing","authorURL":{},"affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2021-01-21T00:00:00.000+00:00","citationText":"Lossing, 2021"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2372,10 +2372,17 @@ d-appendix d-footnote-list a.footnote-backlink {
 <!--/radix_placeholder_site_before_body-->
 
 <div class="d-title">
-<h1>Ranking of Baseball Teams - A Model Based Approach</h1>
+<h1>Ranking Baseball Teams - A Model Based Approach</h1>
 <!--radix_placeholder_categories-->
+<div class="dt-tags">
+  <a href="../../blog.html#category:R" class="dt-tag">R</a>
+  <a href="../../blog.html#category:python" class="dt-tag">python</a>
+  <a href="../../blog.html#category:linear_algebra" class="dt-tag">linear algebra</a>
+  <a href="../../blog.html#category:calculus" class="dt-tag">calculus</a>
+  <a href="../../blog.html#category:probability" class="dt-tag">probability</a>
+</div>
 <!--/radix_placeholder_categories-->
-<p><p>Teams play many games over the course of the season but they play teams in their division most often. Further, we need to account for situations where say Team A might lose to Team B and beat Team C, but Team C has also won a game against Team B. How can we objectively rank teams where we only focus on who has beaten who?</p></p>
+<p><p>In this post we work out the mathematics and implement two methods for fitting simple unstructured Bradley-Terry models from scratch.</p></p>
 </div>
 
 <div class="d-byline">
@@ -2396,13 +2403,13 @@ d-appendix d-footnote-list a.footnote-backlink {
 </ul></li>
 <li><a href="#reparameterization-and-newtons-scoring-method">Reparameterization and Newton’s Scoring Method</a>
 <ul>
-<li><a href="#implmentation-of-newtons-method">Implmentation of Newton’s Method</a></li>
+<li><a href="#implementation-of-newtons-method">Implementation of Newton’s Method</a></li>
 </ul></li>
 <li><a href="#results">Results</a></li>
 </ul>
 </nav>
 </div>
-<p><strong>Originally published in 2014</strong></p>
+<p><strong>Originally created in 2014</strong></p>
 <p>In this post, we wish to use Fisher’s Scoring Method and the MM algorithm to fit a Bradley-Terry model in an effort to rank the baseball teams of the American League. An interesting property of this model is its simplicity; only information about which teams have played each other in the regular season and, for each game played, noting which team won is used in the ranking.</p>
 <p>The data used to illustrate the implementation of these algorithms in this post consists of the regular season match records of every team in the American League in the MLB for the 2013. For simplicity, games against National league opponents are ignored.</p>
 <h2 id="the-model">The Model</h2>
@@ -2419,7 +2426,8 @@ d-appendix d-footnote-list a.footnote-backlink {
 \sum_{j=1}^p{y_{lj}\left [{ \frac{-1}{\gamma_l^2} + \frac{1}{(\gamma_l + \gamma_j)^2}}\right]} + \sum_{j=1}^p{y_{jk}(\frac{1}{(\gamma_j + \gamma_k)^2})}, &amp; k = l \\
 (y_{lk} + y_{kl})\frac{1}{(\gamma_l + \gamma_k)^2}, &amp; k \neq l
 \end{cases}\]</span></p>
-<p>Now, is the log-likelihood concave? No, it does not appear to be so. To see this consider the scenario where one team is particularly bad and fails to win any games against any opponents in a given year. If this is the case, the Observed Information Matrix will have a negative on the diagonal and thus the likelihood cannot be concave.</p>
+<p>Now, is the log-likelihood concave?</p>
+<p>No, it does not appear to be so. To see this consider the scenario where one team is particularly bad and fails to win any games against any opponents in a given year. If this is the case, the Observed Information Matrix will have a negative on the diagonal and thus the likelihood cannot be concave.</p>
 <h1 id="deriving-a-minorization-maximization-algorithm-for-maximizing-lgamma">Deriving a Minorization-Maximization Algorithm for Maximizing <span class="math inline">\(L(\gamma)\)</span></h1>
 <p>For this section, we want to find a minorizing function <span class="math inline">\(g(\gamma|\gamma^{(t)})\)</span> that has the property that <span class="math inline">\(g(\gamma^{(t)}|\gamma^{(t)}) = L(\gamma^{(t)})\)</span> at <span class="math inline">\(\gamma = \gamma^{(t)}\)</span> and otherwise, for all <span class="math inline">\(\gamma\)</span> we have that <span class="math inline">\(g(\gamma|\gamma^{(t)}) &lt; L(\gamma)\)</span>. These conditions are referred to as dominance and tangency conditions.</p>
 <p>The supporting hyperplane inequality states that a differentiable function <span class="math inline">\(f(\cdot)\)</span> is convex in U <span class="math inline">\(\iff\)</span> <span class="math inline">\(f(x) \ge f(y) + \langle \nabla f(y), x-y \rangle\)</span> for all <span class="math inline">\(x,y \in U\)</span>.</p>
@@ -2441,8 +2449,6 @@ g(\gamma|\gamma^{(t)}) &amp;= \sum_{i,j}{y_{ij}\left [ \ln(\gamma_i) -\ln(\gamma
 <p>The following is my code implementing the MM algorithm for these data. This algorithim is amazingly simple and efficient for these data. First it is necessary to read in the data and create a few functions to allow the main routine to be uncluttered. Also note, the parameters of this model are not identifiable without some remedy which was, in this case, to set <span class="math inline">\(\gamma_1 = 1\)</span>.</p>
 <p>First, we need to get the data from ESPN, we can scrape the standings using the following Python routine:</p>
 <div class="layout-chunk" data-layout="l-body">
-<details>
-<p><summary>Show code</summary></p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">from</span> bs4 <span class="im">import</span> BeautifulSoup</span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="im">import</span> urllib2</span>
 <span id="cb1-3"><a href="#cb1-3"></a><span class="im">import</span> re</span>
@@ -2487,20 +2493,17 @@ g(\gamma|\gamma^{(t)}) &amp;= \sum_{i,j}{y_{ij}\left [ \ln(\gamma_i) -\ln(\gamma
 <span id="cb1-42"><a href="#cb1-42"></a>        <span class="cf">for</span> i, opponent <span class="kw">in</span> <span class="bu">enumerate</span>(AL_teams):</span>
 <span id="cb1-43"><a href="#cb1-43"></a>            <span class="cf">if</span> team <span class="op">!=</span> opponent:</span>
 <span id="cb1-44"><a href="#cb1-44"></a>                csv_out.writerow([team, opponent, wins_losses[i][<span class="dv">0</span>], wins_losses[i][<span class="dv">1</span>]])</span></code></pre></div>
-</details>
 </div>
 <p>After writing the data to csv, we then read the data back in with R to finish the analysis. In the code below, you can see we have square matrix with each row representing a team in the AL and each column representing each of the possible AL opponents.</p>
 <p>For a fixed row, the number in a specific column corresponds to the number of games won vs the opponent listed with that column label. Example: In the first row, second column we see 11. This means that the BAL(timore) Orioles beat the BOS(ton) Red Sox 11 times during regular season play. The entry in row 2, column 1 is an 8, meaning that the BOS(ton) Red Sox beat the BAL(timore) Orioles 8 times during regular season play. No other data is used for this analysis. (The results are suprisingly good for such a simple model!)</p>
 <div class="layout-chunk" data-layout="l-body">
-<details>
-<summary>Show code</summary>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'>## Import Data</span>
+<span class='va'>path_to_data</span> <span class='op'>&lt;-</span> <span class='st'>"./ymat.csv"</span>
 <span class='va'>ymat</span> <span class='op'>&lt;-</span><span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span><span class='op'>(</span><span class='va'>path_to_data</span>, header <span class='op'>=</span> <span class='cn'>TRUE</span>, as.is <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>ymat</span><span class='op'>)</span>
 </code></pre>
 </div>
-</details>
 <pre><code>    BAL BOS CHW CLE DET HOU KC LAA MIN NYY OAK SEA TB TEX TOR
 BAL   0  11   4   3   4   4  3   5   3   9   5   2  6   5  10
 BOS   8   0   4   6   3   6  2   3   4  13   3   6 12   2  11
@@ -2508,8 +2511,6 @@ CHW   3   2   0   2   7   3  9   3   8   3   2   3  2   4   4
 CLE   4   1  17   0   4   6 10   4  13   1   5   5  2   5   4
 DET   2   4  12  15   0   6  9   0  11   3   3   5  3   3   5
 HOU   2   1   4   1   1   0  2  10   1   1   4   9  2   2   3</code></pre>
-<details>
-<summary>Show code</summary>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>ymat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span><span class='op'>(</span><span class='va'>ymat</span>,<span class='fl'>1</span>,<span class='va'>as.numeric</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span><span class='op'>(</span><span class='va'>ymat</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span><span class='op'>(</span><span class='va'>ymat</span><span class='op'>)</span>
@@ -2559,12 +2560,9 @@ HOU   2   1   4   1   1   0  2  10   1   1   4   9  2   2   3</code></pre>
 <span class='op'>}</span>
 </code></pre>
 </div>
-</details>
 </div>
 <p>Now that all the setup functions have been loaded we can bring in the main routine that actually will return the estimated strengths for each team in the American League.</p>
 <div class="layout-chunk" data-layout="l-body">
-<details>
-<summary>Show code</summary>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>strength.fit.MM</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>dat</span>, <span class='va'>gamma0</span> <span class='op'>=</span> <span class='cn'>NULL</span>,<span class='va'>maxiters</span> <span class='op'>=</span> <span class='fl'>1000</span>,<span class='va'>tolfun</span> <span class='op'>=</span> <span class='fl'>1e-6</span><span class='op'>)</span><span class='op'>{</span>
 
@@ -2595,7 +2593,6 @@ HOU   2   1   4   1   1   0  2  10   1   1   4   9  2   2   3</code></pre>
 <span class='va'>ranking</span>
 </code></pre>
 </div>
-</details>
 <pre><code>$Strengths
       BAL       BOS       CHW       CLE       DET       HOU        KC 
 1.0000000 1.2510850 0.5642156 1.1030067 1.1009506 0.3857875 0.9993401 
@@ -2632,11 +2629,9 @@ $Gradient
 \end{cases}\]</span></p>
 <p>For this reparameterized likelihood, the resulting Hessian matrix is negative definite and thus the log-likelihood under this representation is concave. This result is due to the closure of log-convex functions under addition (see "Convex Optimization"-Stephen Boyd pg.105) Further, since we have reparameterized our parameters to the real line, there is no need to worry about backtracking in the implementation of Newton’s Method.</p>
 <p>It is now time to obtain the estimates of our parameters using Newton’s Method. The implementation of this method is below.</p>
-<h2 id="implmentation-of-newtons-method">Implmentation of Newton’s Method</h2>
+<h2 id="implementation-of-newtons-method">Implementation of Newton’s Method</h2>
 <p>This method has quite a few more "moving parts" than did the MM implementation. Not only does the likelihood need to be computed, but also the gradient and Hessian matrices. The set-up for the actual main routine is below.</p>
 <div class="layout-chunk" data-layout="l-body">
-<details>
-<summary>Show code</summary>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>loglikelihood.lambda</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>lam</span>,<span class='va'>dat</span><span class='op'>)</span><span class='op'>{</span>
   <span class='va'>len</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>lam</span><span class='op'>)</span>
@@ -2726,12 +2721,9 @@ $Gradient
 <span class='op'>}</span>
 </code></pre>
 </div>
-</details>
 </div>
 <p>Now that all the necessary functions have been created, we can call the main routine and obtain some estimates. This implementation is below.</p>
 <div class="layout-chunk" data-layout="l-body">
-<details>
-<summary>Show code</summary>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>strength.fit.Newton</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>dat</span>,<span class='va'>lambda0</span><span class='op'>=</span><span class='cn'>NULL</span>,<span class='va'>maxiters</span><span class='op'>=</span><span class='fl'>100</span>,<span class='va'>tolfun</span><span class='op'>=</span><span class='fl'>1e-6</span><span class='op'>)</span><span class='op'>{</span>
   
@@ -2768,7 +2760,6 @@ $Gradient
 <span class='va'>strengths</span>
 </code></pre>
 </div>
-</details>
 <pre><code>$Strengths
           BAL           BOS           CHW           CLE           DET 
  0.0000000000  0.2240370238 -0.5724141333  0.0979381904  0.0960691213 
@@ -3212,7 +3203,7 @@ $Gradient
 </tr>
 </tbody>
 </table>
-<p>Finally, it is always nice to visualize the above table so that we can easily see which teams are good and which teams are not so good. A heat map version of the above table can do just this. The plot below conveys the exact same information but rather than being interested in specific values, we are more interested in the patterns, easily pointing out which teams have performed poorly in the 2013 regular season. For example, the lowest ranked team, the Houston Astros, have a red band all the way across their row, showing a low probability of beating any opponent wheras the Boston Red Sox’s row is mostly blue and purple, showing their dominance over the rest of the league.</p>
+<p>Finally, it is always nice to visualize the above table so that we can easily see which teams are good and which teams are not so good. A heat map version of the above table can do just this. The plot below conveys the exact same information but rather than being interested in specific values, we are more interested in the patterns, easily pointing out which teams have performed poorly in the 2013 regular season. For example, the lowest ranked team, the Houston Astros, have a red band all the way across their row, showing a low probability of beating any opponent whereas the Boston Red Sox’s row is mostly blue and purple, showing their dominance over the rest of the league.</p>
 <figure>
 <img src="heatMap.png" alt="" /><figcaption>Heat Map of the Estimated Win Probabilities for Teams in the American League</figcaption>
 </figure>

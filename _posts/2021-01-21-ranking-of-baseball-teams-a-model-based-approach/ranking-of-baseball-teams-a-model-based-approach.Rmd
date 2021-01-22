@@ -1,19 +1,25 @@
 ---
-title: "Ranking of Baseball Teams - A Model Based Approach"
+title: "Ranking Baseball Teams - A Model Based Approach"
 description: |
-  Teams play many games over the course of the season but they play teams in their
-  division most often. Further, we need to account for situations where say Team A might    lose to Team B and beat Team C, but Team C has also won a game against Team B. How
-  can we objectively rank teams where we only focus on who has beaten who?
+  In this post we work out the mathematics and implement two methods for fitting
+  simple unstructured Bradley-Terry models from scratch.
+  
 preview: heatMap.png
 author:
   - name: Logan Lossing
     url: {}
 date: 2021-01-21
-tags: ['probability']
+tags: ['probability', 'R', 'python']
+categories:
+  - R
+  - python
+  - linear algebra
+  - calculus
+  - probability
 output:
   distill::distill_article:
     self_contained: false
-    code_folding: true
+    code_folding: false
     toc: true
     toc_depth: 2
     number_sections: true
@@ -24,15 +30,11 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 
-path_to_data <- "~/Documents/nagol_distill/_posts/2021-01-21-ranking-of-baseball-teams-a-model-based-approach/ymat.csv"
-
-library(here)
-library(tidyverse)
 ```
 
 \maketitle 
 
-**Originally published in 2014**
+**Originally created in 2014**
 
 In this post, we wish to use Fisher's Scoring Method and the MM
 algorithm to fit a Bradley-Terry model in an effort to rank the baseball teams of the American League. An interesting property of this model is its simplicity; only information about which teams have played each other in the regular season and, for each game played, noting which team won is used in the ranking. 
@@ -73,8 +75,10 @@ $$\nabla^2L(\gamma)_{lk} =
 (y_{lk} + y_{kl})\frac{1}{(\gamma_l + \gamma_k)^2}, & k \neq l
 \end{cases}$$
 
-Now, is the log-likelihood concave? No, it does not appear to be so. To
-see this consider the scenario where one team is particularly bad and
+Now, is the log-likelihood concave? 
+
+No, it does not appear to be so.
+To see this consider the scenario where one team is particularly bad and
 fails to win any games against any opponents in a given year. If this is
 the case, the Observed Information Matrix will have a negative on the
 diagonal and thus the likelihood cannot be concave.
@@ -193,6 +197,7 @@ For a fixed row, the number in a specific column corresponds to the number of ga
 
 ```{r GettingReady, echo=TRUE}
 ## Import Data
+path_to_data <- "./ymat.csv"
 ymat <-read.csv(path_to_data, header = TRUE, as.is = TRUE)
 head(ymat)
 ymat <- apply(ymat,1,as.numeric)
@@ -313,7 +318,7 @@ Method.
 It is now time to obtain the estimates of our parameters using Newton's
 Method. The implementation of this method is below.
 
-Implmentation of Newton's Method
+Implementation of Newton's Method
 --------------------------------
 
 This method has quite a few more "moving parts\" than did the MM
@@ -527,7 +532,7 @@ Finally, it is always nice to visualize the above table so that we can
 easily see which teams are good and which teams are not so good. A heat
 map version of the above table can do just this. The plot below conveys the exact same information but rather than being interested in specific values, we are more interested in the patterns, easily pointing out which teams have performed poorly in the 2013 regular season. For example, the lowest ranked team, the Houston
 Astros, have a red band all the way across their row, showing a low
-probability of beating any opponent wheras the Boston Red Sox's row is
+probability of beating any opponent whereas the Boston Red Sox's row is
 mostly blue and purple, showing their dominance over the rest of the
 league.
 

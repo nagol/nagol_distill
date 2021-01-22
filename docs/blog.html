@@ -2153,7 +2153,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   code {
     font-family: 'Fira Mono', sans-serif;
     color: #383838;
-    background: #F5F5F5;
+    background: #fff;
     font-weight: 400;
     font-size: 0.9em;
   }
@@ -2490,11 +2490,38 @@ function init_posts_list() {
 
 
 
-<div class="posts-container posts-apply-limit l-page">
+<div class="posts-container posts-with-sidebar posts-apply-limit l-screen-inset">
 <div class="posts-list">
 <h1 class="posts-list-caption" data-caption="Blog">Blog</h1>
+<a href="posts/2021-01-22-the-page-rank-algorithm/" class="post-preview">
+<script class="post-metadata" type="text/json">{"categories":["R","linear algebra","probability"]}</script>
+<div class="metadata">
+<div class="publishedDate">Jan. 22, 2021</div>
+<div class="dt-authors">
+<div class="dt-author">Logan Lossing</div>
+</div>
+</div>
+<div class="thumbnail">
+<img src="posts/2021-01-22-the-page-rank-algorithm/the-page-rank-algorithm_files/figure-html5/MakePlot-1.png"/>
+</div>
+<div class="description">
+<h2>The Page Rank Algorithm</h2>
+<div class="dt-tags">
+<div class="dt-tag">R</div>
+<div class="dt-tag">linear algebra</div>
+<div class="dt-tag">probability</div>
+</div>
+<p>Google's Page Rank Algorithm was an early tool that helped determine the
+relevance of search results.
+
+How does the algorithm work? How can we implement the algorithm?
+
+In this post, we investigate the mathematics behind the Page Rank algorithm and
+implement several different methods for obtaining results using R.</p>
+</div>
+</a>
 <a href="posts/2021-01-21-ranking-of-baseball-teams-a-model-based-approach/" class="post-preview">
-<script class="post-metadata" type="text/json">{"categories":[]}</script>
+<script class="post-metadata" type="text/json">{"categories":["R","python","linear algebra","calculus","probability"]}</script>
 <div class="metadata">
 <div class="publishedDate">Jan. 21, 2021</div>
 <div class="dt-authors">
@@ -2505,11 +2532,16 @@ function init_posts_list() {
 <img src="posts/2021-01-21-ranking-of-baseball-teams-a-model-based-approach/heatMap.png"/>
 </div>
 <div class="description">
-<h2>Ranking of Baseball Teams - A Model Based Approach</h2>
-<div class="dt-tags"></div>
-<p>Teams play many games over the course of the season but they play teams in their
-division most often. Further, we need to account for situations where say Team A might    lose to Team B and beat Team C, but Team C has also won a game against Team B. How
-can we objectively rank teams where we only focus on who has beaten who?</p>
+<h2>Ranking Baseball Teams - A Model Based Approach</h2>
+<div class="dt-tags">
+<div class="dt-tag">R</div>
+<div class="dt-tag">python</div>
+<div class="dt-tag">linear algebra</div>
+<div class="dt-tag">calculus</div>
+<div class="dt-tag">probability</div>
+</div>
+<p>In this post we work out the mathematics and implement two methods for fitting
+simple unstructured Bradley-Terry models from scratch.</p>
 </div>
 </a>
 <a href="posts/2021-01-20-welcome/" class="post-preview">
@@ -2520,13 +2552,46 @@ can we objectively rank teams where we only focus on who has beaten who?</p>
 <div class="dt-author">Logan Lossing</div>
 </div>
 </div>
-<div class="thumbnail"></div>
+<div class="thumbnail">
+<img/>
+</div>
 <div class="description">
 <h2>Welcome</h2>
 <div class="dt-tags"></div>
 <p>The journey begins...</p>
 </div>
 </a>
+</div>
+<div class="posts-sidebar">
+<div class="sidebar-section categories">
+<h3>Categories</h3>
+<ul>
+<li>
+<a href="#category:Articles">Articles</a>
+<span class="category-count">(3)</span>
+</li>
+<li>
+<a href="#category:calculus">calculus</a>
+<span class="category-count">(1)</span>
+</li>
+<li>
+<a href="#category:linear_algebra">linear algebra</a>
+<span class="category-count">(2)</span>
+</li>
+<li>
+<a href="#category:probability">probability</a>
+<span class="category-count">(2)</span>
+</li>
+<li>
+<a href="#category:python">python</a>
+<span class="category-count">(1)</span>
+</li>
+<li>
+<a href="#category:R">R</a>
+<span class="category-count">(2)</span>
+</li>
+</ul>
+</div>
 </div>
 <div class="posts-more">
 <a href="#">More articles &raquo;</a>

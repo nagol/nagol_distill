@@ -85,38 +85,38 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </style>
 
   <!--radix_placeholder_meta_tags-->
-<title>datalyfe: Welcome</title>
+<title>datalyfe: The Page Rank Algorithm</title>
 
-<meta property="description" itemprop="description" content="The journey begins..."/>
+<meta property="description" itemprop="description" content="Google&#39;s Page Rank Algorithm was an early tool that helped determine the&#10;relevance of search results.&#10;&#10;How does the algorithm work? How can we implement the algorithm?&#10;&#10;In this post, we investigate the mathematics behind the Page Rank algorithm and&#10;implement several different methods for obtaining results using R."/>
 
 
 <!--  https://schema.org/Article -->
-<meta property="article:published" itemprop="datePublished" content="2021-01-20"/>
-<meta property="article:created" itemprop="dateCreated" content="2021-01-20"/>
+<meta property="article:published" itemprop="datePublished" content="2021-01-22"/>
+<meta property="article:created" itemprop="dateCreated" content="2021-01-22"/>
 <meta name="article:author" content="Logan Lossing"/>
 
 <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
-<meta property="og:title" content="datalyfe: Welcome"/>
+<meta property="og:title" content="datalyfe: The Page Rank Algorithm"/>
 <meta property="og:type" content="article"/>
-<meta property="og:description" content="The journey begins..."/>
+<meta property="og:description" content="Google&#39;s Page Rank Algorithm was an early tool that helped determine the&#10;relevance of search results.&#10;&#10;How does the algorithm work? How can we implement the algorithm?&#10;&#10;In this post, we investigate the mathematics behind the Page Rank algorithm and&#10;implement several different methods for obtaining results using R."/>
 <meta property="og:locale" content="en_US"/>
 <meta property="og:site_name" content="datalyfe"/>
 
 <!--  https://dev.twitter.com/cards/types/summary -->
 <meta property="twitter:card" content="summary"/>
-<meta property="twitter:title" content="datalyfe: Welcome"/>
-<meta property="twitter:description" content="The journey begins..."/>
+<meta property="twitter:title" content="datalyfe: The Page Rank Algorithm"/>
+<meta property="twitter:description" content="Google&#39;s Page Rank Algorithm was an early tool that helped determine the&#10;relevance of search results.&#10;&#10;How does the algorithm work? How can we implement the algorithm?&#10;&#10;In this post, we investigate the mathematics behind the Page Rank algorithm and&#10;implement several different methods for obtaining results using R."/>
 
 <!--/radix_placeholder_meta_tags-->
   <!--radix_placeholder_rmarkdown_metadata-->
 
 <script type="text/json" id="radix-rmarkdown-metadata">
-{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["Welcome"]},{"type":"character","attributes":{},"value":["The journey begins..."]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name"]}},"value":[{"type":"character","attributes":{},"value":["Logan Lossing"]}]}]},{"type":"character","attributes":{},"value":["01-20-2021"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]}]}
+{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","tags","categories","output"]}},"value":[{"type":"character","attributes":{},"value":["The Page Rank Algorithm"]},{"type":"character","attributes":{},"value":["Google's Page Rank Algorithm was an early tool that helped determine the\nrelevance of search results.\n\nHow does the algorithm work? How can we implement the algorithm?\n\nIn this post, we investigate the mathematics behind the Page Rank algorithm and\nimplement several different methods for obtaining results using R."]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Logan Lossing"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":[]}},"value":[]}]}]},{"type":"character","attributes":{},"value":["01-22-2021"]},{"type":"character","attributes":{},"value":["probability","R","linear algebra"]},{"type":"character","attributes":{},"value":["R","linear algebra","probability"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained","code_folding","toc","toc_depth","number_sections"]}},"value":[{"type":"logical","attributes":{},"value":[false]},{"type":"logical","attributes":{},"value":[false]},{"type":"logical","attributes":{},"value":[true]},{"type":"integer","attributes":{},"value":[2]},{"type":"logical","attributes":{},"value":[true]}]}]}]}
 </script>
 <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["welcome_files/anchor-4.2.2/anchor.min.js","welcome_files/bowser-1.9.3/bowser.min.js","welcome_files/distill-2.2.21/template.v2.js","welcome_files/header-attrs-2.6.6/header-attrs.js","welcome_files/jquery-1.11.3/jquery.min.js","welcome_files/popper-2.6.0/popper.min.js","welcome_files/tippy-6.2.7/tippy-bundle.umd.min.js","welcome_files/tippy-6.2.7/tippy-light-border.css","welcome_files/tippy-6.2.7/tippy.css","welcome_files/tippy-6.2.7/tippy.umd.min.js","welcome_files/webcomponents-2.0.0/webcomponents.js"]}
+  {"type":"character","attributes":{},"value":["stat-ncsu/A.txt","stat-ncsu/U.txt","the-page-rank-algorithm_files/anchor-4.2.2/anchor.min.js","the-page-rank-algorithm_files/bowser-1.9.3/bowser.min.js","the-page-rank-algorithm_files/distill-2.2.21/template.v2.js","the-page-rank-algorithm_files/figure-html5/MakePlot-1.png","the-page-rank-algorithm_files/header-attrs-2.6.6/header-attrs.js","the-page-rank-algorithm_files/jquery-1.11.3/jquery.min.js","the-page-rank-algorithm_files/popper-2.6.0/popper.min.js","the-page-rank-algorithm_files/tippy-6.2.7/tippy-bundle.umd.min.js","the-page-rank-algorithm_files/tippy-6.2.7/tippy-light-border.css","the-page-rank-algorithm_files/tippy-6.2.7/tippy.css","the-page-rank-algorithm_files/tippy-6.2.7/tippy.umd.min.js","the-page-rank-algorithm_files/webcomponents-2.0.0/webcomponents.js"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
 <meta name="distill:offset" content="../.."/>
@@ -2348,7 +2348,7 @@ d-appendix d-footnote-list a.footnote-backlink {
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Welcome","description":"The journey begins...","authors":[{"author":"Logan Lossing","authorURL":"#","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2021-01-20T00:00:00.000+00:00","citationText":"Lossing, 2021"}
+{"title":"The Page Rank Algorithm","description":"Google's Page Rank Algorithm was an early tool that helped determine the\nrelevance of search results.\n\nHow does the algorithm work? How can we implement the algorithm?\n\nIn this post, we investigate the mathematics behind the Page Rank algorithm and\nimplement several different methods for obtaining results using R.","authors":[{"author":"Logan Lossing","authorURL":{},"affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2021-01-22T00:00:00.000+00:00","citationText":"Lossing, 2021"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2372,23 +2372,358 @@ d-appendix d-footnote-list a.footnote-backlink {
 <!--/radix_placeholder_site_before_body-->
 
 <div class="d-title">
-<h1>Welcome</h1>
+<h1>The Page Rank Algorithm</h1>
 <!--radix_placeholder_categories-->
+<div class="dt-tags">
+  <a href="../../blog.html#category:R" class="dt-tag">R</a>
+  <a href="../../blog.html#category:linear_algebra" class="dt-tag">linear algebra</a>
+  <a href="../../blog.html#category:probability" class="dt-tag">probability</a>
+</div>
 <!--/radix_placeholder_categories-->
-<p><p>The journey begins…</p></p>
+<p><p>Google’s Page Rank Algorithm was an early tool that helped determine the relevance of search results.</p>
+<p>How does the algorithm work? How can we implement the algorithm?</p>
+<p>In this post, we investigate the mathematics behind the Page Rank algorithm and implement several different methods for obtaining results using R.</p></p>
 </div>
 
 <div class="d-byline">
-  Logan Lossing  
+  Logan Lossing true 
   
-<br/>01-20-2021
+<br/>01-22-2021
 </div>
 
 <div class="d-article">
-<p>Technology is amazing. Modern frameworks and computing architectures are more powerful than ever. Despite the progress, it can be quite time consuming to learn a new technology, especially if not done in an organized way. To be a little more thoughtful and organized with my own professional development, I decided to start this blog where I can turn my random musings into more polished articles for the benefit of myself and anyone else that finds it useful.</p>
-<p>Shout out to all of the amazing developers around the world that share their amazing materials with the world! You all are an inspiration.</p>
-<p><a href="https://rstudio.com/resources/rstudioconf-2019/the-unreasonable-effectiveness-of-public-work/">Link to talk by David Robinson - The Unreasonalbe Effectiveness of Public Work</a></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="d-contents d-contents-float">
+<nav class="l-text toc figcaption" id="TOC">
+<h3>Contents</h3>
+<ul>
+<li><a href="#the-page-rank-problem-an-exploration">The Page Rank Problem: An Exploration</a>
+<ul>
+<li><a href="#summary-statistics-of-the-ncsu-data">Summary Statistics of the NCSU Data</a></li>
+</ul></li>
+<li><a href="#solving-the-page-rank-problem">Solving the Page Rank Problem</a>
+<ul>
+<li><a href="#using-a-dense-linear-system-solver">Using a Dense Linear System Solver</a></li>
+<li><a href="#using-a-simple-iterative-linear-system-solver">Using a Simple Iterative Linear System Solver</a></li>
+<li><a href="#using-a-dense-eigen-solver">Using a Dense Eigen-Solver</a></li>
+<li><a href="#using-a-simple-iterative-eigen-solver">Using a Simple Iterative Eigen-Solver</a></li>
+</ul></li>
+<li><a href="#the-results">The Results</a>
+<ul>
+<li><a href="#extension-of-this-analysis-to-the-entire-internet">Extension of this Analysis to the Entire Internet</a></li>
+</ul></li>
+</ul>
+</nav>
+</div>
+<p><strong>Originally published in 2014</strong></p>
+<h1 id="the-page-rank-problem-an-exploration">The Page Rank Problem: An Exploration</h1>
+<p>When searching for a particular keyword on the internet, we want our search engine to return "relevant" websites. There are many possible ways of defining what we mean by relevant, but the one that the Google founders came up with in the 1990’s was the Page Rank method.</p>
+<p>The crux of the idea of the Page Rank method is that the "importance" of a particular web-page can be defined to be the number of web-pages that link to it. The authors at <a href="http://www.math.cornell.edu/~mec/Winter2009/RalucaRemus/Lecture3/lecture3.html" class="uri">http://www.math.cornell.edu/~mec/Winter2009/RalucaRemus/Lecture3/lecture3.html</a> did a great job in explaining what this means, and I borrow their explanation here.</p>
+<blockquote>
+<p>"If we create a web page i and include a hyperlink to the web page j, this means that we consider j important and relevant for our topic. If there are a lot of pages that link to j, this means that the common belief is that page j is important. If on the other hand, j has only one backlink, but that comes from an authoritative site k, (like www.google.com, www.cnn.com, www.cornell.edu) we say that k transfers its authority to j; in other words, k asserts that j is important. Whether we talk about popularity or authority, we can iteratively assign a rank to each web page, based on the ranks of the pages that point to it."</p>
+<p>- Cornell Math Explorers Club Website</p>
+</blockquote>
+<p>Using this idea of importance, we can turn a directed graph, one that represents the network structure of webpages (nodes are websites, edges are links), into a transition matrix for a Markov Chain. Then we can think of the most "relevant" websites as those with the highest probabilities in the stationary distribution of the Markov Chain.</p>
+<p>There are, however, two issues that we need to adjust for. The first is that our graph may not be fully connected. That is, we are not guaranteed that a path exists to every website from every other website. This causes us to get stuck in one part of the graph and not be able to assess the importance of other parts of the graph. The second issue is “dangling nodes," websites that have links to them but they do not link anywhere else. In order to adjust for this, we have the idea of a”random surfer."</p>
+<p>A "random surfer" is an entity that will randomly surf around the graph according to some basic rules. Let <span class="math inline">\(r_{i}\)</span> be the out degree of webpage i. The out degree of a webpages is defined to be the number of webpages that it links to. When arriving to webpage i then they do one of the following things:</p>
+<ol type="1">
+<li><p>If <span class="math inline">\(r_{i} &gt; 0\)</span> then with probability p they uniformly chose a link on that page and with probability 1-p they choose a link uniformly from the space of n-pages</p></li>
+<li><p>If <span class="math inline">\(r_{i} = 0\)</span> then they choose a random page uniformly from the space of n-pages</p></li>
+</ol>
+<p>We can notate this as follows.</p>
+<ol type="1">
+<li><p>Let A be an (nxn) adjacency matrix where <span class="math inline">\(a_{ij} = \mathbb{1}(\text{webpage i links to webpage j})\)</span></p></li>
+<li><p>Define p to be the probability that a random surfer follows a link on the current page (1-p is called the "teleportation" parameter)</p></li>
+<li><p><span class="math inline">\(r_{i}\)</span> be the out degree of webpage i. The out degree of a webpages is defined to be the number of webpages that it links to</p></li>
+<li><p>The transition matrix P has entries <span class="math inline">\(p_{ij} = \mathbb{1}(r_{i}&gt;0)\Big (\frac{pa_{ij}}{r_{i}} \Big ) + \mathbb{1}(r_{i}=0) \Big ( \frac{1-p}{n} \Big )\)</span></p></li>
+</ol>
+<p>In matrix form, this can be written as:</p>
+<p><span class="math display">\[P = pR^{+}A + z1_{n}^T\]</span></p>
+<p>where, <span class="math inline">\(R = \text{diag}(r_{1},...,r_{n})\)</span> and <span class="math inline">\(z_{j} = \mathbb{1}(r_{i}&gt;0)(\frac{1-p}{n}) + \mathbb{1}(r_{i}=0)(\frac{1}{n})\)</span></p>
+<p>Given this Markov Chain setup, we can find the stationary distribution which corresponds to the ranks (probabilities) of each page.</p>
+<p>It turns out that P is a positive row stochastic matrix and thus <span class="math inline">\(P^T\)</span> is column stochastic. The Perron-Frobenius Theorem guarantees that any column stochastic matrix has the following properties:</p>
+<ol type="1">
+<li><p>1 is an eigenvalue of multiplicity one</p></li>
+<li><p>1 is the largest eigenvalue, all others are smaller in modulus</p></li>
+<li><p>There exists a unique eigenvector corresponding to 1 that has all positive entries and sums to 1</p></li>
+</ol>
+<p>This theorem thus gives us a few interesting ways to look at this problem, yielding several possible methods of solution.</p>
+<p>The first way to think about this is as an eigen-problem. We want to find the eigenvector corresponding to eigenvalue 1. Since this eigenvalue is multiplicity one then there is only one such eigenvector (up to a constant). That is, we want to find x such that <span class="math inline">\(P^Tx = x\)</span>. There are many possible ways to solve such and eigen-problem such as Singular-Value Decomposition(SVD) or iteratively using the Power-Method.</p>
+<p>The second way to think about this problem is as a linear system of equations. <span class="math inline">\(P^Tx = x \iff (I-P^T)x = 0\)</span>. We can solve such a linear system using ... or iteratively using the Jacobi Method, Gauss-Seidel, or Bi-Conjugate Gradient Methods.</p>
+<p>In the rest of this document we explore these different methods of solving the Page Rank Problem using a data set of 500 webpages connected to the <a href="www.stat.ncsu.edu">www.stat.ncsu.edu</a> webpage. (Go Wolfpack!)</p>
+<h2 id="summary-statistics-of-the-ncsu-data">Summary Statistics of the NCSU Data</h2>
+<p>The <a href="https://github.com/nagol/nagol.github.io/blob/master/content/post/stat-ncsu/A.txt">A.txt</a> data set is a (500x500) adjacency matrix of the top 500 web-pages linking to the <a href="www.stat.ncsu.edu">www.stat.ncsu.edu</a> website.</p>
+<ol type="1">
+<li><p>The total number of edges is equal to <span class="math inline">\(\sum_{i}{\sum_{j}{a_{ij}}} = 14,102\)</span>.</p></li>
+<li><p>The out degree of the matrix is <span class="math inline">\(r_{i} = \sum_{j}{a_{ij}}\)</span>. The max out degree was 126, and the min was 0.</p></li>
+<li><p>There were 97 dangling nodes.</p></li>
+</ol>
+<p>These calculations were performed with the following code:</p>
+<div class="layout-chunk" data-layout="l-body">
+
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>adj.matrix</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.table</a></span><span class='op'>(</span><span class='va'>path_to_dataA</span>,header<span class='op'>=</span><span class='cn'>FALSE</span>,sep <span class='op'>=</span> <span class='st'>","</span><span class='op'>)</span>
+<span class='va'>labels</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.table</a></span><span class='op'>(</span><span class='va'>path_to_dataU</span>,header<span class='op'>=</span><span class='cn'>FALSE</span>,sep <span class='op'>=</span> <span class='st'>","</span>,as.is<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+<span class='va'>adj.matrix</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/t.html'>t</a></span><span class='op'>(</span><span class='va'>adj.matrix</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>labels</span><span class='op'>&lt;-</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span><span class='op'>(</span><span class='va'>labels</span><span class='op'>)</span>
+
+<span class='op'>(</span><span class='va'>number.of.pages</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span><span class='op'>(</span><span class='va'>adj.matrix</span><span class='op'>)</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>[1] 500</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='op'>(</span><span class='va'>number.of.edges</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>adj.matrix</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>[1] 14102</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'>##  ri- the out degree = sum_j (Aij)</span>
+<span class='va'>out.degree</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span><span class='op'>(</span><span class='va'>adj.matrix</span>,<span class='fl'>1</span>,<span class='va'>sum</span><span class='op'>)</span>
+<span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span><span class='op'>(</span><span class='va'>out.degree</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>[1] 0</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span><span class='op'>(</span><span class='va'>out.degree</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>[1] 126</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='op'>(</span><span class='va'>number.of.dangling.nodes</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>out.degree</span><span class='op'>==</span><span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>[1] 97</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>in.degree</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span><span class='op'>(</span><span class='va'>adj.matrix</span>,<span class='fl'>2</span>,<span class='va'>sum</span><span class='op'>)</span>
+<span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span><span class='op'>(</span><span class='va'>in.degree</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>[1] 268</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span><span class='op'>(</span><span class='va'>in.degree</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>[1] 1</code></pre>
+</div>
+<p>Let’s quickly take a second to look at the sparsity pattern in the adjacency matrix. This is accomplished using the function <em>fields::image.plot()</em> from the "fields" package. The code to make this plot is below.</p>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="the-page-rank-algorithm_files/figure-html5/MakePlot-1.png" width="624" /></p>
+</div>
+<p>We can see that the majority of the matrix is zeros, thus this is a sparse matrix. This structure can be exploited to speed up the solving of this system. We also see that many pages have nearly identical linking structures.</p>
+<h1 id="solving-the-page-rank-problem">Solving the Page Rank Problem</h1>
+<p>For the analyses that follow, we set the "teleportation" parameter to be .15, thus p=.85 The first few methods of solution will look at the problem from the perspective of a linear system, the second as an eigen-problem.</p>
+<p>Before preceding, we need to read-in/create all the necessary variables and matrices. This is handled in the output below.</p>
+<div class="layout-chunk" data-layout="l-body">
+
+</div>
+<h2 id="using-a-dense-linear-system-solver">Using a Dense Linear System Solver</h2>
+<p>We are trying solve the linear equation <span class="math inline">\((I-P^T)x = 0\)</span>, thus <span class="math inline">\(x \in \mathcal{N}(I-P^T)\)</span>. The Perron-Frobenius Theorem guarantees that there is a single vector in the <span class="math inline">\(\mathcal{N}(I-P^T)\)</span>, thus we need not worry about uniqueness. QR decomposition is going to make solving this system very easy.</p>
+<p>If we perform a QR decomposition on <span class="math inline">\((I-P^T)^T\)</span> with rank r, then the first r columns form an orthonormal basis for the column space of <span class="math inline">\((I-P^T)^T\)</span> while the remaining n-r columns form an orthonormal basis for the null space of <span class="math inline">\((I-P^T)\)</span>. Since <span class="math inline">\((I-P^T)^T\)</span> is only rank deficient by one, the last column of Q, when properly normalized, will be our solution.</p>
+<p>Below is my implementation of this method and the first five elements of my solution vector.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>qr.i.minus.ptt</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/qr.html'>qr</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/t.html'>t</a></span><span class='op'>(</span><span class='va'>i.minus.pt</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>Q</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/qraux.html'>qr.Q</a></span><span class='op'>(</span><span class='va'>qr.i.minus.ptt</span><span class='op'>)</span>
+<span class='va'>solution.qr</span> <span class='op'>&lt;-</span> <span class='va'>Q</span><span class='op'>[</span>,<span class='fl'>500</span><span class='op'>]</span>
+<span class='va'>solution.qr</span> <span class='op'>&lt;-</span> <span class='va'>solution.qr</span><span class='op'>/</span><span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>solution.qr</span><span class='op'>)</span>
+<span class='va'>solution.qr</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>]</span>
+</code></pre>
+</div>
+<pre><code>[1] 0.002136784 0.235939467 0.010670053 0.005944397 0.006703392</code></pre>
+</div>
+<p>A very similar method to solving this problem in almost the exact same fashion, would be to use the <em>svd()</em> function. Singular-Value Decomposition also allows us to find a basis for the null space of <span class="math inline">\((I-P^T)^T\)</span>, and this can be accomplished with the following code.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>svd.P</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/svd.html'>svd</a></span><span class='op'>(</span><span class='va'>i.minus.pt</span><span class='op'>)</span>
+<span class='va'>solution.svd</span> <span class='op'>&lt;-</span> <span class='va'>svd.P</span><span class='op'>$</span><span class='va'>v</span><span class='op'>[</span>,<span class='fl'>500</span>,drop<span class='op'>=</span><span class='cn'>F</span><span class='op'>]</span>
+<span class='va'>solution.svd</span> <span class='op'>&lt;-</span> <span class='va'>solution.svd</span><span class='op'>/</span><span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>solution.svd</span><span class='op'>)</span>
+<span class='va'>solution.svd</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>]</span>
+</code></pre>
+</div>
+<pre><code>[1] 0.002136784 0.235939467 0.010670053 0.005944397 0.006703392</code></pre>
+</div>
+<h2 id="using-a-simple-iterative-linear-system-solver">Using a Simple Iterative Linear System Solver</h2>
+<p>Now we want to solve for the same vector as before, using an iterative solver. A very straight-forward method for doing this is the Jacobi method.</p>
+<p>Below is my implementation of the Jacobi Method for this problem.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>JacobiSolver</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>matrixA</span>,<span class='va'>b</span>,<span class='va'>init.guess</span>,<span class='va'>tol</span>,<span class='va'>max.iter</span><span class='op'>=</span><span class='fl'>5000</span><span class='op'>)</span><span class='op'>{</span>
+  <span class='co'>####################################################################</span>
+  <span class='co'>##  Want to solve linear system Ax = b using iterative Jacobi method</span>
+  <span class='co'>##  Input:</span>
+  <span class='co'>##  init.guess = best initial guess for x</span>
+  <span class='co'>##  tol = the tolerance for convergence (looking at max difference)</span>
+  <span class='co'>##  max.iter = stopping condition if convergence not reached</span>
+  <span class='co'>##  Output:</span>
+  <span class='co'>##  solution x with information about convergence</span>
+  <span class='co'>####################################################################</span>
+  <span class='kw'>if</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/prod.html'>prod</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/diag.html'>diag</a></span><span class='op'>(</span><span class='va'>matrixA</span><span class='op'>)</span><span class='op'>!=</span><span class='fl'>0</span><span class='op'>)</span><span class='op'>==</span><span class='fl'>0</span><span class='op'>)</span><span class='op'>{</span>
+    <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='st'>"All diagonal elements must be non-zero"</span><span class='op'>)</span>
+    <span class='kw'><a href='https://rdrr.io/r/base/function.html'>return</a></span><span class='op'>(</span><span class='fl'>0</span><span class='op'>)</span>
+  <span class='op'>}</span>
+  <span class='va'>L.plus.U</span> <span class='op'>&lt;-</span> <span class='va'>matrixA</span>
+  <span class='va'>D</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/diag.html'>diag</a></span><span class='op'>(</span><span class='va'>matrixA</span><span class='op'>)</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/diag.html'>diag</a></span><span class='op'>(</span><span class='va'>L.plus.U</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fl'>0</span>
+
+  <span class='va'>x.old</span> <span class='op'>&lt;-</span> <span class='va'>init.guess</span>  <span class='co'>## Initial Conditions</span>
+  <span class='va'>x.ten</span> <span class='op'>&lt;-</span> <span class='va'>init.guess</span>
+  <span class='va'>max.iterations</span> <span class='op'>&lt;-</span> <span class='va'>max.iter</span>
+  <span class='va'>tolerance</span> <span class='op'>&lt;-</span> <span class='va'>tol</span>
+  <span class='va'>count</span> <span class='op'>=</span> <span class='fl'>0</span>
+  <span class='kw'>for</span><span class='op'>(</span><span class='va'>i</span> <span class='kw'>in</span> <span class='fl'>1</span><span class='op'>:</span><span class='va'>max.iterations</span><span class='op'>)</span><span class='op'>{</span>
+    <span class='co'>##  Update</span>
+    <span class='va'>x.new</span> <span class='op'>&lt;-</span> <span class='op'>-</span><span class='fl'>1</span><span class='op'>*</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>/</span><span class='va'>D</span><span class='op'>)</span><span class='op'>*</span><span class='va'>L.plus.U</span><span class='op'>%*%</span><span class='va'>x.old</span> <span class='op'>+</span> <span class='op'>(</span><span class='fl'>1</span><span class='op'>/</span><span class='va'>D</span><span class='op'>)</span><span class='op'>*</span><span class='va'>b</span>
+
+    <span class='co'>##  Check if converging</span>
+    <span class='kw'>if</span><span class='op'>(</span><span class='va'>i</span><span class='op'>%%</span><span class='fl'>10</span> <span class='op'>==</span> <span class='fl'>0</span><span class='op'>)</span><span class='op'>{</span>
+      <span class='va'>diff</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>abs</a></span><span class='op'>(</span><span class='va'>x.new</span><span class='op'>-</span><span class='va'>x.ten</span><span class='op'>)</span>
+      <span class='va'>x.ten</span> <span class='op'>&lt;-</span> <span class='va'>x.new</span>
+      <span class='kw'>if</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span><span class='op'>(</span><span class='va'>diff</span><span class='op'>)</span><span class='op'>&lt;</span><span class='va'>tolerance</span><span class='op'>)</span><span class='op'>{</span> <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/noquote.html'>noquote</a></span><span class='op'>(</span><span class='st'>"Converged!"</span><span class='op'>)</span><span class='op'>)</span>;<span class='kw'>break</span>;<span class='op'>}</span>
+    <span class='op'>}</span>
+
+    <span class='co'>##  Get ready for the next loop</span>
+    <span class='va'>x.old</span> <span class='op'>&lt;-</span> <span class='va'>x.new</span>
+    <span class='va'>count</span> <span class='op'>&lt;-</span> <span class='va'>count</span> <span class='op'>+</span><span class='fl'>1</span>
+    <span class='kw'>if</span><span class='op'>(</span><span class='va'>i</span> <span class='op'>==</span> <span class='va'>max.iterations</span><span class='op'>)</span><span class='op'>{</span><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='st'>"Not-Converged"</span><span class='op'>)</span>;<span class='kw'><a href='https://rdrr.io/r/base/function.html'>return</a></span><span class='op'>(</span><span class='fl'>0</span><span class='op'>)</span><span class='op'>}</span>
+  <span class='op'>}</span>
+  <span class='va'>solution.Jacobi</span> <span class='op'>&lt;-</span> <span class='va'>x.new</span><span class='op'>/</span><span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>x.new</span><span class='op'>)</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/noquote.html'>noquote</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='st'>"Iterative proceedure looped"</span>,<span class='va'>count</span>,<span class='st'>"number of times."</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='kw'><a href='https://rdrr.io/r/base/function.html'>return</a></span><span class='op'>(</span><span class='va'>solution.Jacobi</span><span class='op'>)</span>
+<span class='op'>}</span>
+<span class='co'>##  Make sure it works!</span>
+<span class='va'>x.old</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>/</span><span class='va'>n</span>,nrow<span class='op'>=</span><span class='fl'>500</span>,ncol<span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span>
+<span class='va'>solution.Jacobi</span> <span class='op'>&lt;-</span> <span class='fu'>JacobiSolver</span><span class='op'>(</span><span class='va'>i.minus.pt</span>,<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>500</span><span class='op'>)</span>,<span class='va'>x.old</span>,<span class='fl'>.000001</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>[1] Converged!
+[1] Iterative proceedure looped 29 number of times.</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>solution.Jacobi</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>]</span>
+</code></pre>
+</div>
+<pre><code>[1] 0.002136784 0.235939467 0.010670053 0.005944397 0.006703392</code></pre>
+</div>
+<h2 id="using-a-dense-eigen-solver">Using a Dense Eigen-Solver</h2>
+<p>As an eigen-problem we are trying to find the eigen-vector associated with the maximum eigenvalue 1, which is of multiplicity 1. One great way to do this in <span class="math inline">\(\mathbb{R}\)</span> is with the <em>eigen()</em> function, which implements Full Symmetric Eigen-Decomposition (tri-diagonalization + QR with implicit shift). This function finds all eigenvalues of a matrix, and on request, will find the eigenvectors as well.</p>
+<p>For this problem, we know we want to find the eigenvector corresponding to the eigenvalue 1. That is, we are trying to find x such that <span class="math inline">\(P^Tx=x\)</span>. This is accomplished with the following code.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>solution</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>abs</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/eigen.html'>eigen</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/t.html'>t</a></span><span class='op'>(</span><span class='va'>P</span><span class='op'>)</span>,symmetric<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span><span class='op'>$</span><span class='va'>vectors</span><span class='op'>[</span>,<span class='fl'>1</span>,drop<span class='op'>=</span><span class='cn'>F</span><span class='op'>]</span><span class='op'>)</span>
+<span class='va'>solution</span> <span class='op'>&lt;-</span> <span class='va'>solution</span><span class='op'>/</span><span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>solution</span><span class='op'>)</span>
+<span class='va'>solution</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>]</span>
+</code></pre>
+</div>
+<pre><code>[1] 0.002136784 0.235939467 0.010670053 0.005944397 0.006703392</code></pre>
+</div>
+<h2 id="using-a-simple-iterative-eigen-solver">Using a Simple Iterative Eigen-Solver</h2>
+<p>The Power Method is a very simple algorithm for finding the maximum eigenvalue and eigenvector for a matrix. We know by the Perron-Frobenius Theorem that 1 is the largest eigenvalue, thus applying this method to <span class="math inline">\(P^T\)</span> will provide the solution to our problem.</p>
+<p>My implementation of the Power Method for <span class="math inline">\(P^T\)</span> is below.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>PowerMethodSolver</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>matrixA</span>,<span class='va'>init.guess</span>,<span class='va'>tol</span>,<span class='va'>max.iter</span><span class='op'>=</span><span class='fl'>5000</span><span class='op'>)</span><span class='op'>{</span>
+  <span class='co'>####################################################################</span>
+  <span class='co'>##  Want to find large eigenvalue and associated eigenvector</span>
+  <span class='co'>##  Ax = LAMBDAx</span>
+  <span class='co'>##  Input:</span>
+  <span class='co'>##  init.guess = best initial guess for x</span>
+  <span class='co'>##  tol = the tolerance for convergence (looking at max difference)</span>
+  <span class='co'>##  max.iter = stopping condition if convergence not reached</span>
+  <span class='co'>##  Output:</span>
+  <span class='co'>##  solution x with information about convergence</span>
+  <span class='co'>####################################################################</span>
+  <span class='va'>x.old</span> <span class='op'>&lt;-</span> <span class='va'>init.guess</span>  <span class='co'>## Initial Conditions</span>
+  <span class='va'>x.ten</span> <span class='op'>&lt;-</span> <span class='va'>x.old</span>
+  <span class='va'>max.iterations</span> <span class='op'>&lt;-</span> <span class='va'>max.iter</span>
+  <span class='va'>tolerance</span> <span class='op'>&lt;-</span> <span class='va'>tol</span>
+  <span class='va'>count</span> <span class='op'>=</span> <span class='fl'>0</span>
+
+  <span class='kw'>for</span><span class='op'>(</span><span class='va'>i</span> <span class='kw'>in</span> <span class='fl'>1</span><span class='op'>:</span><span class='va'>max.iterations</span><span class='op'>)</span><span class='op'>{</span>
+
+    <span class='co'>##  Calculate next iteration</span>
+    <span class='va'>x.new</span> <span class='op'>&lt;-</span> <span class='va'>matrixA</span><span class='op'>%*%</span><span class='va'>x.old</span>
+    <span class='va'>x.new</span> <span class='op'>&lt;-</span> <span class='va'>x.new</span><span class='op'>/</span><span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>x.new</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
+
+    <span class='co'>##  Check if converging</span>
+    <span class='kw'>if</span><span class='op'>(</span><span class='va'>i</span><span class='op'>%%</span><span class='fl'>10</span> <span class='op'>==</span> <span class='fl'>0</span><span class='op'>)</span><span class='op'>{</span>
+      <span class='va'>diff</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>abs</a></span><span class='op'>(</span><span class='va'>x.new</span><span class='op'>-</span><span class='va'>x.ten</span><span class='op'>)</span>
+      <span class='va'>x.ten</span> <span class='op'>&lt;-</span> <span class='va'>x.new</span>
+      <span class='kw'>if</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span><span class='op'>(</span><span class='va'>diff</span><span class='op'>)</span><span class='op'>&lt;</span><span class='va'>tolerance</span><span class='op'>)</span><span class='op'>{</span> <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='st'>"Converged!"</span><span class='op'>)</span>;<span class='kw'>break</span>;<span class='op'>}</span>
+    <span class='op'>}</span>
+
+    <span class='co'>##  Update</span>
+    <span class='va'>x.old</span> <span class='op'>&lt;-</span> <span class='va'>x.new</span>
+    <span class='va'>count</span> <span class='op'>&lt;-</span> <span class='va'>count</span><span class='op'>+</span><span class='fl'>1</span>
+    <span class='kw'>if</span><span class='op'>(</span><span class='va'>i</span> <span class='op'>==</span> <span class='va'>max.iterations</span><span class='op'>)</span><span class='op'>{</span><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='st'>"Not-Converged"</span><span class='op'>)</span>;<span class='kw'><a href='https://rdrr.io/r/base/function.html'>return</a></span><span class='op'>(</span><span class='fl'>0</span><span class='op'>)</span><span class='op'>}</span>
+
+  <span class='op'>}</span>
+  <span class='va'>solution.power</span> <span class='op'>&lt;-</span> <span class='va'>x.new</span><span class='op'>/</span><span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>x.new</span><span class='op'>)</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/noquote.html'>noquote</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='st'>"Method iterated"</span>,<span class='va'>count</span>,<span class='st'>"number of times."</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='kw'><a href='https://rdrr.io/r/base/function.html'>return</a></span><span class='op'>(</span><span class='va'>solution.power</span><span class='op'>)</span>
+<span class='op'>}</span>
+<span class='co'>##  Make sure it works!</span>
+<span class='va'>x.old</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>/</span><span class='va'>n</span>,nrow<span class='op'>=</span><span class='fl'>500</span>,ncol<span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span>  <span class='co'>## Initial Conditions</span>
+<span class='va'>solution.power</span> <span class='op'>&lt;-</span> <span class='fu'>PowerMethodSolver</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/t.html'>t</a></span><span class='op'>(</span><span class='va'>P</span><span class='op'>)</span>,<span class='va'>x.old</span>,<span class='fl'>.000001</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>[1] &quot;Converged!&quot;
+[1] Method iterated 59 number of times.</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>solution.power</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>]</span>
+</code></pre>
+</div>
+<pre><code>[1] 0.002136784 0.235939385 0.010670055 0.005944398 0.006703393</code></pre>
+</div>
+<h1 id="the-results">The Results</h1>
+<p>Now that we have solved this problem in a number of different ways, we can answer the question that we set out to answer; what are the top 20 websites connected to the <a href="www.stat.ncsu.edu">www.stat.ncsu.edu</a> website?</p>
+<p>We can find these websites with the highest stationary state probabilities with the following code.</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre><code>      Stationary Probabilities
+ [1,] &quot;0.235939466951902&quot;     
+ [2,] &quot;0.0211065334273055&quot;    
+ [3,] &quot;0.0144917606322821&quot;    
+ [4,] &quot;0.0140769056962011&quot;    
+ [5,] &quot;0.0135504522670688&quot;    
+ [6,] &quot;0.0110037883588661&quot;    
+ [7,] &quot;0.010670053024285&quot;     
+ [8,] &quot;0.0101356734130066&quot;    
+ [9,] &quot;0.00975252510864476&quot;   
+[10,] &quot;0.00823415213171245&quot;   
+[11,] &quot;0.0078921509700482&quot;    
+[12,] &quot;0.00731078337779315&quot;   
+[13,] &quot;0.0069518473720118&quot;    
+[14,] &quot;0.00687005153079194&quot;   
+[15,] &quot;0.00670339199514352&quot;   
+[16,] &quot;0.00623291067709522&quot;   
+[17,] &quot;0.00594439722646046&quot;   
+[18,] &quot;0.00547885860901607&quot;   
+[19,] &quot;0.00534747062763832&quot;   
+[20,] &quot;0.00521543243231812&quot;   
+      Websites                                 
+ [1,] &quot;http://www&quot;                             
+ [2,] &quot;http://purl.org/rss/1.0/modules/content&quot;
+ [3,] &quot;http://ns.adobe.com/xap/1.0&quot;            
+ [4,] &quot;http://ncsu.edu&quot;                        
+ [5,] &quot;http://instagram.com/ncstate&quot;           
+ [6,] &quot;http://www.&quot;                            
+ [7,] &quot;http://www.ncsu.edu&quot;                    
+ [8,] &quot;http://purl.org/dc/elements/1.1&quot;        
+ [9,] &quot;http://www.statistics2013.org&quot;          
+[10,] &quot;http://drupal.org)&quot;                     
+[11,] &quot;http://gmpg.org/xfn/11&quot;                 
+[12,] &quot;http://ogp.me/ns&quot;                       
+[13,] &quot;http://www.rsscse.org.uk&quot;               
+[14,] &quot;http://purl.org/dc/terms&quot;               
+[15,] &quot;http://www.lib.ncsu.edu&quot;                
+[16,] &quot;http://www.flickr.com/photos/ncsu_scrc&quot; 
+[17,] &quot;http://www.ncsu.edu/directory&quot;          
+[18,] &quot;http://mypack.ncsu.edu&quot;                 
+[19,] &quot;http://www.ncsu.edu/campus_map&quot;         
+[20,] &quot;http://schema.org/Library&quot;              </code></pre>
+</div>
+<h2 id="extension-of-this-analysis-to-the-entire-internet">Extension of this Analysis to the Entire Internet</h2>
+<p>The internet today contains some 43.5 Billion webpages. To solve the Page Rank problem with today’s computational power is really only possible using iterative methods that can make use of "warm starts", where solutions from previous days runs can be used as good starting values, significantly reducing the necessary number of iterations for convergence.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
@@ -2396,6 +2731,15 @@ d-appendix d-footnote-list a.footnote-backlink {
 <div class="d-appendix">
 </div>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 
 <!--radix_placeholder_site_after_body-->
 <!--/radix_placeholder_site_after_body-->
