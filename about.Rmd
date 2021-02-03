@@ -9,7 +9,7 @@ knitr::opts_chunk$set(echo = FALSE)
 ```
 
 
-I am a classically trained Statistician and full-stack data scientist who thrives tackling complex problems with large business impact. I have extensive experience using R, Python, SAS, and SQL to extract insights from complex data by creating informative and appealing visualizations, interactive dashboards, or building useful data products. Technology changes fast and I strives to grow and learn new things!
+I am a classically trained Statistician and Full-Stack Data Scientist who thrives tackling complex problems with large business impact. I have extensive experience using R, Python, SAS, and SQL to extract insights from complex data by creating informative and appealing visualizations, interactive dashboards, or building useful data products. Technology changes fast and I strives to grow and learn new things!
 
 As far as academics, I earned a Masters degree in Statistics from North Carolina State University and undergraduate degrees in Statistics (BS) and Mathematics (BS) from California Polytechnic State University, San Luis Obispo. My formal education helped me to gain an in-depth understanding of mathematics, probability, statistical modeling, experimental design, and data mining/machine learning techniques. Since graduating from NCSU, I have been dedicated to continual growth and life-long learning by working through challenging problems and completing dozens of online courses in machine learning, data science, cloud technologies, and software engineering.
 

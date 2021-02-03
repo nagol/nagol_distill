@@ -1,0 +1,495 @@
+---
+title: "SQL Basics from the Terminal"
+description: |
+  Learn how to create a SQL database quickly from the terminal. Useful for
+  beginners who want a no nonsense bare bones method of playing with SQL databases
+  or for anyone looking to create minimal examples for 
+  testing and development.
+
+preview: sql_terminal.png
+author:
+  - name: Logan Lossing
+    url: {}
+date: 01-30-2021
+tags: ['SQL', 'terminal', 'database']
+categories:
+  - SQL
+  - terminal
+  - databases
+output:
+  distill::distill_article:
+    self_contained: false
+    code_folding: false
+    toc: true
+    toc_depth: 3
+    number_sections: true
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+# Why learn SQL from the terminal?
+
+Without an IDE to worry about or any real configuration details you can focus
+on just SQL basics...with none of the headaches. Personally, I often create small
+examples tables when designing a new database or trying to design a complex query.
+
+For this quick tutorial, we will be using SQLlite. There are many flavors of 
+SQL and this one is the quickest and easiest to install.
+
+# Install SQLite
+
+The [SQLite.org](https://www.sqlite.org/download.html) contains instructions for
+installing on your operating system but for macOS, you can quickly install SQLite using homebrew `brew install sqlite`. Once installed, verify that SQLite is installed
+properly using `sqlite3 --version`.
+
+
+# CRUD
+
+The core SQL database operations are known by the acronym C.R.U.D. - (C)reate, (R)ead, (U)pdate, and (D)elete so that should be a good first set of thing to learn about.
+
+If you are not coming from a strong database background and are more comfortable
+with R or python, you may first want to soon get a feel for how a table in a database is different from a tibble/data_frame. The good news is, in practice, much more is
+similar than is different. However, databases offer an entire array of new possibilities
+and control...enough to know in fact that managing databases can be an entire
+job. 
+
+## Create Tables
+
+Now that we have SQLite installed, we probably want to first create some tables.
+
+To create a database containing a table, we need only provide names for the columns of the
+database and provide SQL with information about the type of data for each column.
+The [SQLite documentation](https://www.sqlite.org/datatype3.html) contains extensive
+information about all the allowable type for SQLite but the main ones to get started with are:
+
++ NULL
++ Integer
++ Real
++ Text
+
+To write a SQL scrpt, we need a text editor we can use to write our code. Any simple
+code editor will do (atom, sublime, vscode,...). Go ahead an open up a blank document
+in your text editor so it will be ready to go when we are ready to start writing some
+code.
+
+Go ahead and open your terminal and create a directory somewhere convenient
+to store our example SQLite database and `.sql` scripts. 
+
+`cd ~/Desktop`
+
+`mkdir sqlite_exploration`
+
+`cd sqlite_exploration`
+
+We should now be ready to create a database!
+
+### Thinking About Table Design - Schema
+
+But what do we want to create?
+
+Often I create small example tables that resemble data
+that I need to work with but simplified. This way I can think through how to properly
+store the data so that it is easy to update and report off of.
+
+For example, in a past life I was a Lecturer at a university. If I wanted
+to use SQL to manage and report on student grades, I might want to create a few
+tables to help me manage the course data efficiently and set me up for efficient 
+reporting later. 
+
++ eliminate duplication - We don't want to see the same information repeated
+over and over in our tables. If an update is required, we want to update a single
+table if possible.
++ operational efficiency - We should be able to easily query the data. Clear
+and documented relationships between tables greatly simplifies the cognitive
+overhead of keeping track of the data you are working with
+
+With course grades as an example (I know, a little dull but at least most have
+experience with courses and grading), I might create three tables to split the 
+data I need to keep track of into
+separate logical entities that have a clear relationship. 
+
+Here is one possible simple schema for a gradebook:
+
+STUDENTS - one row per student containing all student specific information: 
+
++ student_id - Integer Primary Key
++ student_name - Text
++ student_level (Freshmen, Sophmore, Junior, Senior) - Text
++ major - Text
++ email - Text
+
+ASSIGNMENTS - one row per assignment containing all assignment specific information:
+
++ assignment_id - Integer Primary Key
++ assignment_category - Text
++ assignment_value - Real or Integer
+
+GRADE - one row per graded assignment per student:
+
++ assignment_id - Integer
++ student_id - Integer
++ numeric_grade - Integer or Real
+
+For the STUDENTS and
+ASSIGNMENTS tables, we have a primary key (unique, non-null identifier) that we
+can use to reference a specific student or assignment. The rest of the fields
+in these two tables contain all the specific details about these entities. If
+something needs to be updated, we are going to update it in one table. 
+
+The final table, GRADE, is a *relation* table telling us how to join information
+from the STUDENTS and ASSIGNMENTS tables. For example, we might want the email 
+addresses of all students that scored below 75% on a particular assignment. Using
+the GRADE table, SQL will be able to match rows using the `student_id` and 
+`assignment_id` fields.
+
+In SQLite, we use `CREATE TABLE tbl_name ();` with a comma separated list of columns
+to add to our table along with information about type in the form `(name1 TYPE1, name2 TYPE2...)`. 
+
+Go ahead and type the following
+(or just copy it) into your text editor. Save the file with the name `table_schema.sql`.
+
+```{r eval = FALSE, echo = TRUE }
+
+CREATE TABLE students (
+    student_id INTEGER PRIMARY KEY,
+    name TEXT,
+    student_level TEXT,
+    major TEXT,
+    email TEXT
+);
+
+CREATE TABLE assignments (
+  assignment_id INTEGER PRIMARY KEY,
+  assignment_category TEXT,
+  assignment_value INTEGER
+);
+
+CREATE TABLE grade (
+  assignment_id INTEGER,
+  student_id INTEGER,
+  numeric_grade REAL
+  
+)
+
+```
+
+To create a database with tables according to our schema, just type `$sqlite3 class.db < table_schema.sql`. Use `ls` to see that a new `class.db` file has been created in your
+working directory.
+
+To check everything is working, type `sqlite class.db` and a SQL prompt will appear. We
+don't have any data in our tables yet, but you can type `.schema` to see a listing
+of the tables we have just created.
+
+```{r echo=TRUE, eval=FALSE}
+
+(base) ➜  sql sqlite3 course.db                           
+SQLite version 3.28.0 2019-04-15 14:49:49
+Enter ".help" for usage hints.
+sqlite> .schema
+CREATE TABLE students (
+    student_id INTEGER PRIMARY KEY,
+    name TEXT,
+    student_level TEXT,
+    major TEXT,
+    email TEXT
+);
+CREATE TABLE assignments (
+  assignment_id INTEGER PRIMARY KEY,
+  assignment_category TEXT,
+  assignment_value INTEGER
+);
+CREATE TABLE grade (
+  assignment_id INTEGER,
+  student_id INTEGER,
+  numeric_grade REAL
+  
+);
+```
+
+Type `.quit` to exit the SQL prompt and get back to the terminal.
+
+### Adding Data to the Database Tables
+
+Let's add some example data to our tables to play with. We are going to do it the
+old fashioned way, insert rows into our tables...manually. We are keeping it simple
+here, we can always add complexity later.
+
+Open another blank document and name this file `class_data.sql`.
+
+The simplest way for us to add data to our table is with 
+`INSERT INTO tbl_name VALUES (val1, val2, ...)`. Notice in the code below, it is 
+not required to list the column names in parentheses, but it can make it easier
+to remember what goes where. 
+
+You can just copy this piece into your script. For fun, add yourself to the student table,
+add a new assignment to the assignments table and assign some random grades for your
+new made up assignment.
+
+Make sure to remember that primary keys must be unique, SQL will throw an error
+if you try to add another observation with the same primary key.
+
+```{r echo=TRUE, eval=FALSE}
+/* STUDENTS */
+INSERT INTO students (student_id, name, student_level, major, email)
+  VALUES (1, 'Student 1', 'Freshman', 'CS', 'student1@uni.edu');
+
+INSERT INTO students
+  VALUES (2, 'Student 2', 'Freshman', 'CS', 'student2@uni.edu');
+  
+INSERT INTO students 
+  VALUES (3, 'Student 3', 'Freshman', 'MATH', 'student3@uni.edu');
+  
+  
+/* ASSIGNMENTS */
+    
+INSERT INTO assignments (assignment_id, assignment_category, assignment_value)
+  VALUES (1, 'quiz', 10);
+  
+INSERT INTO assignments 
+  VALUES (2, 'quiz', 10);
+  
+INSERT INTO assignments
+  VALUES (3, 'exam', 100);
+  
+/* GRADES */
+    
+INSERT INTO grades (assignment_id, student_id, numeric_grade)
+  VALUES (1, 1, 0.85);
+  
+INSERT INTO grades
+  VALUES (2, 1, 0.75);
+  
+INSERT INTO grades
+  VALUES (3, 1, 0.9);
+  
+INSERT INTO grades 
+  VALUES (1, 2, 0.7);
+  
+INSERT INTO grades
+  VALUES (2, 2, 0.6);
+  
+INSERT INTO grades
+  VALUES (3, 2, 0.65);
+  
+INSERT INTO grades 
+  VALUES (1, 3, 0.99);
+  
+INSERT INTO grades
+  VALUES (2, 3, 1);
+  
+INSERT INTO grades
+  VALUES (3, 3, .92);
+
+
+```
+
+Back at the terminal, type 
+`sqlite3 -echo class.db < class_data.sql` 
+to run the script `class_data.sql` on `class.db`. Now, the
+tables have some data and we can start playing with SQL code.
+
+## Read
+
+To execute a simple query we can create a new script called `query.sql`.
+
+The simplest type of query we might want to run, might look like the following:
+
+```{r echo=TRUE, eval=FALSE}
+
+SELECT (variables to select)
+  FROM (table name to select from)
+  WHERE (filtering conditions)
+
+```
+
+For example, add the following to your `query.sql` script.
+
+```{r echo=TRUE, eval=FALSE}
+
+SELECT *
+  FROM students
+  WHERE major = 'CS'
+
+```
+
+To run the script, type `sqlite3 -echo -column -header course.db < query.sql`. The
+extra flags `-column -header` make the output much more readable.
+
+```{r echo=TRUE, eval=FALSE}
+
+$sqlite3 -echo -column -header course.db < scripts/query.sql
+
+SELECT *
+FROM students
+WHERE major = 'CS'
+student_id  name        student_level  major       email           
+----------  ----------  -------------  ----------  ----------------
+1           Student 1   Freshman       CS          student1@uni.edu
+2           Student 2   Freshman       CS          student2@uni.edu
+```
+
+
+At this point, we are ready to start experimenting. For example, we could join all the tables together and select just the resulting columns of interest.
+
+```{r echo=TRUE, eval=FALSE}
+
+SELECT students.student_id,
+       students.name,
+       assignments.assignment_category,
+       assignments.assignment_value,
+       grades.numeric_grade
+  FROM students, assignments, grades
+  ON students.student_id = grades.student_id
+    AND assignments.assignment_id = grades.assignment_id;
+student_id  name        assignment_category  assignment_value  numeric_grade
+----------  ----------  -------------------  ----------------  -------------
+1           Student 1   quiz                 10                0.85         
+1           Student 1   quiz                 10                0.75         
+1           Student 1   exam                 100               0.9          
+2           Student 2   quiz                 10                0.7          
+2           Student 2   quiz                 10                0.6          
+2           Student 2   exam                 100               0.65         
+3           Student 3   quiz                 10                0.99         
+3           Student 3   quiz                 10                1.0          
+3           Student 3   exam                 100               0.92  
+
+```
+
+
+There are plenty of books, blogs, and websites to learn all about SQL syntax. One thing
+that I find is missing at times is that hands on practice with tables that you created,
+answering some questions that you might already know how to find using other means.
+
+Recommended topics to explore:
+
++ the main sql verbs SELECT, WHERE, GROUP BY, HAVING, ORDER BY
++ joins: INNER JOIN, LEFT JOIN
++ aggregation functions: AVG(), COUNT(), SUM()
+
+
+
+## Update
+
+Updating tables is less common in data analysis and more common as part of 
+a data pipeline, application, or other database process. Updates are typically not made willy-nilly, permanent changes to the data are made.
+
+To UPDATE a value in a table, use the synatax
+
+`UPDATE tbl_name SET var_to_change WHERE filter_for_where_to_change`
+
+Here you can just create another new script `update.sql` and
+copy in the following: 
+
+```{r echo=TRUE, eval=FALSE}
+
+UPDATE grades 
+    set numeric_grade = 1.0 
+    where student_id = 3 
+        and assignment_id = 3;
+
+```
+
+Then run `sqlite3 course.db < scripts/update.sql`
+
+and finally rerun our previous query to verify the values really did change
+
+`sqlite3 -echo -column -header course.db < query.sql`
+
+```{r echo=TRUE, eval=FALSE}
+student_id  name        assignment_category  assignment_value  numeric_grade
+----------  ----------  -------------------  ----------------  -------------
+1           Student 1   quiz                 10                0.85         
+1           Student 1   quiz                 10                0.75         
+1           Student 1   exam                 100               0.9          
+2           Student 2   quiz                 10                0.7          
+2           Student 2   quiz                 10                0.6          
+2           Student 2   exam                 100               0.65         
+3           Student 3   quiz                 10                0.99         
+3           Student 3   quiz                 10                1.0          
+3           Student 3   exam                 100               1.0    
+```
+
+One dimension of richness of databases is the data integrity and data lineage
+tooling that they provide. Here we are making simple updates but more generally,
+in a business context, having precise control over what changes are made to the data
+and an ability to track those changes is of utmost importance.
+
+## Delete
+
+### Tables
+
+We can delete entire tables using `DROP TABLE tbl_name` but be careful, there is 
+no recovery, If you have your table schema script separated like we did here, we can
+recreate our database quickly.
+
+Let's go ahead and add the following snippet at the top of our `table_schema.sql` script. 
+
+```{r echo=TRUE, eval=FALSE}
+
+DROP TABLE students;
+DROP TABLE assignments;
+DROP TABLE grades;
+
+```
+
+Aside from demonstrating how to delete a table, this will allow us run the script more than once without having
+to manually `rm course.db` our database. Databases have built in mechanisms to prevent
+tables from being overwritten which can be a pain when you are just playing around.
+
+### Deleting Rows in Tables
+
+Deleting an observation (or set of observations) is very similar to UPDATE; we
+supply SQL with a WHERE condition helping us to identify which rows to remove.
+
+Add the following code to your `update.sql` script.and rerun the script.
+
+```{r echo=TRUE, eval=FALSE}
+
+DELETE FROM assignments WHERE assignment_id = 3;
+
+```
+
+You should now see all the rows corresponding to `assignment_id = 3` have been
+removed.
+
+```{r echo=TRUE, eval=FALSE}
+
+student_id  name        assignment_category  assignment_value  numeric_grade
+----------  ----------  -------------------  ----------------  -------------
+1           Student 1   quiz                 10                0.85         
+1           Student 1   quiz                 10                0.75         
+2           Student 2   quiz                 10                0.7          
+2           Student 2   quiz                 10                0.6          
+3           Student 3   quiz                 10                0.99         
+3           Student 3   quiz                 10                1.0  
+
+```
+
+
+## Wrap Up
+
+In a few short minutes, we were able to get SQLite3 up and running in the terminal,
+we created a small example database and created small sql scripts to investigate basic SQL
+CRUD operations. Of course there is much more to learn, but you now have the tools to play
+around with schema design and query writing...all straight from the terminal.
+
+
+In a future post, we will continue on with writing some more involved SQL report writing
+techniques and incorporate proper databases into our R, python, or SAS projects.
+
+
+
+
+
+
+
+
+
+
+
+
+
+

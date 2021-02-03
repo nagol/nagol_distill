@@ -1,0 +1,74 @@
+---
+title: "Getting Things Done - Notes"
+description: |
+  Getting Things Done - the Art of Stree-Free Productivity is a New York Times
+  bestseller and has been recommended to me personally many times over the years.
+  Now, more than ever before, I find myself desiring a better, more principled
+  method of staying organized and 
+  keeping my priorities straight...something that the book claims to be able to help
+  with. This post is just a collection of the important points that I found to be
+  useful. Your mileage may vary.
+author:
+  - name: Logan Lossing
+    url: {}
+date: 01-30-2021
+tags: ['productivity', 'book-review']
+categories:
+  - productivity
+  - book-review
+output:
+  distill::distill_article:
+    self_contained: false
+    code_folding: false
+    toc: true
+    toc_depth: 2
+    number_sections: true
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+Work in progress...
+
+# Chapter 1
+
+The introduction is catchy; most people strive to increase efficiency in their
+lives and leave few loose ends. I think many will see themselves described
+in the opening paragraphs...life can often have too much to juggle when you
+don't have a clear, developed working theory of juggling.
+
+The book claims that the system presented will accomplish 3 Main Objectives:
+
++ Capture all the things that might need to get done or have usefulness for you - 
+now, later, someday, big, little, or in between - in a logical and trusted system
+outside your head and off your mind
++ Directing yourself to make front-end decisions about all of the 'inputs' you 
+let into your life so that you always will have a workable inventory of 'next actions'
+that you can implement or renegotiate in the moment
++ Curating and coordinating all of that content, utilizing the recognition of the
+multiple levels of commitments with yourself and others you will have at play,
+at any point in time.
+
+I find these overall goals logical and simple...we need to have a budget for 
+our time and attention as we do for our finances. We only have a fixed number
+of hours in the day to get things done. Without noticing (and even partially
+caused by not tracking) the myriad of little duties and commitments we make eat
+up all our precious time.
+
+The first chapter mentions the relief that can be enjoyed by 'offloading' all these
+little tasks in our minds for an appropriate time + place to make actual progress
+and not just stressy-panic. Further, having a predefined course of action for 
+how to optimally handle situations that might arise reminds of stoic ideas of
+visualizing our fears, mentally stepping through what can happen and how we might
+act in response. 
+
+The whole time reading through the first chapter, I daydreamed about a super
+AI assistant that I could trust to help manage situations as they arise. Learn
+from experience, customize its behavior in response to my needs, and seek to 
+optimize my stress levels and productivity as measured by some biometic feedback
+and assessment of the usefulness of the work performed.
+
+
+
