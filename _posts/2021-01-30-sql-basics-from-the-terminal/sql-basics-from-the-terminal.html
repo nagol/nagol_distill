@@ -1589,7 +1589,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <p>To create a database with tables according to our schema, just type <code>$sqlite3 class.db &lt; table_schema.sql</code>. Use <code>ls</code> to see that a new <code>class.db</code> file has been created in your working directory.</p>
 <p>To check everything is working, type <code>sqlite class.db</code> and a SQL prompt will appear. We don’t have any data in our tables yet, but you can type <code>.schema</code> to see a listing of the tables we have just created.</p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>(base) ➜  sql sqlite3 course.db                           </span>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>(base) ➜  sql sqlite3 class.db                           </span>
 <span id="cb2-2"><a href="#cb2-2"></a>SQLite version <span class="dv">3</span>.<span class="fl">28.0</span> <span class="dv">2019-04-15</span> <span class="dv">14</span><span class="op">:</span><span class="dv">49</span><span class="op">:</span><span class="dv">49</span></span>
 <span id="cb2-3"><a href="#cb2-3"></a>Enter <span class="st">&quot;.help&quot;</span> <span class="cf">for</span> usage hints.</span>
 <span id="cb2-4"><a href="#cb2-4"></a>sqlite<span class="op">&gt;</span><span class="st"> </span>.schema</span>
@@ -1686,9 +1686,9 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <span id="cb5-2"><a href="#cb5-2"></a><span class="st">  </span>FROM students</span>
 <span id="cb5-3"><a href="#cb5-3"></a>  WHERE major =<span class="st"> &#39;CS&#39;</span></span></code></pre></div>
 </div>
-<p>To run the script, type <code>sqlite3 -echo -column -header course.db &lt; query.sql</code>. The extra flags <code>-column -header</code> make the output much more readable.</p>
+<p>To run the script, type <code>sqlite3 -echo -column -header class.db &lt; query.sql</code>. The extra flags <code>-column -header</code> make the output much more readable.</p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="op">$</span>sqlite3 <span class="op">-</span>echo <span class="op">-</span>column <span class="op">-</span>header course.db <span class="op">&lt;</span><span class="st"> </span>scripts<span class="op">/</span>query.sql</span>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="op">$</span>sqlite3 <span class="op">-</span>echo <span class="op">-</span>column <span class="op">-</span>header class.db <span class="op">&lt;</span><span class="st"> </span>scripts<span class="op">/</span>query.sql</span>
 <span id="cb6-2"><a href="#cb6-2"></a></span>
 <span id="cb6-3"><a href="#cb6-3"></a>SELECT <span class="op">*</span></span>
 <span id="cb6-4"><a href="#cb6-4"></a>FROM students</span>
@@ -1738,9 +1738,9 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <span id="cb8-3"><a href="#cb8-3"></a>    where student_id =<span class="st"> </span><span class="dv">3</span> </span>
 <span id="cb8-4"><a href="#cb8-4"></a>        and assignment_id =<span class="st"> </span><span class="dv">3</span>;</span></code></pre></div>
 </div>
-<p>Then run <code>sqlite3 course.db &lt; scripts/update.sql</code></p>
+<p>Then run <code>sqlite3 class.db &lt; scripts/update.sql</code></p>
 <p>and finally rerun our previous query to verify the values really did change</p>
-<p><code>sqlite3 -echo -column -header course.db &lt; query.sql</code></p>
+<p><code>sqlite3 -echo -column -header class.db &lt; query.sql</code></p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>student_id  name        assignment_category  assignment_value  numeric_grade</span>
 <span id="cb9-2"><a href="#cb9-2"></a><span class="op">----------</span><span class="st">  </span><span class="op">----------</span><span class="st">  </span><span class="op">-------------------</span><span class="st">  </span><span class="op">----------------</span><span class="st">  </span><span class="op">-------------</span></span>
@@ -1764,7 +1764,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <span id="cb10-2"><a href="#cb10-2"></a>DROP TABLE assignments;</span>
 <span id="cb10-3"><a href="#cb10-3"></a>DROP TABLE grades;</span></code></pre></div>
 </div>
-<p>Aside from demonstrating how to delete a table, this will allow us run the script more than once without having to manually <code>rm course.db</code> our database. Databases have built in mechanisms to prevent tables from being overwritten which can be a pain when you are just playing around.</p>
+<p>Aside from demonstrating how to delete a table, this will allow us run the script more than once without having to manually <code>rm class.db</code> our database. Databases have built in mechanisms to prevent tables from being overwritten which can be a pain when you are just playing around.</p>
 <h3 id="deleting-rows-in-tables">Deleting Rows in Tables</h3>
 <p>Deleting an observation (or set of observations) is very similar to UPDATE; we supply SQL with a WHERE condition helping us to identify which rows to remove.</p>
 <p>Add the following code to your <code>update.sql</code> script.and rerun the script.</p>
