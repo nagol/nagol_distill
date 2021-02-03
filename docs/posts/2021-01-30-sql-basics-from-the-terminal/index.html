@@ -2646,7 +2646,7 @@ d-appendix d-footnote-list a.footnote-backlink {
 <span id="cb8-3"><a href="#cb8-3"></a>    where student_id =<span class="st"> </span><span class="dv">3</span> </span>
 <span id="cb8-4"><a href="#cb8-4"></a>        and assignment_id =<span class="st"> </span><span class="dv">3</span>;</span></code></pre></div>
 </div>
-<p>Then run <code>sqlite3 class.db &lt; scripts/update.sql</code></p>
+<p>Then run <code>sqlite3 class.db &lt; update.sql</code></p>
 <p>and finally rerun our previous query to verify the values really did change</p>
 <p><code>sqlite3 -echo -column -header class.db &lt; query.sql</code></p>
 <div class="layout-chunk" data-layout="l-body">

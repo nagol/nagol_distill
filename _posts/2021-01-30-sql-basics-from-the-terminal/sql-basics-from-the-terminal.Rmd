@@ -392,7 +392,7 @@ UPDATE grades
 
 ```
 
-Then run `sqlite3 class.db < scripts/update.sql`
+Then run `sqlite3 class.db < update.sql`
 
 and finally rerun our previous query to verify the values really did change
 
