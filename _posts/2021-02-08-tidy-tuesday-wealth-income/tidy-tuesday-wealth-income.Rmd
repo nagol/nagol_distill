@@ -1,0 +1,260 @@
+---
+title: "Tidy Tuesday - Wealth & Income"
+description: |
+  Visualizing disparities in Wealth & Income in the US over the last 40 years as
+  part of [Tidy Tuesday](https://github.com/rfordatascience/tidytuesday), a weekly
+  data project.
+author:
+  - name: Logan Lossing
+    url: {}
+date: 02-08-2021
+output:
+  distill::distill_article:
+    self_contained: false
+draft: false
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+```
+
+
+```{r libs_data, echo=TRUE, results=FALSE, warning=FALSE, message=FALSE}
+# Libs
+library(tidyverse)
+library(gganimate)
+library(tidytuesdayR)
+library(ggtext)
+library(ggdark)
+
+# Load list of tbls
+tuesdata <- tidytuesdayR::tt_load('2021-02-09')
+
+income_tbl <- tuesdata$income_distribution
+lifetime_earn_tbl <- tuesdata$lifetime_earn
+```
+
+
+# Income Distribution
+
+I have been meaning to spend more time with `gganimate` and these data provided
+and opportunity.
+
+What extra value does `gganimate` versus regular time-series type plots?
+
+The ability to draw attention.
+
+Especially when asking the reader a question, you are providing a task to be
+accomplished. By using animation, we can direct focus to the where the action is.
+
+In this particular example, I think it is really powerful to see the proportion of 
+high-income white individuals shoot up while the proportion of high-income Hispanic
+and Black individuals climbs very slowly.
+
+
+```{r income_distribution}
+
+income_levels <- c(
+  "Under $15,000",
+  "$15,000 to $24,999",
+  "$25,000 to $34,999",
+  "$35,000 to $49,999",
+  "$50,000 to $74,999",
+  "$75,000 to $99,999",
+  "$100,000 to $149,999",
+  "$150,000 to $199,999",
+  "$200,000 and over"
+)
+
+# Define colors for race
+color_group_1 <- "#8900ff"
+color_group_2 <- "#fff205"
+color_group_3 <- "#ff1178"
+
+
+plot <- income_tbl %>% 
+  filter(race %in% c("Black Alone", "White Alone", "Hispanic (Any Race)")) %>%
+  filter(year >= 1980) %>%
+  filter(income_bracket %in% c('Under $15,000','$75,000 to $99,999','$200,000 and over')) %>%
+  mutate(race = case_when(
+    race == 'Black Alone' ~ 'Black',
+    race == 'White Alone' ~ 'White',
+    race == 'Hispanic (Any Race)' ~ 'Hispanic'
+  )) %>%
+  mutate(income_dist_percent = income_distribution / 100) %>%
+  mutate(income_bracket = factor(income_bracket, levels = income_levels)) %>%
+  
+  ggplot(aes(x = year, y = income_dist_percent, color = race, group = race)) +
+    geom_path(size = 1.2, alpha = 0.7) +
+    coord_cartesian(clip = 'off') +
+    scale_y_continuous(position = 'right', name = ' ', labels = scales::percent) +
+    scale_color_manual(values = c(color_group_1, color_group_2, color_group_3)) +
+    labs(
+      title = "Is income disparity by race disappearing over time or getting worse?",
+      subtitle = glue::glue("Non-White households are overrepresented in lower income brackets and are not experiencing \n  similar increases in representation in higher income brackets as White households."),
+      x = NULL
+    ) +
+  
+    transition_reveal(along = year) +
+    
+    facet_grid(
+      rows = vars(income_bracket), 
+      switch = 'y', 
+      labeller = labeller(income_bracket = label_wrap_gen(width = 10))
+    ) +
+    
+    dark_theme_minimal() +
+    theme(legend.position = 'top',
+          strip.text.y.left = element_text(angle = 0),
+          legend.title = element_blank(),
+          plot.background = element_rect(color = 'black'),
+          panel.grid.major.x = element_line(color = "#44475a", size = 0.3),
+          panel.grid.major.y = element_line(color = "#44475a", size = 0.3),
+          panel.spacing.y = unit(2, "lines"))
+  
+
+animate(plot, height = 6, width = 9, units = "in", res = 200)
+anim_save("income_disparity.gif")
+
+```
+
+## Income Distribution 2 - The Bug I Need to Figure Out
+
+I wanted to make the previous plot even easier to follow by printing out the
+percentage for the current year at the current end of the time series. At the
+moment, I have am having an issue with this plot as the plotted text and points
+from the first frame persist through the animation.
+
+```{r income_distribution2}
+
+income_levels <- c(
+  "Under $15,000",
+  "$15,000 to $24,999",
+  "$25,000 to $34,999",
+  "$35,000 to $49,999",
+  "$50,000 to $74,999",
+  "$75,000 to $99,999",
+  "$100,000 to $149,999",
+  "$150,000 to $199,999",
+  "$200,000 and over"
+)
+
+# Define colors for race
+color_group_1 <- "#8900ff"
+color_group_2 <- "#fff205"
+color_group_3 <- "#ff1178"
+
+
+plot <- income_tbl %>% 
+  filter(race %in% c("Black Alone", "White Alone", "Hispanic (Any Race)")) %>%
+  filter(year >= 1980) %>%
+  filter(income_bracket %in% c('Under $15,000','$75,000 to $99,999','$200,000 and over')) %>%
+  mutate(race = case_when(
+    race == 'Black Alone' ~ 'Black',
+    race == 'White Alone' ~ 'White',
+    race == 'Hispanic (Any Race)' ~ 'Hispanic'
+  )) %>%
+  mutate(income_dist_percent = income_distribution / 100) %>%
+  mutate(income_bracket = factor(income_bracket, levels = income_levels)) %>%
+  
+  ggplot(aes(x = year, y = income_dist_percent, color = race, group = race)) +
+    geom_path(size = 1.2, alpha = 0.7) +
+    coord_cartesian(clip = 'off') +
+    scale_y_continuous(position = 'right', name = ' ', labels = scales::percent) +
+    scale_color_manual(values = c(color_group_1, color_group_2, color_group_3)) +
+    labs(
+      title = "Is income disparity by race disappearing over time or getting worse?",
+      subtitle = glue::glue("Non-White households are overrepresented in lower income brackets and are not experiencing \n  similar increases in representation in higher income brackets as White households."),
+      x = NULL
+    ) +
+    
+    geom_point(size = 2) + 
+    geom_text(aes(x = year + 1, label = scales::percent(income_dist_percent, accuracy = 0.1)), hjust = 0) + 
+    transition_reveal(along = year) +
+    
+    facet_grid(
+      rows = vars(income_bracket), 
+      switch = 'y', 
+      labeller = labeller(income_bracket = label_wrap_gen(width = 10))
+    ) +
+    
+    dark_theme_minimal() +
+    theme(legend.position = 'top',
+          strip.text.y.left = element_text(angle = 0),
+          legend.title = element_blank(),
+          plot.background = element_rect(color = 'black'),
+          panel.grid.major.x = element_line(color = "#44475a", size = 0.3),
+          panel.grid.major.y = element_line(color = "#44475a", size = 0.3),
+          panel.spacing.y = unit(2, "lines"))
+  
+animate(plot, height = 6, width = 9, units = "in", res = 200)
+anim_save("income_disparity_buggy.gif")
+
+```
+
+# Average Lifetime Earnings
+
+
+```{r avg_lifetime, fig.height = 6, fig.width = 9}
+
+lifetime_earn_wm <- lifetime_earn_tbl %>% 
+  filter(gender == 'Men', race == 'White') %>%
+  pull()
+
+color_group_1 <- "#d21404"
+color_group_2 <- "#ff6961"
+
+wealth_plot <- lifetime_earn_tbl %>%
+  mutate(percent_white_male = (lifetime_earn - lifetime_earn_wm) / lifetime_earn_wm ) %>%
+  mutate(diffinc_white_male = lifetime_earn - lifetime_earn_wm) %>%
+  mutate(race = if_else(race == 'Hispanic any race', 'Hispanic', race)) %>%
+  mutate(category = str_glue("{race} \n {gender}")) %>%
+  filter(race != "White" | gender != "Men") %>%
+  arrange(percent_white_male) %>%
+  ggplot(aes(x = reorder(category, percent_white_male), y = percent_white_male, color = gender)) +
+  expand_limits(y = 0) +
+  geom_bar(stat = "identity", width = 0.01) + 
+  geom_point(shape = 25) +
+  scale_color_manual(values = c(color_group_1, color_group_2)) +
+  labs(
+    title = "Economic Disparity Charges Interest",
+    subtitle = glue::glue("The average lifetime earnings in 2016 for White Men was {scales::dollar(lifetime_earn_wm)}. \n By comparison, Women and BIPOC make significantly less...but by how much?"),
+    x = NULL,
+    caption = "Data: Urban Institute and the US Census."
+  ) + 
+  guides(color = FALSE, fill = FALSE) +
+  dark_theme_minimal() +
+  scale_y_continuous(
+    
+    # first axis
+    name = " ",
+    labels = scales::percent,
+    
+    # Add a second axis
+    sec.axis = sec_axis(
+      ~.*lifetime_earn_wm, 
+      name=" ",
+      breaks = c(0, -233000, -650000, -1300000), 
+      labels = c("($0)", 
+                 glue::glue("Avg Cost to Raise Child \n ($233,000)"), 
+                 glue::glue("Median Home Price \n Los Angeles \n ($650,000)"),
+                 glue::glue("Median Home Price \n San Francisco \n ($1,300,000)"))
+      )
+    ) + 
+  
+  theme(
+      axis.ticks = element_blank(),
+      legend.title = element_blank(),
+      plot.background = element_rect(color = 'black'),
+      plot.caption = element_text(size = 8, lineheight = .9),
+      plot.caption.position = "plot",
+      plot.margin = margin(1, 2, 1, 1, unit = "line"),
+    ) 
+
+wealth_plot
+  
+
+```
+

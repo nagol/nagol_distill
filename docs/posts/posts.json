@@ -1,5 +1,22 @@
 [
   {
+    "path": "posts/2021-02-08-tidy-tuesday-wealth-income/",
+    "title": "Tidy Tuesday - Wealth & Income",
+    "description": "Visualizing disparities in Wealth & Income in the US over the last 40 years as\npart of [Tidy Tuesday](https://github.com/rfordatascience/tidytuesday), a weekly\ndata project.",
+    "author": [
+      {
+        "name": "Logan Lossing",
+        "url": {}
+      }
+    ],
+    "date": "2021-02-08",
+    "categories": [],
+    "contents": "\n\n\n# Libs\nlibrary(tidyverse)\nlibrary(gganimate)\nlibrary(tidytuesdayR)\nlibrary(ggtext)\nlibrary(ggdark)\n\n# Load list of tbls\ntuesdata <- tidytuesdayR::tt_load('2021-02-09')\n\nincome_tbl <- tuesdata$income_distribution\nlifetime_earn_tbl <- tuesdata$lifetime_earn\n\n\n\nIncome Distribution\nI have been meaning to spend more time with gganimate and these data provided and opportunity.\nWhat extra value does gganimate versus regular time-series type plots?\nThe ability to draw attention.\nEspecially when asking the reader a question, you are providing a task to be accomplished. By using animation, we can direct focus to the where the action is.\nIn this particular example, I think it is really powerful to see the proportion of high-income white individuals shoot up while the proportion of high-income Hispanic and Black individuals climbs very slowly.\n\n\n\nIncome Distribution 2 - The Bug I Need to Figure Out\nI wanted to make the previous plot even easier to follow by printing out the percentage for the current year at the current end of the time series. At the moment, I have am having an issue with this plot as the plotted text and points from the first frame persist through the animation.\n\n\n\nAverage Lifetime Earnings\n\n\n\n\n\n\n",
+    "preview": "posts/2021-02-08-tidy-tuesday-wealth-income/tidy-tuesday-wealth-income_files/figure-html5/avg_lifetime-1.png",
+    "last_modified": "2021-02-10T09:28:36-08:00",
+    "input_file": {}
+  },
+  {
     "path": "posts/2021-01-22-the-page-rank-algorithm/",
     "title": "The Page Rank Algorithm",
     "description": "Google's Page Rank Algorithm was an early tool that helped determine the\nrelevance of search results.\n\nHow does the algorithm work? How can we implement the algorithm?\n\nIn this post, we investigate the mathematics behind the Page Rank algorithm and\nimplement several different methods for obtaining results using R.",
