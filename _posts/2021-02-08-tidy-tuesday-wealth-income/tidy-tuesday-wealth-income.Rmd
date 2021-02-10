@@ -2,8 +2,7 @@
 title: "Tidy Tuesday - Wealth & Income"
 description: |
   Visualizing disparities in Wealth & Income in the US over the last 40 years as
-  part of [Tidy Tuesday](https://github.com/rfordatascience/tidytuesday), a weekly
-  data project.
+  part of Tidy Tuesday, the weekly social data project in R.
 author:
   - name: Logan Lossing
     url: {}
@@ -42,12 +41,12 @@ lifetime_earn_tbl <- tuesdata$lifetime_earn
 I have been meaning to spend more time with `gganimate` and these data provided
 and opportunity.
 
-What extra value does `gganimate` versus regular time-series type plots?
+What extra value does `gganimate` versus regular plots?
 
-The ability to draw attention.
+The ability to draw the readers attention and make the data come alive.
 
-Especially when asking the reader a question, you are providing a task to be
-accomplished. By using animation, we can direct focus to the where the action is.
+This is especially true when asking the reader a question in the title. You are providing 
+a task to be accomplished. By using animation, we can direct focus to the where the action is.
 
 In this particular example, I think it is really powerful to see the proportion of 
 high-income white individuals shoot up while the proportion of high-income Hispanic
@@ -120,7 +119,7 @@ anim_save("income_disparity.gif")
 
 ```
 
-## Income Distribution 2 - The Bug I Need to Figure Out
+## Income Distribution 2 and The Bug I Need to Figure Out
 
 I wanted to make the previous plot even easier to follow by printing out the
 percentage for the current year at the current end of the time series. At the
@@ -196,6 +195,9 @@ anim_save("income_disparity_buggy.gif")
 
 # Average Lifetime Earnings
 
+For this simple plot, I thought it would be nice to find put 
+real differences in lifetime earnings on a 'financial goal' axis
+but keep the plot minimal overall. 
 
 ```{r avg_lifetime, fig.height = 6, fig.width = 9}
 
