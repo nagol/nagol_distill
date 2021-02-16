@@ -1,0 +1,107 @@
+---
+title: "Tidy Tuesday - Recreating Works of W.E.B. Du Bois"
+description: |
+  The goal of this week's Tidy Tuesday challenge was to celebrate the data visualization legacy of W.E.B DuBois by recreating a visualization from the 1900 Paris Exposition.
+author:
+  - name: Logan Lossing
+    url: {}
+tags: ['dataviz', 'R']
+categories:
+  - Data Visualization
+  - R
+date: 02-16-2021
+output:
+  distill::distill_article:
+    self_contained: false
+    code_folding: true
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+# W.E.B Du Bois
+
+In this week's [Tidy Tuesday](https://github.com/rfordatascience/tidytuesday/blob/master/data/2021/2021-02-16/readme.md), the goal was to try and recreate some of the works of W.E.B. Du Bois.
+
+I decided to try to see what I could do with the fourth challenge. The original
+shows the proportion of Black Americans that were freemen vs. slaves over the 
+course of the 19th century. 
+
+![a masterpiece](original-plate-51.jpg).
+
+```{r load, message = FALSE, warning = FALSE, error=FALSE,cache=TRUE}
+library(tidytuesdayR)
+library(tidyverse)
+library(ggtext)
+library(showtext)
+
+tuesdata <- tidytuesdayR::tt_load('2021-02-16')
+freed_slaves <- tuesdata$freed_slaves
+```
+
+```{r plot, echo = TRUE, fig.height = 11, fig.width = 8}
+
+font_add_google(name = "Rambla")
+showtext_auto()
+
+green_color <- '#597D35'
+oat_color <- '#E0D6B4'
+
+plot <- freed_slaves %>%
+    ggplot(aes(x = Year, y = Slave)) +
+    
+    geom_ribbon(aes(ymin = 0, ymax = Slave)) +
+    geom_ribbon(aes(ymin = Slave, ymax = 100), fill = green_color) +
+    guides(color = FALSE, fill = FALSE) +
+  
+    labs(
+        title = NULL,
+        x = NULL,
+        y = NULL
+    ) +
+    coord_cartesian(ylim = c(0, 100), clip = 'off') +
+    coord_cartesian(xlim = c(1790, 1870), clip = 'off') +
+    scale_x_continuous(position = "top", breaks  = seq(1790, 1870, 10)) +
+    scale_y_continuous(labels = NULL, breaks = NULL) +
+  
+    geom_text(
+        aes(x = Year, y = Slave + 2, label = glue::glue("{Free}%")), 
+        hjust = 0,
+        size = 5,
+        color = 'black') + 
+    annotate('text', x = 1825, y = 50, 
+             label = glue::glue("SLAVES"), color = 'white', size = 10) +
+    annotate('text', x = 1825, y = 46.5, 
+             label = glue::glue("ESCLAVES"), color = 'white', size = 10) +
+    annotate('text', x = 1825, y = 97.5, 
+             label = glue::glue("FREE - LIBRE"), color = 'black', size = 6, fontface = 'bold') +
+    
+    # theme_minimal() +
+    theme(
+        axis.ticks = element_blank(),
+        legend.title = element_blank(),
+        axis.text.x.top=element_text(
+          size=14, 
+          face = 'bold', 
+          margin = margin(20,0,0,0), 
+          vjust = -11),
+        panel.background = element_rect(fill = oat_color, colour = oat_color),
+        panel.border = element_blank(),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        plot.background = element_rect(fill = oat_color)
+    )
+
+plot
+
+```
+
+# Future
+
+All-in-all, I am fairly happy with the result. I clearly could fix a few things:
+
++ typography - find fonts that match a little better, needs a heavier font weight
++ texture - would be nice to match the brush strokes that can be seen on the original
++ foreign text - need to learn how to deal with foreign languages to add accents

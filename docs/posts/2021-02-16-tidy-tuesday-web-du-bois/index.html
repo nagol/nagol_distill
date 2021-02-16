@@ -85,38 +85,38 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </style>
 
   <!--radix_placeholder_meta_tags-->
-<title>datalyfe: Tidy Tuesday - Wealth &amp; Income</title>
+<title>datalyfe: Tidy Tuesday - Recreating Works of W.E.B. Du Bois</title>
 
-<meta property="description" itemprop="description" content="Visualizing disparities in Wealth &amp; Income in the US over the last 40 years as&#10;part of Tidy Tuesday, the weekly social data project in R."/>
+<meta property="description" itemprop="description" content="The goal of this week&#39;s Tidy Tuesday challenge was to celebrate the data visualization legacy of W.E.B DuBois by recreating a visualization from the 1900 Paris Exposition."/>
 
 
 <!--  https://schema.org/Article -->
-<meta property="article:published" itemprop="datePublished" content="2021-02-08"/>
-<meta property="article:created" itemprop="dateCreated" content="2021-02-08"/>
+<meta property="article:published" itemprop="datePublished" content="2021-02-16"/>
+<meta property="article:created" itemprop="dateCreated" content="2021-02-16"/>
 <meta name="article:author" content="Logan Lossing"/>
 
 <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
-<meta property="og:title" content="datalyfe: Tidy Tuesday - Wealth &amp; Income"/>
+<meta property="og:title" content="datalyfe: Tidy Tuesday - Recreating Works of W.E.B. Du Bois"/>
 <meta property="og:type" content="article"/>
-<meta property="og:description" content="Visualizing disparities in Wealth &amp; Income in the US over the last 40 years as&#10;part of Tidy Tuesday, the weekly social data project in R."/>
+<meta property="og:description" content="The goal of this week&#39;s Tidy Tuesday challenge was to celebrate the data visualization legacy of W.E.B DuBois by recreating a visualization from the 1900 Paris Exposition."/>
 <meta property="og:locale" content="en_US"/>
 <meta property="og:site_name" content="datalyfe"/>
 
 <!--  https://dev.twitter.com/cards/types/summary -->
 <meta property="twitter:card" content="summary"/>
-<meta property="twitter:title" content="datalyfe: Tidy Tuesday - Wealth &amp; Income"/>
-<meta property="twitter:description" content="Visualizing disparities in Wealth &amp; Income in the US over the last 40 years as&#10;part of Tidy Tuesday, the weekly social data project in R."/>
+<meta property="twitter:title" content="datalyfe: Tidy Tuesday - Recreating Works of W.E.B. Du Bois"/>
+<meta property="twitter:description" content="The goal of this week&#39;s Tidy Tuesday challenge was to celebrate the data visualization legacy of W.E.B DuBois by recreating a visualization from the 1900 Paris Exposition."/>
 
 <!--/radix_placeholder_meta_tags-->
   <!--radix_placeholder_rmarkdown_metadata-->
 
 <script type="text/json" id="radix-rmarkdown-metadata">
-{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","tags","categories","date","output","draft"]}},"value":[{"type":"character","attributes":{},"value":["Tidy Tuesday - Wealth & Income"]},{"type":"character","attributes":{},"value":["Visualizing disparities in Wealth & Income in the US over the last 40 years as\npart of Tidy Tuesday, the weekly social data project in R."]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Logan Lossing"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":[]}},"value":[]}]}]},{"type":"character","attributes":{},"value":["dataviz","R"]},{"type":"character","attributes":{},"value":["Data Visualization","R"]},{"type":"character","attributes":{},"value":["02-08-2021"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained","code_folding"]}},"value":[{"type":"logical","attributes":{},"value":[false]},{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"logical","attributes":{},"value":[false]}]}
+{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","tags","categories","date","output"]}},"value":[{"type":"character","attributes":{},"value":["Tidy Tuesday - Recreating Works of W.E.B. Du Bois"]},{"type":"character","attributes":{},"value":["The goal of this week's Tidy Tuesday challenge was to celebrate the data visualization legacy of W.E.B DuBois by recreating a visualization from the 1900 Paris Exposition."]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Logan Lossing"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":[]}},"value":[]}]}]},{"type":"character","attributes":{},"value":["dataviz","R"]},{"type":"character","attributes":{},"value":["Data Visualization","R"]},{"type":"character","attributes":{},"value":["02-16-2021"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained","code_folding"]}},"value":[{"type":"logical","attributes":{},"value":[false]},{"type":"logical","attributes":{},"value":[true]}]}]}]}
 </script>
 <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["income_disparity_buggy.gif","income_disparity.gif","tidy-tuesday-wealth-income_files/anchor-4.2.2/anchor.min.js","tidy-tuesday-wealth-income_files/bowser-1.9.3/bowser.min.js","tidy-tuesday-wealth-income_files/distill-2.2.21/template.v2.js","tidy-tuesday-wealth-income_files/figure-html5/avg_lifetime-1.png","tidy-tuesday-wealth-income_files/figure-html5/income_distribution-1.gif","tidy-tuesday-wealth-income_files/figure-html5/income_distribution2-1.gif","tidy-tuesday-wealth-income_files/figure-html5/unnamed-chunk-2-1.png","tidy-tuesday-wealth-income_files/figure-html5/unnamed-chunk-3-1.png","tidy-tuesday-wealth-income_files/header-attrs-2.6.6/header-attrs.js","tidy-tuesday-wealth-income_files/jquery-1.11.3/jquery.min.js","tidy-tuesday-wealth-income_files/popper-2.6.0/popper.min.js","tidy-tuesday-wealth-income_files/tippy-6.2.7/tippy-bundle.umd.min.js","tidy-tuesday-wealth-income_files/tippy-6.2.7/tippy-light-border.css","tidy-tuesday-wealth-income_files/tippy-6.2.7/tippy.css","tidy-tuesday-wealth-income_files/tippy-6.2.7/tippy.umd.min.js","tidy-tuesday-wealth-income_files/webcomponents-2.0.0/webcomponents.js"]}
+  {"type":"character","attributes":{},"value":["original-plate-51.jpg","tidy-tuesday-web-du-bois_files/anchor-4.2.2/anchor.min.js","tidy-tuesday-web-du-bois_files/bowser-1.9.3/bowser.min.js","tidy-tuesday-web-du-bois_files/distill-2.2.21/template.v2.js","tidy-tuesday-web-du-bois_files/figure-html5/plot-1.png","tidy-tuesday-web-du-bois_files/header-attrs-2.6.6/header-attrs.js","tidy-tuesday-web-du-bois_files/jquery-1.11.3/jquery.min.js","tidy-tuesday-web-du-bois_files/popper-2.6.0/popper.min.js","tidy-tuesday-web-du-bois_files/tippy-6.2.7/tippy-bundle.umd.min.js","tidy-tuesday-web-du-bois_files/tippy-6.2.7/tippy-light-border.css","tidy-tuesday-web-du-bois_files/tippy-6.2.7/tippy.css","tidy-tuesday-web-du-bois_files/tippy-6.2.7/tippy.umd.min.js","tidy-tuesday-web-du-bois_files/webcomponents-2.0.0/webcomponents.js"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
 <meta name="distill:offset" content="../.."/>
@@ -2348,7 +2348,7 @@ d-appendix d-footnote-list a.footnote-backlink {
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Tidy Tuesday - Wealth & Income","description":"Visualizing disparities in Wealth & Income in the US over the last 40 years as\npart of Tidy Tuesday, the weekly social data project in R.","authors":[{"author":"Logan Lossing","authorURL":{},"affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2021-02-08T00:00:00.000+00:00","citationText":"Lossing, 2021"}
+{"title":"Tidy Tuesday - Recreating Works of W.E.B. Du Bois","description":"The goal of this week's Tidy Tuesday challenge was to celebrate the data visualization legacy of W.E.B DuBois by recreating a visualization from the 1900 Paris Exposition.","authors":[{"author":"Logan Lossing","authorURL":{},"affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2021-02-16T00:00:00.000+00:00","citationText":"Lossing, 2021"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2372,271 +2372,126 @@ d-appendix d-footnote-list a.footnote-backlink {
 <!--/radix_placeholder_site_before_body-->
 
 <div class="d-title">
-<h1>Tidy Tuesday - Wealth &amp; Income</h1>
+<h1>Tidy Tuesday - Recreating Works of W.E.B. Du Bois</h1>
 <!--radix_placeholder_categories-->
 <div class="dt-tags">
   <a href="../../blog.html#category:Data_Visualization" class="dt-tag">Data Visualization</a>
   <a href="../../blog.html#category:R" class="dt-tag">R</a>
 </div>
 <!--/radix_placeholder_categories-->
-<p><p>Visualizing disparities in Wealth &amp; Income in the US over the last 40 years as part of Tidy Tuesday, the weekly social data project in R.</p></p>
+<p><p>The goal of this week’s Tidy Tuesday challenge was to celebrate the data visualization legacy of W.E.B DuBois by recreating a visualization from the 1900 Paris Exposition.</p></p>
 </div>
 
 <div class="d-byline">
   Logan Lossing true 
   
-<br/>02-08-2021
+<br/>02-16-2021
 </div>
 
 <div class="d-article">
+<h1 id="w.e.b-du-bois">W.E.B Du Bois</h1>
+<p>In this week’s <a href="https://github.com/rfordatascience/tidytuesday/blob/master/data/2021/2021-02-16/readme.md">Tidy Tuesday</a>, the goal was to try and recreate some of the works of W.E.B. Du Bois.</p>
+<p>I decided to try to see what I could do with the fourth challenge. The original shows the proportion of Black Americans that were freemen vs. slaves over the course of the 19th century.</p>
+<p><img src="original-plate-51.jpg" alt="a masterpiece" />.</p>
 <div class="layout-chunk" data-layout="l-body">
 <details>
 <summary>Show code</summary>
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># Libs</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/thebioengineer/tidytuesdayR'>tidytuesdayR</a></span><span class='op'>)</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://gganimate.com'>gganimate</a></span><span class='op'>)</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/thebioengineer/tidytuesdayR'>tidytuesdayR</a></span><span class='op'>)</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://wilkelab.org/ggtext/'>ggtext</a></span><span class='op'>)</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>ggdark</span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/yixuan/showtext'>showtext</a></span><span class='op'>)</span>
 
-<span class='co'># Load list of tbls</span>
-<span class='va'>tuesdata</span> <span class='op'>&lt;-</span> <span class='fu'>tidytuesdayR</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/tidytuesdayR/man/tt_load.html'>tt_load</a></span><span class='op'>(</span><span class='st'>'2021-02-09'</span><span class='op'>)</span>
-
-<span class='va'>income_tbl</span> <span class='op'>&lt;-</span> <span class='va'>tuesdata</span><span class='op'>$</span><span class='va'>income_distribution</span>
-<span class='va'>lifetime_earn_tbl</span> <span class='op'>&lt;-</span> <span class='va'>tuesdata</span><span class='op'>$</span><span class='va'>lifetime_earn</span>
+<span class='va'>tuesdata</span> <span class='op'>&lt;-</span> <span class='fu'>tidytuesdayR</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/tidytuesdayR/man/tt_load.html'>tt_load</a></span><span class='op'>(</span><span class='st'>'2021-02-16'</span><span class='op'>)</span>
+</code></pre>
+</div>
+</details>
+<pre><code>
+    Downloading file 1 of 8: `freed_slaves.csv`
+    Downloading file 2 of 8: `census.csv`
+    Downloading file 3 of 8: `furniture.csv`
+    Downloading file 4 of 8: `city_rural.csv`
+    Downloading file 5 of 8: `income.csv`
+    Downloading file 6 of 8: `occupation.csv`
+    Downloading file 7 of 8: `conjugal.csv`
+    Downloading file 8 of 8: `georgia_pop.csv`</code></pre>
+<details>
+<summary>Show code</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>freed_slaves</span> <span class='op'>&lt;-</span> <span class='va'>tuesdata</span><span class='op'>$</span><span class='va'>freed_slaves</span>
 </code></pre>
 </div>
 </details>
 </div>
-<h1 id="income-distribution">Income Distribution</h1>
-<p>I have been meaning to spend more time with <code>gganimate</code> and these data provided and opportunity.</p>
-<p>What extra value does <code>gganimate</code> versus regular plots?</p>
-<p>The ability to draw the readers attention and make the data come alive.</p>
-<p>This is especially true when asking the reader a question in the title. You are providing a task to be accomplished. By using animation, we can direct focus to the where the action is.</p>
-<p>In this particular example, I think it is really powerful to see the proportion of high-income white individuals shoot up while the proportion of high-income Hispanic and Black individuals climbs very slowly.</p>
 <div class="layout-chunk" data-layout="l-body">
 <details>
 <summary>Show code</summary>
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>income_levels</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
-  <span class='st'>"Under $15,000"</span>,
-  <span class='st'>"$15,000 to $24,999"</span>,
-  <span class='st'>"$25,000 to $34,999"</span>,
-  <span class='st'>"$35,000 to $49,999"</span>,
-  <span class='st'>"$50,000 to $74,999"</span>,
-  <span class='st'>"$75,000 to $99,999"</span>,
-  <span class='st'>"$100,000 to $149,999"</span>,
-  <span class='st'>"$150,000 to $199,999"</span>,
-  <span class='st'>"$200,000 and over"</span>
-<span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>font_add_google</span><span class='op'>(</span>name <span class='op'>=</span> <span class='st'>"Rambla"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/pkg/showtext/man/showtext_auto.html'>showtext_auto</a></span><span class='op'>(</span><span class='op'>)</span>
 
-<span class='co'># Define colors for race</span>
-<span class='va'>color_group_1</span> <span class='op'>&lt;-</span> <span class='st'>"#8900ff"</span>
-<span class='va'>color_group_2</span> <span class='op'>&lt;-</span> <span class='st'>"#fff205"</span>
-<span class='va'>color_group_3</span> <span class='op'>&lt;-</span> <span class='st'>"#ff1178"</span>
+<span class='va'>green_color</span> <span class='op'>&lt;-</span> <span class='st'>'#597D35'</span>
+<span class='va'>oat_color</span> <span class='op'>&lt;-</span> <span class='st'>'#E0D6B4'</span>
 
-
-<span class='va'>plot</span> <span class='op'>&lt;-</span> <span class='va'>income_tbl</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>race</span> <span class='op'>%in%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Black Alone"</span>, <span class='st'>"White Alone"</span>, <span class='st'>"Hispanic (Any Race)"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>year</span> <span class='op'>&gt;=</span> <span class='fl'>1980</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>income_bracket</span> <span class='op'>%in%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'Under $15,000'</span>,<span class='st'>'$75,000 to $99,999'</span>,<span class='st'>'$200,000 and over'</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'>mutate</span><span class='op'>(</span>race <span class='op'>=</span> <span class='fu'>case_when</span><span class='op'>(</span>
-    <span class='va'>race</span> <span class='op'>==</span> <span class='st'>'Black Alone'</span> <span class='op'>~</span> <span class='st'>'Black'</span>,
-    <span class='va'>race</span> <span class='op'>==</span> <span class='st'>'White Alone'</span> <span class='op'>~</span> <span class='st'>'White'</span>,
-    <span class='va'>race</span> <span class='op'>==</span> <span class='st'>'Hispanic (Any Race)'</span> <span class='op'>~</span> <span class='st'>'Hispanic'</span>
-  <span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'>mutate</span><span class='op'>(</span>income_dist_percent <span class='op'>=</span> <span class='va'>income_distribution</span> <span class='op'>/</span> <span class='fl'>100</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'>mutate</span><span class='op'>(</span>income_bracket <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>income_bracket</span>, levels <span class='op'>=</span> <span class='va'>income_levels</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+<span class='va'>plot</span> <span class='op'>&lt;-</span> <span class='va'>freed_slaves</span> <span class='op'>%&gt;%</span>
+    <span class='fu'>ggplot</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>Year</span>, y <span class='op'>=</span> <span class='va'>Slave</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+    
+    <span class='fu'>geom_ribbon</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>ymin <span class='op'>=</span> <span class='fl'>0</span>, ymax <span class='op'>=</span> <span class='va'>Slave</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+    <span class='fu'>geom_ribbon</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>ymin <span class='op'>=</span> <span class='va'>Slave</span>, ymax <span class='op'>=</span> <span class='fl'>100</span><span class='op'>)</span>, fill <span class='op'>=</span> <span class='va'>green_color</span><span class='op'>)</span> <span class='op'>+</span>
+    <span class='fu'>guides</span><span class='op'>(</span>color <span class='op'>=</span> <span class='cn'>FALSE</span>, fill <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>+</span>
   
-  <span class='fu'>ggplot</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>year</span>, y <span class='op'>=</span> <span class='va'>income_dist_percent</span>, color <span class='op'>=</span> <span class='va'>race</span>, group <span class='op'>=</span> <span class='va'>race</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-    <span class='fu'>geom_path</span><span class='op'>(</span>size <span class='op'>=</span> <span class='fl'>1.2</span>, alpha <span class='op'>=</span> <span class='fl'>0.7</span><span class='op'>)</span> <span class='op'>+</span>
-    <span class='fu'>coord_cartesian</span><span class='op'>(</span>clip <span class='op'>=</span> <span class='st'>'off'</span><span class='op'>)</span> <span class='op'>+</span>
-    <span class='fu'>scale_y_continuous</span><span class='op'>(</span>position <span class='op'>=</span> <span class='st'>'right'</span>, name <span class='op'>=</span> <span class='st'>' '</span>, labels <span class='op'>=</span> <span class='fu'>scales</span><span class='fu'>::</span><span class='va'><a href='https://scales.r-lib.org//reference/label_percent.html'>percent</a></span><span class='op'>)</span> <span class='op'>+</span>
-    <span class='fu'>scale_color_manual</span><span class='op'>(</span>values <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>color_group_1</span>, <span class='va'>color_group_2</span>, <span class='va'>color_group_3</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
     <span class='fu'>labs</span><span class='op'>(</span>
-      title <span class='op'>=</span> <span class='st'>"Is income disparity by race disappearing over time or getting worse?"</span>,
-      subtitle <span class='op'>=</span> <span class='fu'>glue</span><span class='fu'>::</span><span class='fu'><a href='https://glue.tidyverse.org/reference/glue.html'>glue</a></span><span class='op'>(</span><span class='st'>"Non-White households are overrepresented in lower income brackets and are not experiencing \n  similar increases in representation in higher income brackets as White households."</span><span class='op'>)</span>,
-      x <span class='op'>=</span> <span class='cn'>NULL</span>
+        title <span class='op'>=</span> <span class='cn'>NULL</span>,
+        x <span class='op'>=</span> <span class='cn'>NULL</span>,
+        y <span class='op'>=</span> <span class='cn'>NULL</span>
     <span class='op'>)</span> <span class='op'>+</span>
+    <span class='fu'>coord_cartesian</span><span class='op'>(</span>ylim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>100</span><span class='op'>)</span>, clip <span class='op'>=</span> <span class='st'>'off'</span><span class='op'>)</span> <span class='op'>+</span>
+    <span class='fu'>coord_cartesian</span><span class='op'>(</span>xlim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1790</span>, <span class='fl'>1870</span><span class='op'>)</span>, clip <span class='op'>=</span> <span class='st'>'off'</span><span class='op'>)</span> <span class='op'>+</span>
+    <span class='fu'>scale_x_continuous</span><span class='op'>(</span>position <span class='op'>=</span> <span class='st'>"top"</span>, breaks  <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>1790</span>, <span class='fl'>1870</span>, <span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+    <span class='fu'>scale_y_continuous</span><span class='op'>(</span>labels <span class='op'>=</span> <span class='cn'>NULL</span>, breaks <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span> <span class='op'>+</span>
   
-    <span class='fu'><a href='https://gganimate.com/reference/transition_reveal.html'>transition_reveal</a></span><span class='op'>(</span>along <span class='op'>=</span> <span class='va'>year</span><span class='op'>)</span> <span class='op'>+</span>
+    <span class='fu'>geom_text</span><span class='op'>(</span>
+        <span class='fu'>aes</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>Year</span>, y <span class='op'>=</span> <span class='va'>Slave</span> <span class='op'>+</span> <span class='fl'>2</span>, label <span class='op'>=</span> <span class='fu'>glue</span><span class='fu'>::</span><span class='fu'><a href='https://glue.tidyverse.org/reference/glue.html'>glue</a></span><span class='op'>(</span><span class='st'>"{Free}%"</span><span class='op'>)</span><span class='op'>)</span>, 
+        hjust <span class='op'>=</span> <span class='fl'>0</span>,
+        size <span class='op'>=</span> <span class='fl'>5</span>,
+        color <span class='op'>=</span> <span class='st'>'black'</span><span class='op'>)</span> <span class='op'>+</span> 
+    <span class='fu'>annotate</span><span class='op'>(</span><span class='st'>'text'</span>, x <span class='op'>=</span> <span class='fl'>1825</span>, y <span class='op'>=</span> <span class='fl'>50</span>, 
+             label <span class='op'>=</span> <span class='fu'>glue</span><span class='fu'>::</span><span class='fu'><a href='https://glue.tidyverse.org/reference/glue.html'>glue</a></span><span class='op'>(</span><span class='st'>"SLAVES"</span><span class='op'>)</span>, color <span class='op'>=</span> <span class='st'>'white'</span>, size <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span> <span class='op'>+</span>
+    <span class='fu'>annotate</span><span class='op'>(</span><span class='st'>'text'</span>, x <span class='op'>=</span> <span class='fl'>1825</span>, y <span class='op'>=</span> <span class='fl'>46.5</span>, 
+             label <span class='op'>=</span> <span class='fu'>glue</span><span class='fu'>::</span><span class='fu'><a href='https://glue.tidyverse.org/reference/glue.html'>glue</a></span><span class='op'>(</span><span class='st'>"ESCLAVES"</span><span class='op'>)</span>, color <span class='op'>=</span> <span class='st'>'white'</span>, size <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span> <span class='op'>+</span>
+    <span class='fu'>annotate</span><span class='op'>(</span><span class='st'>'text'</span>, x <span class='op'>=</span> <span class='fl'>1825</span>, y <span class='op'>=</span> <span class='fl'>97.5</span>, 
+             label <span class='op'>=</span> <span class='fu'>glue</span><span class='fu'>::</span><span class='fu'><a href='https://glue.tidyverse.org/reference/glue.html'>glue</a></span><span class='op'>(</span><span class='st'>"FREE - LIBRE"</span><span class='op'>)</span>, color <span class='op'>=</span> <span class='st'>'black'</span>, size <span class='op'>=</span> <span class='fl'>6</span>, fontface <span class='op'>=</span> <span class='st'>'bold'</span><span class='op'>)</span> <span class='op'>+</span>
     
-    <span class='fu'>facet_grid</span><span class='op'>(</span>
-      rows <span class='op'>=</span> <span class='fu'>vars</span><span class='op'>(</span><span class='va'>income_bracket</span><span class='op'>)</span>, 
-      switch <span class='op'>=</span> <span class='st'>'y'</span>, 
-      labeller <span class='op'>=</span> <span class='fu'>labeller</span><span class='op'>(</span>income_bracket <span class='op'>=</span> <span class='fu'>label_wrap_gen</span><span class='op'>(</span>width <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span>
-    <span class='op'>)</span> <span class='op'>+</span>
-    
-    <span class='fu'><a href='https://rdrr.io/pkg/ggdark/man/ggdarktheme.html'>dark_theme_minimal</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
-    <span class='fu'>theme</span><span class='op'>(</span>legend.position <span class='op'>=</span> <span class='st'>'top'</span>,
-          strip.text.y.left <span class='op'>=</span> <span class='fu'>element_text</span><span class='op'>(</span>angle <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>,
-          legend.title <span class='op'>=</span> <span class='fu'>element_blank</span><span class='op'>(</span><span class='op'>)</span>,
-          plot.background <span class='op'>=</span> <span class='fu'>element_rect</span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>'black'</span><span class='op'>)</span>,
-          panel.grid.major.x <span class='op'>=</span> <span class='fu'>element_line</span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"#44475a"</span>, size <span class='op'>=</span> <span class='fl'>0.3</span><span class='op'>)</span>,
-          panel.grid.major.y <span class='op'>=</span> <span class='fu'>element_line</span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"#44475a"</span>, size <span class='op'>=</span> <span class='fl'>0.3</span><span class='op'>)</span>,
-          panel.spacing.y <span class='op'>=</span> <span class='fu'>unit</span><span class='op'>(</span><span class='fl'>2</span>, <span class='st'>"lines"</span><span class='op'>)</span><span class='op'>)</span>
-  
+    <span class='co'># theme_minimal() +</span>
+    <span class='fu'>theme</span><span class='op'>(</span>
+        axis.ticks <span class='op'>=</span> <span class='fu'>element_blank</span><span class='op'>(</span><span class='op'>)</span>,
+        legend.title <span class='op'>=</span> <span class='fu'>element_blank</span><span class='op'>(</span><span class='op'>)</span>,
+        axis.text.x.top<span class='op'>=</span><span class='fu'>element_text</span><span class='op'>(</span>
+          size<span class='op'>=</span><span class='fl'>14</span>, 
+          face <span class='op'>=</span> <span class='st'>'bold'</span>, 
+          margin <span class='op'>=</span> <span class='fu'>margin</span><span class='op'>(</span><span class='fl'>20</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span><span class='op'>)</span>, 
+          vjust <span class='op'>=</span> <span class='op'>-</span><span class='fl'>11</span><span class='op'>)</span>,
+        panel.background <span class='op'>=</span> <span class='fu'>element_rect</span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>oat_color</span>, colour <span class='op'>=</span> <span class='va'>oat_color</span><span class='op'>)</span>,
+        panel.border <span class='op'>=</span> <span class='fu'>element_blank</span><span class='op'>(</span><span class='op'>)</span>,
+        panel.grid.major.x <span class='op'>=</span> <span class='fu'>element_blank</span><span class='op'>(</span><span class='op'>)</span>,
+        panel.grid.minor.x <span class='op'>=</span> <span class='fu'>element_blank</span><span class='op'>(</span><span class='op'>)</span>,
+        plot.background <span class='op'>=</span> <span class='fu'>element_rect</span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>oat_color</span><span class='op'>)</span>
+    <span class='op'>)</span>
 
-<span class='fu'><a href='https://gganimate.com/reference/animate.html'>animate</a></span><span class='op'>(</span><span class='va'>plot</span>, height <span class='op'>=</span> <span class='fl'>6</span>, width <span class='op'>=</span> <span class='fl'>9</span>, units <span class='op'>=</span> <span class='st'>"in"</span>, res <span class='op'>=</span> <span class='fl'>200</span><span class='op'>)</span>
+<span class='va'>plot</span>
 </code></pre>
 </div>
 </details>
-<img src="tidy-tuesday-wealth-income_files/figure-html5/income_distribution-1.gif" /><!-- -->
-<details>
-<summary>Show code</summary>
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://gganimate.com/reference/anim_save.html'>anim_save</a></span><span class='op'>(</span><span class='st'>"income_disparity.gif"</span><span class='op'>)</span>
-</code></pre>
+<p><img src="tidy-tuesday-web-du-bois_files/figure-html5/plot-1.png" width="768" /></p>
 </div>
-</details>
-</div>
-<h2 id="income-distribution-2-and-the-bug-i-need-to-figure-out">Income Distribution 2 and The Bug I Need to Figure Out</h2>
-<p>I wanted to make the previous plot even easier to follow by printing out the percentage for the current year at the current end of the time series. At the moment, I have am having an issue with this plot as the plotted text and points from the first frame persist through the animation.</p>
-<div class="layout-chunk" data-layout="l-body">
-<details>
-<summary>Show code</summary>
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>income_levels</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
-  <span class='st'>"Under $15,000"</span>,
-  <span class='st'>"$15,000 to $24,999"</span>,
-  <span class='st'>"$25,000 to $34,999"</span>,
-  <span class='st'>"$35,000 to $49,999"</span>,
-  <span class='st'>"$50,000 to $74,999"</span>,
-  <span class='st'>"$75,000 to $99,999"</span>,
-  <span class='st'>"$100,000 to $149,999"</span>,
-  <span class='st'>"$150,000 to $199,999"</span>,
-  <span class='st'>"$200,000 and over"</span>
-<span class='op'>)</span>
-
-<span class='co'># Define colors for race</span>
-<span class='va'>color_group_1</span> <span class='op'>&lt;-</span> <span class='st'>"#8900ff"</span>
-<span class='va'>color_group_2</span> <span class='op'>&lt;-</span> <span class='st'>"#fff205"</span>
-<span class='va'>color_group_3</span> <span class='op'>&lt;-</span> <span class='st'>"#ff1178"</span>
-
-
-<span class='va'>plot</span> <span class='op'>&lt;-</span> <span class='va'>income_tbl</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>race</span> <span class='op'>%in%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Black Alone"</span>, <span class='st'>"White Alone"</span>, <span class='st'>"Hispanic (Any Race)"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>year</span> <span class='op'>&gt;=</span> <span class='fl'>1980</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>income_bracket</span> <span class='op'>%in%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'Under $15,000'</span>,<span class='st'>'$75,000 to $99,999'</span>,<span class='st'>'$200,000 and over'</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'>mutate</span><span class='op'>(</span>race <span class='op'>=</span> <span class='fu'>case_when</span><span class='op'>(</span>
-    <span class='va'>race</span> <span class='op'>==</span> <span class='st'>'Black Alone'</span> <span class='op'>~</span> <span class='st'>'Black'</span>,
-    <span class='va'>race</span> <span class='op'>==</span> <span class='st'>'White Alone'</span> <span class='op'>~</span> <span class='st'>'White'</span>,
-    <span class='va'>race</span> <span class='op'>==</span> <span class='st'>'Hispanic (Any Race)'</span> <span class='op'>~</span> <span class='st'>'Hispanic'</span>
-  <span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'>mutate</span><span class='op'>(</span>income_dist_percent <span class='op'>=</span> <span class='va'>income_distribution</span> <span class='op'>/</span> <span class='fl'>100</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'>mutate</span><span class='op'>(</span>income_bracket <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>income_bracket</span>, levels <span class='op'>=</span> <span class='va'>income_levels</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-  
-  <span class='fu'>ggplot</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>year</span>, y <span class='op'>=</span> <span class='va'>income_dist_percent</span>, color <span class='op'>=</span> <span class='va'>race</span>, group <span class='op'>=</span> <span class='va'>race</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-    <span class='fu'>geom_path</span><span class='op'>(</span>size <span class='op'>=</span> <span class='fl'>1.2</span>, alpha <span class='op'>=</span> <span class='fl'>0.7</span><span class='op'>)</span> <span class='op'>+</span>
-    <span class='fu'>coord_cartesian</span><span class='op'>(</span>clip <span class='op'>=</span> <span class='st'>'off'</span><span class='op'>)</span> <span class='op'>+</span>
-    <span class='fu'>scale_y_continuous</span><span class='op'>(</span>position <span class='op'>=</span> <span class='st'>'right'</span>, name <span class='op'>=</span> <span class='st'>' '</span>, labels <span class='op'>=</span> <span class='fu'>scales</span><span class='fu'>::</span><span class='va'><a href='https://scales.r-lib.org//reference/label_percent.html'>percent</a></span><span class='op'>)</span> <span class='op'>+</span>
-    <span class='fu'>scale_color_manual</span><span class='op'>(</span>values <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>color_group_1</span>, <span class='va'>color_group_2</span>, <span class='va'>color_group_3</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-    <span class='fu'>labs</span><span class='op'>(</span>
-      title <span class='op'>=</span> <span class='st'>"Is income disparity by race disappearing over time or getting worse?"</span>,
-      subtitle <span class='op'>=</span> <span class='fu'>glue</span><span class='fu'>::</span><span class='fu'><a href='https://glue.tidyverse.org/reference/glue.html'>glue</a></span><span class='op'>(</span><span class='st'>"Non-White households are overrepresented in lower income brackets and are not experiencing \n  similar increases in representation in higher income brackets as White households."</span><span class='op'>)</span>,
-      x <span class='op'>=</span> <span class='cn'>NULL</span>
-    <span class='op'>)</span> <span class='op'>+</span>
-    
-    <span class='fu'>geom_point</span><span class='op'>(</span>size <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span> <span class='op'>+</span> 
-    <span class='fu'>geom_text</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>year</span> <span class='op'>+</span> <span class='fl'>1</span>, label <span class='op'>=</span> <span class='fu'>scales</span><span class='fu'>::</span><span class='fu'><a href='https://scales.r-lib.org//reference/label_percent.html'>percent</a></span><span class='op'>(</span><span class='va'>income_dist_percent</span>, accuracy <span class='op'>=</span> <span class='fl'>0.1</span><span class='op'>)</span><span class='op'>)</span>, hjust <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span> <span class='op'>+</span> 
-    <span class='fu'><a href='https://gganimate.com/reference/transition_reveal.html'>transition_reveal</a></span><span class='op'>(</span>along <span class='op'>=</span> <span class='va'>year</span><span class='op'>)</span> <span class='op'>+</span>
-    
-    <span class='fu'>facet_grid</span><span class='op'>(</span>
-      rows <span class='op'>=</span> <span class='fu'>vars</span><span class='op'>(</span><span class='va'>income_bracket</span><span class='op'>)</span>, 
-      switch <span class='op'>=</span> <span class='st'>'y'</span>, 
-      labeller <span class='op'>=</span> <span class='fu'>labeller</span><span class='op'>(</span>income_bracket <span class='op'>=</span> <span class='fu'>label_wrap_gen</span><span class='op'>(</span>width <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span>
-    <span class='op'>)</span> <span class='op'>+</span>
-    
-    <span class='fu'><a href='https://rdrr.io/pkg/ggdark/man/ggdarktheme.html'>dark_theme_minimal</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
-    <span class='fu'>theme</span><span class='op'>(</span>legend.position <span class='op'>=</span> <span class='st'>'top'</span>,
-          strip.text.y.left <span class='op'>=</span> <span class='fu'>element_text</span><span class='op'>(</span>angle <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>,
-          legend.title <span class='op'>=</span> <span class='fu'>element_blank</span><span class='op'>(</span><span class='op'>)</span>,
-          plot.background <span class='op'>=</span> <span class='fu'>element_rect</span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>'black'</span><span class='op'>)</span>,
-          panel.grid.major.x <span class='op'>=</span> <span class='fu'>element_line</span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"#44475a"</span>, size <span class='op'>=</span> <span class='fl'>0.3</span><span class='op'>)</span>,
-          panel.grid.major.y <span class='op'>=</span> <span class='fu'>element_line</span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"#44475a"</span>, size <span class='op'>=</span> <span class='fl'>0.3</span><span class='op'>)</span>,
-          panel.spacing.y <span class='op'>=</span> <span class='fu'>unit</span><span class='op'>(</span><span class='fl'>2</span>, <span class='st'>"lines"</span><span class='op'>)</span><span class='op'>)</span>
-  
-<span class='fu'><a href='https://gganimate.com/reference/animate.html'>animate</a></span><span class='op'>(</span><span class='va'>plot</span>, height <span class='op'>=</span> <span class='fl'>6</span>, width <span class='op'>=</span> <span class='fl'>9</span>, units <span class='op'>=</span> <span class='st'>"in"</span>, res <span class='op'>=</span> <span class='fl'>200</span><span class='op'>)</span>
-</code></pre>
-</div>
-</details>
-<img src="tidy-tuesday-wealth-income_files/figure-html5/income_distribution2-1.gif" /><!-- -->
-<details>
-<summary>Show code</summary>
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://gganimate.com/reference/anim_save.html'>anim_save</a></span><span class='op'>(</span><span class='st'>"income_disparity_buggy.gif"</span><span class='op'>)</span>
-</code></pre>
-</div>
-</details>
-</div>
-<h1 id="average-lifetime-earnings">Average Lifetime Earnings</h1>
-<p>For this simple plot, I thought it would be nice to find put real differences in lifetime earnings on a ‘financial goal’ axis but keep the plot minimal overall.</p>
-<div class="layout-chunk" data-layout="l-body">
-<details>
-<summary>Show code</summary>
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>lifetime_earn_wm</span> <span class='op'>&lt;-</span> <span class='va'>lifetime_earn_tbl</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>gender</span> <span class='op'>==</span> <span class='st'>'Men'</span>, <span class='va'>race</span> <span class='op'>==</span> <span class='st'>'White'</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'>pull</span><span class='op'>(</span><span class='op'>)</span>
-
-<span class='va'>color_group_1</span> <span class='op'>&lt;-</span> <span class='st'>"#d21404"</span>
-<span class='va'>color_group_2</span> <span class='op'>&lt;-</span> <span class='st'>"#ff6961"</span>
-
-<span class='va'>wealth_plot</span> <span class='op'>&lt;-</span> <span class='va'>lifetime_earn_tbl</span> <span class='op'>%&gt;%</span>
-  <span class='fu'>mutate</span><span class='op'>(</span>percent_white_male <span class='op'>=</span> <span class='op'>(</span><span class='va'>lifetime_earn</span> <span class='op'>-</span> <span class='va'>lifetime_earn_wm</span><span class='op'>)</span> <span class='op'>/</span> <span class='va'>lifetime_earn_wm</span> <span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'>mutate</span><span class='op'>(</span>diffinc_white_male <span class='op'>=</span> <span class='va'>lifetime_earn</span> <span class='op'>-</span> <span class='va'>lifetime_earn_wm</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'>mutate</span><span class='op'>(</span>race <span class='op'>=</span> <span class='fu'>if_else</span><span class='op'>(</span><span class='va'>race</span> <span class='op'>==</span> <span class='st'>'Hispanic any race'</span>, <span class='st'>'Hispanic'</span>, <span class='va'>race</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'>mutate</span><span class='op'>(</span>category <span class='op'>=</span> <span class='fu'>str_glue</span><span class='op'>(</span><span class='st'>"{race} \n {gender}"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>race</span> <span class='op'>!=</span> <span class='st'>"White"</span> <span class='op'>|</span> <span class='va'>gender</span> <span class='op'>!=</span> <span class='st'>"Men"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'>arrange</span><span class='op'>(</span><span class='va'>percent_white_male</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'>ggplot</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/reorder.factor.html'>reorder</a></span><span class='op'>(</span><span class='va'>category</span>, <span class='va'>percent_white_male</span><span class='op'>)</span>, y <span class='op'>=</span> <span class='va'>percent_white_male</span>, color <span class='op'>=</span> <span class='va'>gender</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>expand_limits</span><span class='op'>(</span>y <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>geom_bar</span><span class='op'>(</span>stat <span class='op'>=</span> <span class='st'>"identity"</span>, width <span class='op'>=</span> <span class='fl'>0.01</span><span class='op'>)</span> <span class='op'>+</span> 
-  <span class='fu'>geom_point</span><span class='op'>(</span>shape <span class='op'>=</span> <span class='fl'>25</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>scale_color_manual</span><span class='op'>(</span>values <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>color_group_1</span>, <span class='va'>color_group_2</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>labs</span><span class='op'>(</span>
-    title <span class='op'>=</span> <span class='st'>"Economic Disparity Charges Interest"</span>,
-    subtitle <span class='op'>=</span> <span class='fu'>glue</span><span class='fu'>::</span><span class='fu'><a href='https://glue.tidyverse.org/reference/glue.html'>glue</a></span><span class='op'>(</span><span class='st'>"The average lifetime earnings in 2016 for White Men was {scales::dollar(lifetime_earn_wm)}. \n By comparison, Women and BIPOC make significantly less...but by how much?"</span><span class='op'>)</span>,
-    x <span class='op'>=</span> <span class='cn'>NULL</span>,
-    caption <span class='op'>=</span> <span class='st'>"Data: Urban Institute and the US Census."</span>
-  <span class='op'>)</span> <span class='op'>+</span> 
-  <span class='fu'>guides</span><span class='op'>(</span>color <span class='op'>=</span> <span class='cn'>FALSE</span>, fill <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='https://rdrr.io/pkg/ggdark/man/ggdarktheme.html'>dark_theme_minimal</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>scale_y_continuous</span><span class='op'>(</span>
-    
-    <span class='co'># first axis</span>
-    name <span class='op'>=</span> <span class='st'>" "</span>,
-    labels <span class='op'>=</span> <span class='fu'>scales</span><span class='fu'>::</span><span class='va'><a href='https://scales.r-lib.org//reference/label_percent.html'>percent</a></span>,
-    
-    <span class='co'># Add a second axis</span>
-    sec.axis <span class='op'>=</span> <span class='fu'>sec_axis</span><span class='op'>(</span>
-      <span class='op'>~</span><span class='va'>.</span><span class='op'>*</span><span class='va'>lifetime_earn_wm</span>, 
-      name<span class='op'>=</span><span class='st'>" "</span>,
-      breaks <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='op'>-</span><span class='fl'>233000</span>, <span class='op'>-</span><span class='fl'>650000</span>, <span class='op'>-</span><span class='fl'>1300000</span><span class='op'>)</span>, 
-      labels <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"($0)"</span>, 
-                 <span class='fu'>glue</span><span class='fu'>::</span><span class='fu'><a href='https://glue.tidyverse.org/reference/glue.html'>glue</a></span><span class='op'>(</span><span class='st'>"Avg Cost to Raise Child \n ($233,000)"</span><span class='op'>)</span>, 
-                 <span class='fu'>glue</span><span class='fu'>::</span><span class='fu'><a href='https://glue.tidyverse.org/reference/glue.html'>glue</a></span><span class='op'>(</span><span class='st'>"Median Home Price \n Los Angeles \n ($650,000)"</span><span class='op'>)</span>,
-                 <span class='fu'>glue</span><span class='fu'>::</span><span class='fu'><a href='https://glue.tidyverse.org/reference/glue.html'>glue</a></span><span class='op'>(</span><span class='st'>"Median Home Price \n San Francisco \n ($1,300,000)"</span><span class='op'>)</span><span class='op'>)</span>
-      <span class='op'>)</span>
-    <span class='op'>)</span> <span class='op'>+</span> 
-  
-  <span class='fu'>theme</span><span class='op'>(</span>
-      axis.ticks <span class='op'>=</span> <span class='fu'>element_blank</span><span class='op'>(</span><span class='op'>)</span>,
-      legend.title <span class='op'>=</span> <span class='fu'>element_blank</span><span class='op'>(</span><span class='op'>)</span>,
-      plot.background <span class='op'>=</span> <span class='fu'>element_rect</span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>'black'</span><span class='op'>)</span>,
-      plot.caption <span class='op'>=</span> <span class='fu'>element_text</span><span class='op'>(</span>size <span class='op'>=</span> <span class='fl'>8</span>, lineheight <span class='op'>=</span> <span class='fl'>.9</span><span class='op'>)</span>,
-      plot.caption.position <span class='op'>=</span> <span class='st'>"plot"</span>,
-      plot.margin <span class='op'>=</span> <span class='fu'>margin</span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, unit <span class='op'>=</span> <span class='st'>"line"</span><span class='op'>)</span>,
-    <span class='op'>)</span> 
-
-<span class='va'>wealth_plot</span>
-</code></pre>
-</div>
-</details>
-<p><img src="tidy-tuesday-wealth-income_files/figure-html5/avg_lifetime-1.png" width="864" /></p>
-</div>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<h1 id="future">Future</h1>
+<p>All-in-all, I am fairly happy with the result. I clearly could fix a few things:</p>
+<ul>
+<li>typography - find fonts that match a little better, needs a heavier font weight</li>
+<li>texture - would be nice to match the brush strokes that can be seen on the original</li>
+<li>foreign text - need to learn how to deal with foreign languages to add accents</li>
+</ul>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
