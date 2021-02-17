@@ -31,17 +31,16 @@ course of the 19th century.
 
 ![a masterpiece](original-plate-51.jpg).
 
-```{r load, message = FALSE, warning = FALSE, error=FALSE,cache=TRUE}
+```{r load, message = FALSE, warning = FALSE, error=FALSE}
 library(tidytuesdayR)
 library(tidyverse)
 library(ggtext)
 library(showtext)
 
-tuesdata <- tidytuesdayR::tt_load('2021-02-16')
-freed_slaves <- tuesdata$freed_slaves
+freed_slaves <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-02-16/freed_slaves.csv')
 ```
 
-```{r plot, echo = TRUE, fig.height = 11, fig.width = 8}
+```{r plot, echo = TRUE, fig.height = 9, fig.width = 8}
 
 font_add_google(name = "Rambla")
 showtext_auto()
@@ -66,19 +65,22 @@ plot <- freed_slaves %>%
     scale_x_continuous(position = "top", breaks  = seq(1790, 1870, 10)) +
     scale_y_continuous(labels = NULL, breaks = NULL) +
   
-    geom_text(
+    geom_text(data = freed_slaves %>% filter(Year > 1790, Year < 1870),
         aes(x = Year, y = Slave + 2, label = glue::glue("{Free}%")), 
-        hjust = 0,
+        # hjust = 0,
         size = 5,
         color = 'black') + 
     annotate('text', x = 1825, y = 50, 
              label = glue::glue("SLAVES"), color = 'white', size = 10) +
-    annotate('text', x = 1825, y = 46.5, 
+    annotate('text', x = 1825, y = 45, 
              label = glue::glue("ESCLAVES"), color = 'white', size = 10) +
     annotate('text', x = 1825, y = 97.5, 
              label = glue::glue("FREE - LIBRE"), color = 'black', size = 6, fontface = 'bold') +
-    
-    # theme_minimal() +
+    annotate("text", label = "100 %", x = 1870, y = 92,
+              color = "#101010", size = 5) +
+    annotate("text", label = "8 %", x = 1790, y = 94,
+             color = "#101010", size = 5) +
+  
     theme(
         axis.ticks = element_blank(),
         legend.title = element_blank(),
@@ -86,7 +88,7 @@ plot <- freed_slaves %>%
           size=14, 
           face = 'bold', 
           margin = margin(20,0,0,0), 
-          vjust = -11),
+          vjust = -8),
         panel.background = element_rect(fill = oat_color, colour = oat_color),
         panel.border = element_blank(),
         panel.grid.major.x = element_blank(),
