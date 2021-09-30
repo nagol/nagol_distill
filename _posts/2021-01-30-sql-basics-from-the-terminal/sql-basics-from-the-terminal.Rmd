@@ -34,28 +34,28 @@ knitr::opts_chunk$set(echo = FALSE)
 # Why learn SQL from the terminal?
 
 Without an IDE to worry about or any real configuration details you can focus
-on just SQL basics...with none of the headaches. Personally, I often create small
-examples tables when designing a new database or trying to design a complex query.
+on just SQL basics...with fewer distractions.
 
 For this quick tutorial, we will be using SQLlite. There are many flavors of 
-SQL and this one is the quickest and easiest to install.
+SQL and this one is the quickest and easiest to install. Much of what you need
+to know can be found at [https://sqlite.org/cli.html](https://sqlite.org/cli.html),
+an excellent reference that can be worth reading through.
+There are many topics and commands covered but in this blog post we will only
+use what we need along the way to accomplish some practical tasks.
 
 # Install SQLite
 
 The [SQLite.org](https://www.sqlite.org/download.html) contains instructions for
-installing on your operating system but for macOS, you can quickly install SQLite using homebrew `brew install sqlite`. Once installed, verify that SQLite is installed
+installing on your operating system but for macOS, you can quickly install SQLite 
+using homebrew `brew install sqlite`. Once installed, verify that SQLite is installed
 properly using `sqlite3 --version`.
 
 
 # CRUD
 
-The core SQL database operations are known by the acronym C.R.U.D. - (C)reate, (R)ead, (U)pdate, and (D)elete so that should be a good first set of thing to learn about.
+The core SQL database operations are known by the acronym C.R.U.D. - (C)reate, (R)ead, (U)pdate, and (D)elete.
 
-If you are not coming from a strong database background and are more comfortable
-with R or python, you may first want to soon get a feel for how a table in a database is different from a tibble/data_frame. The good news is, in practice, much more is
-similar than is different. However, databases offer an entire array of new possibilities
-and control...enough to know in fact that managing databases can be an entire
-job. 
+
 
 ## Create Tables
 
@@ -234,12 +234,11 @@ if you try to add another observation with the same primary key.
 
 ```{r echo=TRUE, eval=FALSE}
 /* STUDENTS */
+  
 INSERT INTO students (student_id, name, student_level, major, email)
   VALUES (1, 'Student 1', 'Freshman', 'CS', 'student1@uni.edu');
-
 INSERT INTO students
   VALUES (2, 'Student 2', 'Freshman', 'CS', 'student2@uni.edu');
-  
 INSERT INTO students 
   VALUES (3, 'Student 3', 'Freshman', 'MATH', 'student3@uni.edu');
   
@@ -248,10 +247,8 @@ INSERT INTO students
     
 INSERT INTO assignments (assignment_id, assignment_category, assignment_value)
   VALUES (1, 'quiz', 10);
-  
 INSERT INTO assignments 
   VALUES (2, 'quiz', 10);
-  
 INSERT INTO assignments
   VALUES (3, 'exam', 100);
   
@@ -259,38 +256,136 @@ INSERT INTO assignments
     
 INSERT INTO grades (assignment_id, student_id, numeric_grade)
   VALUES (1, 1, 0.85);
-  
 INSERT INTO grades
   VALUES (2, 1, 0.75);
-  
 INSERT INTO grades
   VALUES (3, 1, 0.9);
-  
 INSERT INTO grades 
   VALUES (1, 2, 0.7);
-  
 INSERT INTO grades
   VALUES (2, 2, 0.6);
-  
 INSERT INTO grades
   VALUES (3, 2, 0.65);
-  
 INSERT INTO grades 
   VALUES (1, 3, 0.99);
-  
 INSERT INTO grades
   VALUES (2, 3, 1);
-  
 INSERT INTO grades
   VALUES (3, 3, .92);
-
 
 ```
 
 Back at the terminal, type 
-`sqlite3 -echo class.db < class_data.sql` 
-to run the script `class_data.sql` on `class.db`. Now, the
+`sqlite3 -echo courses.db < class_data.sql` 
+to run the script. Now, the
 tables have some data and we can start playing with SQL code.
+
+#### Inserting Data From `csv` Files
+
+Many times you want to use simulated data or the example data you
+want to use is already available. If you have the data available
+as a `.csv`, we can easily populate our SQL tables.
+
+For example, let's use R to quickly generate some simulated data. The following code chunk will create three `.csv` files that we can use to read into our database that fit the schema we previously defined.
+
+```{r generate_data, echo=TRUE, eval = FALSE}
+# Generate Grade Data
+
+library(babynames)
+library(tidyverse)
+
+# Set simulation parameters ----
+set_seed(123)
+num_students <- 100
+num_assignments <- 20
+majors <- c('Statistics and Math', 'Science', 'English', 'Engineering', 'Business', 'Philosophy')
+student_levels <- c('Freshmen', 'Sophmore', 'Junior', 'Senior')
+names <- babynames::babynames %>%
+    filter(year > 1980, prop > 0.01) %>%
+    group_by(name) %>%
+    summarise(total = sum(n)) %>%
+    ungroup() %>%
+    arrange(desc(total)) %>%
+    select(name) %>%
+    pull()
+
+
+# STUDENTS ----
+# + student_id - Integer Primary Key
+# + student_name - Text
+# + student_level (Freshmen, Sophmore, Junior, Senior) - Text
+# + major - Text
+# + email - Text
+students <- tibble(
+    student_id = 1:num_students,
+    student_name = sample(names, size = num_students, replace = TRUE),
+    student_level = sample(student_levels, size = num_students, replace = TRUE),
+    major = sample(majors, size = num_students, replace = TRUE)
+    ) %>%
+    mutate(email = str_glue("{str_to_lower(student_name)}@university.edu"))
+
+# ASSIGNMENTS ----
+# - one row per assignment containing all assignment specific information
+# + assignment_id - Integer Primary Key
+# + assignment_category - Text
+# + assignment_value - Real or Integer
+assignments <- tibble(assignment_id = 1:num_assignments) %>%
+    mutate(assignment_category = case_when(
+        assignment_id %% 10 %in% c(1,2,3,5,6,7,9) ~ 'Homework',
+        assignment_id %% 10 %in% c(4, 8) ~ 'Quiz',
+        TRUE ~ 'Exam')
+        ) %>%
+    mutate(assignment_value = case_when(
+        assignment_category == 'Homework' ~ 10,
+        assignment_category == 'Quiz' ~ 20,
+        assignment_category == 'Exam' ~ 100
+    ))
+
+
+# GRADE ----
+# - one row per graded assignment per student
+# + assignment_id - Integer
+# + student_id - Integer
+# + numeric_grade - Integer or Real
+grades <- expand_grid(
+    student_id = students$student_id, 
+    assignment_id = assignments$assignment_id) %>%
+    mutate(numeric_grade = rnorm(n(), mean = 0.8, sd = 0.15)
+    ) %>%
+    mutate(numeric_grade = if_else(numeric_grade > 1, 1, round(numeric_grade,3)))
+
+
+# write_csv(students, "./_posts/2021-01-30-sql-basics-from-the-terminal/data/students.csv", col_names = FALSE)
+# write_csv(assignments, "./_posts/2021-01-30-sql-basics-from-the-terminal/data/assignments.csv", col_names = FALSE)
+# write_csv(grades, "./_posts/2021-01-30-sql-basics-from-the-terminal/data/grades.csv", col_names = FALSE)
+
+
+```
+
+To import `csv` data directly into SQLite, we need to remove any header rows that
+may be present. This shouldn't cause worry, we already fully specified the order
+and type of each column or each table.
+
+In the `R` script above, the `csv` tables will have the header row already
+removed.
+
+If the `file.csv` file that you want to import contains a header row,
+we can remove the headers using a single command using `sed -i '' 1d file.csv`. 
+
+Once the `csv` files are properly prepared we can insert the data into our database. 
+To keep things organized, let's create a second database `course_large.db` using 
+the same schema as before and add the csv data to that.
+
+`sqlite3 course_large.db < table_schema.sql`
+
+To enter the SQL command prompt, type `sqllite3 course_large.db`.
+
+`.mode csv`
+
+`.import students.csv students`
+
+After repeating for the other tables, we now have a much more realistic database example to play with. Of course, it is possible to create the database directly with R and the [`RSQLite`](https://cran.r-project.org/web/packages/RSQLite/index.html) library.
+
 
 ## Read
 
@@ -321,7 +416,7 @@ extra flags `-column -header` make the output much more readable.
 
 ```{r echo=TRUE, eval=FALSE}
 
-$sqlite3 -echo -column -header class.db < scripts/query.sql
+$sqlite3 -echo -column -header course.db < query.sql
 
 SELECT *
 FROM students
@@ -337,14 +432,15 @@ At this point, we are ready to start experimenting. For example, we could join a
 
 ```{r echo=TRUE, eval=FALSE}
 
-SELECT students.student_id,
-       students.name,
-       assignments.assignment_category,
-       assignments.assignment_value,
-       grades.numeric_grade
-  FROM students, assignments, grades
-  ON students.student_id = grades.student_id
-    AND assignments.assignment_id = grades.assignment_id;
+SELECT s.student_id,
+       s.name,
+       a.assignment_category,
+       a.assignment_value,
+       g.numeric_grade
+  FROM students s, assignments a, grades g
+  ON s.student_id = g.student_id
+    AND a.assignment_id = g.assignment_id;
+    
 student_id  name        assignment_category  assignment_value  numeric_grade
 ----------  ----------  -------------------  ----------------  -------------
 1           Student 1   quiz                 10                0.85         
@@ -358,6 +454,8 @@ student_id  name        assignment_category  assignment_value  numeric_grade
 3           Student 3   exam                 100               0.92  
 
 ```
+
+
 
 
 There are plenty of books, blogs, and websites to learn all about SQL syntax. One thing
@@ -472,7 +570,7 @@ student_id  name        assignment_category  assignment_value  numeric_grade
 
 ## Wrap Up
 
-In a few short minutes, we were able to get SQLite3 up and running in the terminal,
+In a few minutes, we were able to get SQLite3 up and running in the terminal,
 we created a small example database and created small sql scripts to investigate basic SQL
 CRUD operations. Of course there is much more to learn, but you now have the tools to play
 around with schema design and query writing...all straight from the terminal.

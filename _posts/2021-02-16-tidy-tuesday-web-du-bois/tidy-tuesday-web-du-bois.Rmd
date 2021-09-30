@@ -21,7 +21,7 @@ output:
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-# W.E.B Du Bois
+# W.E.B Du Bois - Data Visualization Pioneer
 
 In this week's [Tidy Tuesday](https://github.com/rfordatascience/tidytuesday/blob/master/data/2021/2021-02-16/readme.md), the goal was to try and recreate some of the works of W.E.B. Du Bois.
 
