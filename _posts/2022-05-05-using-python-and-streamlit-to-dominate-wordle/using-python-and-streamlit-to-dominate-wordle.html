@@ -1,0 +1,1746 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+  <meta name="generator" content="distill" />
+
+  <style type="text/css">
+  /* Hide doc at startup (prevent jankiness while JS renders/transforms) */
+  body {
+    visibility: hidden;
+  }
+  </style>
+
+ <!--radix_placeholder_import_source-->
+ <!--/radix_placeholder_import_source-->
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ad0000; } /* Alert */
+code span.an { color: #5e5e5e; } /* Annotation */
+code span.at { color: #20794d; } /* Attribute */
+code span.bn { color: #ad0000; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007ba5; } /* ControlFlow */
+code span.ch { color: #20794d; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #5e5e5e; } /* Comment */
+code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+code span.dt { color: #ad0000; } /* DataType */
+code span.dv { color: #ad0000; } /* DecVal */
+code span.er { color: #ad0000; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #ad0000; } /* Float */
+code span.fu { color: #4758ab; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #5e5e5e; } /* Information */
+code span.kw { color: #007ba5; } /* Keyword */
+code span.op { color: #5e5e5e; } /* Operator */
+code span.ot { color: #007ba5; } /* Other */
+code span.pp { color: #ad0000; } /* Preprocessor */
+code span.sc { color: #20794d; } /* SpecialChar */
+code span.ss { color: #20794d; } /* SpecialString */
+code span.st { color: #20794d; } /* String */
+code span.va { color: #111111; } /* Variable */
+code span.vs { color: #20794d; } /* VerbatimString */
+code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+</style>
+
+  <!--radix_placeholder_meta_tags-->
+  <title>Using Python and Streamlit to Dominate Wordle</title>
+
+  <meta property="description" itemprop="description" content="We walk through the steps of using Python and the Streamlit dashboard library to build a data driven app to help play the puzzle game Wordle."/>
+
+
+  <!--  https://schema.org/Article -->
+  <meta property="article:published" itemprop="datePublished" content="2022-03-05"/>
+  <meta property="article:created" itemprop="dateCreated" content="2022-03-05"/>
+  <meta name="article:author" content="Logan Lossing"/>
+
+  <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
+  <meta property="og:title" content="Using Python and Streamlit to Dominate Wordle"/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:description" content="We walk through the steps of using Python and the Streamlit dashboard library to build a data driven app to help play the puzzle game Wordle."/>
+  <meta property="og:locale" content="en_US"/>
+
+  <!--  https://dev.twitter.com/cards/types/summary -->
+  <meta property="twitter:card" content="summary"/>
+  <meta property="twitter:title" content="Using Python and Streamlit to Dominate Wordle"/>
+  <meta property="twitter:description" content="We walk through the steps of using Python and the Streamlit dashboard library to build a data driven app to help play the puzzle game Wordle."/>
+
+  <!--/radix_placeholder_meta_tags-->
+  <!--radix_placeholder_rmarkdown_metadata-->
+
+  <script type="text/json" id="radix-rmarkdown-metadata">
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","tags","categories","date","output","draft"]}},"value":[{"type":"character","attributes":{},"value":["Using Python and Streamlit to Dominate Wordle"]},{"type":"character","attributes":{},"value":["We walk through the steps of using Python and the Streamlit dashboard library to build a data driven app to help play the puzzle game Wordle.\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Logan Lossing"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":[]}},"value":[]}]}]},{"type":"character","attributes":{},"value":["python","Data Science","dashboard"]},{"type":"character","attributes":{},"value":["python","Data Science","dashboard"]},{"type":"character","attributes":{},"value":["03-05-2022"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]},{"type":"logical","attributes":{},"value":[false]}]}
+  </script>
+  <!--/radix_placeholder_rmarkdown_metadata-->
+  
+  <script type="text/json" id="radix-resource-manifest">
+  {"type":"character","attributes":{},"value":["using-python-and-streamlit-to-dominate-wordle_files/anchor-4.2.2/anchor.min.js","using-python-and-streamlit-to-dominate-wordle_files/bowser-1.9.3/bowser.min.js","using-python-and-streamlit-to-dominate-wordle_files/distill-2.2.21/template.v2.js","using-python-and-streamlit-to-dominate-wordle_files/header-attrs-2.6.6/header-attrs.js","using-python-and-streamlit-to-dominate-wordle_files/jquery-1.11.3/jquery.min.js","using-python-and-streamlit-to-dominate-wordle_files/popper-2.6.0/popper.min.js","using-python-and-streamlit-to-dominate-wordle_files/tippy-6.2.7/tippy-bundle.umd.min.js","using-python-and-streamlit-to-dominate-wordle_files/tippy-6.2.7/tippy-light-border.css","using-python-and-streamlit-to-dominate-wordle_files/tippy-6.2.7/tippy.css","using-python-and-streamlit-to-dominate-wordle_files/tippy-6.2.7/tippy.umd.min.js","using-python-and-streamlit-to-dominate-wordle_files/webcomponents-2.0.0/webcomponents.js","wordle_app_screenshot.png","wordle_game_screenshot.png"]}
+  </script>
+  <!--radix_placeholder_navigation_in_header-->
+  <!--/radix_placeholder_navigation_in_header-->
+  <!--radix_placeholder_distill-->
+
+  <style type="text/css">
+
+  body {
+    background-color: white;
+  }
+
+  .pandoc-table {
+    width: 100%;
+  }
+
+  .pandoc-table>caption {
+    margin-bottom: 10px;
+  }
+
+  .pandoc-table th:not([align]) {
+    text-align: left;
+  }
+
+  .pagedtable-footer {
+    font-size: 15px;
+  }
+
+  d-byline .byline {
+    grid-template-columns: 2fr 2fr;
+  }
+
+  d-byline .byline h3 {
+    margin-block-start: 1.5em;
+  }
+
+  d-byline .byline .authors-affiliations h3 {
+    margin-block-start: 0.5em;
+  }
+
+  .authors-affiliations .orcid-id {
+    width: 16px;
+    height:16px;
+    margin-left: 4px;
+    margin-right: 4px;
+    vertical-align: middle;
+    padding-bottom: 2px;
+  }
+
+  d-title .dt-tags {
+    margin-top: 1em;
+    grid-column: text;
+  }
+
+  .dt-tags .dt-tag {
+    text-decoration: none;
+    display: inline-block;
+    color: rgba(0,0,0,0.6);
+    padding: 0em 0.4em;
+    margin-right: 0.5em;
+    margin-bottom: 0.4em;
+    font-size: 70%;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  d-article table.gt_table td,
+  d-article table.gt_table th {
+    border-bottom: none;
+  }
+
+  .html-widget {
+    margin-bottom: 2.0em;
+  }
+
+  .l-screen-inset {
+    padding-right: 16px;
+  }
+
+  .l-screen .caption {
+    margin-left: 10px;
+  }
+
+  .shaded {
+    background: rgb(247, 247, 247);
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .shaded .html-widget {
+    margin-bottom: 0;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .shaded .shaded-content {
+    background: white;
+  }
+
+  .text-output {
+    margin-top: 0;
+    line-height: 1.5em;
+  }
+
+  .hidden {
+    display: none !important;
+  }
+
+  d-article {
+    padding-top: 2.5rem;
+    padding-bottom: 30px;
+  }
+
+  d-appendix {
+    padding-top: 30px;
+  }
+
+  d-article>p>img {
+    width: 100%;
+  }
+
+  d-article h2 {
+    margin: 1rem 0 1.5rem 0;
+  }
+
+  d-article h3 {
+    margin-top: 1.5rem;
+  }
+
+  d-article iframe {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    margin-bottom: 2.0em;
+    width: 100%;
+  }
+
+  /* Tweak code blocks */
+
+  d-article div.sourceCode code,
+  d-article pre code {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  }
+
+  d-article pre,
+  d-article div.sourceCode,
+  d-article div.sourceCode pre {
+    overflow: auto;
+  }
+
+  d-article div.sourceCode {
+    background-color: white;
+  }
+
+  d-article div.sourceCode pre {
+    padding-left: 10px;
+    font-size: 12px;
+    border-left: 2px solid rgba(0,0,0,0.1);
+  }
+
+  d-article pre {
+    font-size: 12px;
+    color: black;
+    background: none;
+    margin-top: 0;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.5;
+
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+  }
+
+  d-article pre a {
+    border-bottom: none;
+  }
+
+  d-article pre a:hover {
+    border-bottom: none;
+    text-decoration: underline;
+  }
+
+  d-article details {
+    grid-column: text;
+    margin-bottom: 0.8em;
+  }
+
+  @media(min-width: 768px) {
+
+  d-article pre,
+  d-article div.sourceCode,
+  d-article div.sourceCode pre {
+    overflow: visible !important;
+  }
+
+  d-article div.sourceCode pre {
+    padding-left: 18px;
+    font-size: 14px;
+  }
+
+  d-article pre {
+    font-size: 14px;
+  }
+
+  }
+
+  figure img.external {
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+    padding: 18px;
+    box-sizing: border-box;
+  }
+
+  /* CSS for d-contents */
+
+  .d-contents {
+    grid-column: text;
+    color: rgba(0,0,0,0.8);
+    font-size: 0.9em;
+    padding-bottom: 1em;
+    margin-bottom: 1em;
+    padding-bottom: 0.5em;
+    margin-bottom: 1em;
+    padding-left: 0.25em;
+    justify-self: start;
+  }
+
+  @media(min-width: 1000px) {
+    .d-contents.d-contents-float {
+      height: 0;
+      grid-column-start: 1;
+      grid-column-end: 4;
+      justify-self: center;
+      padding-right: 3em;
+      padding-left: 2em;
+    }
+  }
+
+  .d-contents nav h3 {
+    font-size: 18px;
+    margin-top: 0;
+    margin-bottom: 1em;
+  }
+
+  .d-contents li {
+    list-style-type: none
+  }
+
+  .d-contents nav > ul {
+    padding-left: 0;
+  }
+
+  .d-contents ul {
+    padding-left: 1em
+  }
+
+  .d-contents nav ul li {
+    margin-top: 0.6em;
+    margin-bottom: 0.2em;
+  }
+
+  .d-contents nav a {
+    font-size: 13px;
+    border-bottom: none;
+    text-decoration: none
+    color: rgba(0, 0, 0, 0.8);
+  }
+
+  .d-contents nav a:hover {
+    text-decoration: underline solid rgba(0, 0, 0, 0.6)
+  }
+
+  .d-contents nav > ul > li > a {
+    font-weight: 600;
+  }
+
+  .d-contents nav > ul > li > ul {
+    font-weight: inherit;
+  }
+
+  .d-contents nav > ul > li > ul > li {
+    margin-top: 0.2em;
+  }
+
+
+  .d-contents nav ul {
+    margin-top: 0;
+    margin-bottom: 0.25em;
+  }
+
+  .d-article-with-toc h2:nth-child(2) {
+    margin-top: 0;
+  }
+
+
+  /* Figure */
+
+  .figure {
+    position: relative;
+    margin-bottom: 2.5em;
+    margin-top: 1.5em;
+  }
+
+  .figure img {
+    width: 100%;
+  }
+
+  .figure .caption {
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 12px;
+    line-height: 1.5em;
+  }
+
+  .figure img.external {
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+    padding: 18px;
+    box-sizing: border-box;
+  }
+
+  .figure .caption a {
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  .figure .caption b,
+  .figure .caption strong, {
+    font-weight: 600;
+    color: rgba(0, 0, 0, 1.0);
+  }
+
+  /* Citations */
+
+  d-article .citation {
+    color: inherit;
+    cursor: inherit;
+  }
+
+  div.hanging-indent{
+    margin-left: 1em; text-indent: -1em;
+  }
+
+  /* Citation hover box */
+
+  .tippy-box[data-theme~=light-border] {
+    background-color: rgba(250, 250, 250, 0.95);
+  }
+
+  .tippy-content > p {
+    margin-bottom: 0;
+    padding: 2px;
+  }
+
+
+  /* Tweak 1000px media break to show more text */
+
+  @media(min-width: 1000px) {
+    .base-grid,
+    distill-header,
+    d-title,
+    d-abstract,
+    d-article,
+    d-appendix,
+    distill-appendix,
+    d-byline,
+    d-footnote-list,
+    d-citation-list,
+    distill-footer {
+      grid-template-columns: [screen-start] 1fr [page-start kicker-start] 80px [middle-start] 50px [text-start kicker-end] 65px 65px 65px 65px 65px 65px 65px 65px [text-end gutter-start] 65px [middle-end] 65px [page-end gutter-end] 1fr [screen-end];
+      grid-column-gap: 16px;
+    }
+
+    .grid {
+      grid-column-gap: 16px;
+    }
+
+    d-article {
+      font-size: 1.06rem;
+      line-height: 1.7em;
+    }
+    figure .caption, .figure .caption, figure figcaption {
+      font-size: 13px;
+    }
+  }
+
+  @media(min-width: 1180px) {
+    .base-grid,
+    distill-header,
+    d-title,
+    d-abstract,
+    d-article,
+    d-appendix,
+    distill-appendix,
+    d-byline,
+    d-footnote-list,
+    d-citation-list,
+    distill-footer {
+      grid-template-columns: [screen-start] 1fr [page-start kicker-start] 60px [middle-start] 60px [text-start kicker-end] 60px 60px 60px 60px 60px 60px 60px 60px [text-end gutter-start] 60px [middle-end] 60px [page-end gutter-end] 1fr [screen-end];
+      grid-column-gap: 32px;
+    }
+
+    .grid {
+      grid-column-gap: 32px;
+    }
+  }
+
+
+  /* Get the citation styles for the appendix (not auto-injected on render since
+     we do our own rendering of the citation appendix) */
+
+  d-appendix .citation-appendix,
+  .d-appendix .citation-appendix {
+    font-size: 11px;
+    line-height: 15px;
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+    padding-left: 18px;
+    border: 1px solid rgba(0,0,0,0.1);
+    background: rgba(0, 0, 0, 0.02);
+    padding: 10px 18px;
+    border-radius: 3px;
+    color: rgba(150, 150, 150, 1);
+    overflow: hidden;
+    margin-top: -12px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+
+  /* Include appendix styles here so they can be overridden */
+
+  d-appendix {
+    contain: layout style;
+    font-size: 0.8em;
+    line-height: 1.7em;
+    margin-top: 60px;
+    margin-bottom: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    color: rgba(0,0,0,0.5);
+    padding-top: 60px;
+    padding-bottom: 48px;
+  }
+
+  d-appendix h3 {
+    grid-column: page-start / text-start;
+    font-size: 15px;
+    font-weight: 500;
+    margin-top: 1em;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.65);
+  }
+
+  d-appendix h3 + * {
+    margin-top: 1em;
+  }
+
+  d-appendix ol {
+    padding: 0 0 0 15px;
+  }
+
+  @media (min-width: 768px) {
+    d-appendix ol {
+      padding: 0 0 0 30px;
+      margin-left: -30px;
+    }
+  }
+
+  d-appendix li {
+    margin-bottom: 1em;
+  }
+
+  d-appendix a {
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  d-appendix > * {
+    grid-column: text;
+  }
+
+  d-appendix > d-footnote-list,
+  d-appendix > d-citation-list,
+  d-appendix > distill-appendix {
+    grid-column: screen;
+  }
+
+  /* Include footnote styles here so they can be overridden */
+
+  d-footnote-list {
+    contain: layout style;
+  }
+
+  d-footnote-list > * {
+    grid-column: text;
+  }
+
+  d-footnote-list a.footnote-backlink {
+    color: rgba(0,0,0,0.3);
+    padding-left: 0.5em;
+  }
+
+
+
+  /* Anchor.js */
+
+  .anchorjs-link {
+    /*transition: all .25s linear; */
+    text-decoration: none;
+    border-bottom: none;
+  }
+  *:hover > .anchorjs-link {
+    margin-left: -1.125em !important;
+    text-decoration: none;
+    border-bottom: none;
+  }
+
+  /* Social footer */
+
+  .social_footer {
+    margin-top: 30px;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.67);
+  }
+
+  .disqus-comments {
+    margin-right: 30px;
+  }
+
+  .disqus-comment-count {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+  }
+
+  #disqus_thread {
+    margin-top: 30px;
+  }
+
+  .article-sharing a {
+    border-bottom: none;
+    margin-right: 8px;
+  }
+
+  .article-sharing a:hover {
+    border-bottom: none;
+  }
+
+  .sidebar-section.subscribe {
+    font-size: 12px;
+    line-height: 1.6em;
+  }
+
+  .subscribe p {
+    margin-bottom: 0.5em;
+  }
+
+
+  .article-footer .subscribe {
+    font-size: 15px;
+    margin-top: 45px;
+  }
+
+
+  .sidebar-section.custom {
+    font-size: 12px;
+    line-height: 1.6em;
+  }
+
+  .custom p {
+    margin-bottom: 0.5em;
+  }
+
+  /* Styles for listing layout (hide title) */
+  .layout-listing d-title, .layout-listing .d-title {
+    display: none;
+  }
+
+  /* Styles for posts lists (not auto-injected) */
+
+
+  .posts-with-sidebar {
+    padding-left: 45px;
+    padding-right: 45px;
+  }
+
+  .posts-list .description h2,
+  .posts-list .description p {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+  }
+
+  .posts-list .description h2 {
+    font-weight: 700;
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .posts-list h2.post-tag {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    padding-bottom: 12px;
+  }
+  .posts-list {
+    margin-top: 60px;
+    margin-bottom: 24px;
+  }
+
+  .posts-list .post-preview {
+    text-decoration: none;
+    overflow: hidden;
+    display: block;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 24px 0;
+  }
+
+  .post-preview-last {
+    border-bottom: none !important;
+  }
+
+  .posts-list .posts-list-caption {
+    grid-column: screen;
+    font-weight: 400;
+  }
+
+  .posts-list .post-preview h2 {
+    margin: 0 0 6px 0;
+    line-height: 1.2em;
+    font-style: normal;
+    font-size: 24px;
+  }
+
+  .posts-list .post-preview p {
+    margin: 0 0 12px 0;
+    line-height: 1.4em;
+    font-size: 16px;
+  }
+
+  .posts-list .post-preview .thumbnail {
+    box-sizing: border-box;
+    margin-bottom: 24px;
+    position: relative;
+    max-width: 500px;
+  }
+  .posts-list .post-preview img {
+    width: 100%;
+    display: block;
+  }
+
+  .posts-list .metadata {
+    font-size: 12px;
+    line-height: 1.4em;
+    margin-bottom: 18px;
+  }
+
+  .posts-list .metadata > * {
+    display: inline-block;
+  }
+
+  .posts-list .metadata .publishedDate {
+    margin-right: 2em;
+  }
+
+  .posts-list .metadata .dt-authors {
+    display: block;
+    margin-top: 0.3em;
+    margin-right: 2em;
+  }
+
+  .posts-list .dt-tags {
+    display: block;
+    line-height: 1em;
+  }
+
+  .posts-list .dt-tags .dt-tag {
+    display: inline-block;
+    color: rgba(0,0,0,0.6);
+    padding: 0.3em 0.4em;
+    margin-right: 0.2em;
+    margin-bottom: 0.4em;
+    font-size: 60%;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .posts-list img {
+    opacity: 1;
+  }
+
+  .posts-list img[data-src] {
+    opacity: 0;
+  }
+
+  .posts-more {
+    clear: both;
+  }
+
+
+  .posts-sidebar {
+    font-size: 16px;
+  }
+
+  .posts-sidebar h3 {
+    font-size: 16px;
+    margin-top: 0;
+    margin-bottom: 0.5em;
+    font-weight: 400;
+    text-transform: uppercase;
+  }
+
+  .sidebar-section {
+    margin-bottom: 30px;
+  }
+
+  .categories ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .categories li {
+    color: rgba(0, 0, 0, 0.8);
+    margin-bottom: 0;
+  }
+
+  .categories li>a {
+    border-bottom: none;
+  }
+
+  .categories li>a:hover {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+  }
+
+  .categories .active {
+    font-weight: 600;
+  }
+
+  .categories .category-count {
+    color: rgba(0, 0, 0, 0.4);
+  }
+
+
+  @media(min-width: 768px) {
+    .posts-list .post-preview h2 {
+      font-size: 26px;
+    }
+    .posts-list .post-preview .thumbnail {
+      float: right;
+      width: 30%;
+      margin-bottom: 0;
+    }
+    .posts-list .post-preview .description {
+      float: left;
+      width: 45%;
+    }
+    .posts-list .post-preview .metadata {
+      float: left;
+      width: 20%;
+      margin-top: 8px;
+    }
+    .posts-list .post-preview p {
+      margin: 0 0 12px 0;
+      line-height: 1.5em;
+      font-size: 16px;
+    }
+    .posts-with-sidebar .posts-list {
+      float: left;
+      width: 75%;
+    }
+    .posts-with-sidebar .posts-sidebar {
+      float: right;
+      width: 20%;
+      margin-top: 60px;
+      padding-top: 24px;
+      padding-bottom: 24px;
+    }
+  }
+
+
+  /* Improve display for browsers without grid (IE/Edge <= 15) */
+
+  .downlevel {
+    line-height: 1.6em;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+    margin: 0;
+  }
+
+  .downlevel .d-title {
+    padding-top: 6rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .downlevel .d-title h1 {
+    font-size: 50px;
+    font-weight: 700;
+    line-height: 1.1em;
+    margin: 0 0 0.5rem;
+  }
+
+  .downlevel .d-title p {
+    font-weight: 300;
+    font-size: 1.2rem;
+    line-height: 1.55em;
+    margin-top: 0;
+  }
+
+  .downlevel .d-byline {
+    padding-top: 0.8em;
+    padding-bottom: 0.8em;
+    font-size: 0.8rem;
+    line-height: 1.8em;
+  }
+
+  .downlevel .section-separator {
+    border: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .downlevel .d-article {
+    font-size: 1.06rem;
+    line-height: 1.7em;
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+  }
+
+
+  .downlevel .d-appendix {
+    padding-left: 0;
+    padding-right: 0;
+    max-width: none;
+    font-size: 0.8em;
+    line-height: 1.7em;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.5);
+    padding-top: 40px;
+    padding-bottom: 48px;
+  }
+
+  .downlevel .footnotes ol {
+    padding-left: 13px;
+  }
+
+  .downlevel .base-grid,
+  .downlevel .distill-header,
+  .downlevel .d-title,
+  .downlevel .d-abstract,
+  .downlevel .d-article,
+  .downlevel .d-appendix,
+  .downlevel .distill-appendix,
+  .downlevel .d-byline,
+  .downlevel .d-footnote-list,
+  .downlevel .d-citation-list,
+  .downlevel .distill-footer,
+  .downlevel .appendix-bottom,
+  .downlevel .posts-container {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+
+  @media(min-width: 768px) {
+    .downlevel .base-grid,
+    .downlevel .distill-header,
+    .downlevel .d-title,
+    .downlevel .d-abstract,
+    .downlevel .d-article,
+    .downlevel .d-appendix,
+    .downlevel .distill-appendix,
+    .downlevel .d-byline,
+    .downlevel .d-footnote-list,
+    .downlevel .d-citation-list,
+    .downlevel .distill-footer,
+    .downlevel .appendix-bottom,
+    .downlevel .posts-container {
+    padding-left: 150px;
+    padding-right: 150px;
+    max-width: 900px;
+  }
+  }
+
+  .downlevel pre code {
+    display: block;
+    border-left: 2px solid rgba(0, 0, 0, .1);
+    padding: 0 0 0 20px;
+    font-size: 14px;
+  }
+
+  .downlevel code, .downlevel pre {
+    color: black;
+    background: none;
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.5;
+
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+  }
+
+  .downlevel .posts-list .post-preview {
+    color: inherit;
+  }
+
+
+
+  </style>
+
+  <script type="application/javascript">
+
+  function is_downlevel_browser() {
+    if (bowser.isUnsupportedBrowser({ msie: "12", msedge: "16"},
+                                   window.navigator.userAgent)) {
+      return true;
+    } else {
+      return window.load_distill_framework === undefined;
+    }
+  }
+
+  // show body when load is complete
+  function on_load_complete() {
+
+    // add anchors
+    if (window.anchors) {
+      window.anchors.options.placement = 'left';
+      window.anchors.add('d-article > h2, d-article > h3, d-article > h4, d-article > h5');
+    }
+
+
+    // set body to visible
+    document.body.style.visibility = 'visible';
+
+    // force redraw for leaflet widgets
+    if (window.HTMLWidgets) {
+      var maps = window.HTMLWidgets.findAll(".leaflet");
+      $.each(maps, function(i, el) {
+        var map = this.getMap();
+        map.invalidateSize();
+        map.eachLayer(function(layer) {
+          if (layer instanceof L.TileLayer)
+            layer.redraw();
+        });
+      });
+    }
+
+    // trigger 'shown' so htmlwidgets resize
+    $('d-article').trigger('shown');
+  }
+
+  function init_distill() {
+
+    init_common();
+
+    // create front matter
+    var front_matter = $('<d-front-matter></d-front-matter>');
+    $('#distill-front-matter').wrap(front_matter);
+
+    // create d-title
+    $('.d-title').changeElementType('d-title');
+
+    // create d-byline
+    var byline = $('<d-byline></d-byline>');
+    $('.d-byline').replaceWith(byline);
+
+    // create d-article
+    var article = $('<d-article></d-article>');
+    $('.d-article').wrap(article).children().unwrap();
+
+    // move posts container into article
+    $('.posts-container').appendTo($('d-article'));
+
+    // create d-appendix
+    $('.d-appendix').changeElementType('d-appendix');
+
+    // flag indicating that we have appendix items
+    var appendix = $('.appendix-bottom').children('h3').length > 0;
+
+    // replace footnotes with <d-footnote>
+    $('.footnote-ref').each(function(i, val) {
+      appendix = true;
+      var href = $(this).attr('href');
+      var id = href.replace('#', '');
+      var fn = $('#' + id);
+      var fn_p = $('#' + id + '>p');
+      fn_p.find('.footnote-back').remove();
+      var text = fn_p.html();
+      var dtfn = $('<d-footnote></d-footnote>');
+      dtfn.html(text);
+      $(this).replaceWith(dtfn);
+    });
+    // remove footnotes
+    $('.footnotes').remove();
+
+    // move refs into #references-listing
+    $('#references-listing').replaceWith($('#refs'));
+
+    $('h1.appendix, h2.appendix').each(function(i, val) {
+      $(this).changeElementType('h3');
+    });
+    $('h3.appendix').each(function(i, val) {
+      var id = $(this).attr('id');
+      $('.d-contents a[href="#' + id + '"]').parent().remove();
+      appendix = true;
+      $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('d-appendix'));
+    });
+
+    // show d-appendix if we have appendix content
+    $("d-appendix").css('display', appendix ? 'grid' : 'none');
+
+    // localize layout chunks to just output
+    $('.layout-chunk').each(function(i, val) {
+
+      // capture layout
+      var layout = $(this).attr('data-layout');
+
+      // apply layout to markdown level block elements
+      var elements = $(this).children().not('details, div.sourceCode, pre, script');
+      elements.each(function(i, el) {
+        var layout_div = $('<div class="' + layout + '"></div>');
+        if (layout_div.hasClass('shaded')) {
+          var shaded_content = $('<div class="shaded-content"></div>');
+          $(this).wrap(shaded_content);
+          $(this).parent().wrap(layout_div);
+        } else {
+          $(this).wrap(layout_div);
+        }
+      });
+
+
+      // unwrap the layout-chunk div
+      $(this).children().unwrap();
+    });
+
+    // remove code block used to force  highlighting css
+    $('.distill-force-highlighting-css').parent().remove();
+
+    // remove empty line numbers inserted by pandoc when using a
+    // custom syntax highlighting theme
+    $('code.sourceCode a:empty').remove();
+
+    // load distill framework
+    load_distill_framework();
+
+    // wait for window.distillRunlevel == 4 to do post processing
+    function distill_post_process() {
+
+      if (!window.distillRunlevel || window.distillRunlevel < 4)
+        return;
+
+      // hide author/affiliations entirely if we have no authors
+      var front_matter = JSON.parse($("#distill-front-matter").html());
+      var have_authors = front_matter.authors && front_matter.authors.length > 0;
+      if (!have_authors)
+        $('d-byline').addClass('hidden');
+
+      // article with toc class
+      $('.d-contents').parent().addClass('d-article-with-toc');
+
+      // strip links that point to #
+      $('.authors-affiliations').find('a[href="#"]').removeAttr('href');
+
+      // add orcid ids
+      $('.authors-affiliations').find('.author').each(function(i, el) {
+        var orcid_id = front_matter.authors[i].orcidID;
+        if (orcid_id) {
+          var a = $('<a></a>');
+          a.attr('href', 'https://orcid.org/' + orcid_id);
+          var img = $('<img></img>');
+          img.addClass('orcid-id');
+          img.attr('alt', 'ORCID ID');
+          img.attr('src','data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg==');
+          a.append(img);
+          $(this).append(a);
+        }
+      });
+
+      // hide elements of author/affiliations grid that have no value
+      function hide_byline_column(caption) {
+        $('d-byline').find('h3:contains("' + caption + '")').parent().css('visibility', 'hidden');
+      }
+
+      // affiliations
+      var have_affiliations = false;
+      for (var i = 0; i<front_matter.authors.length; ++i) {
+        var author = front_matter.authors[i];
+        if (author.affiliation !== "&nbsp;") {
+          have_affiliations = true;
+          break;
+        }
+      }
+      if (!have_affiliations)
+        $('d-byline').find('h3:contains("Affiliations")').css('visibility', 'hidden');
+
+      // published date
+      if (!front_matter.publishedDate)
+        hide_byline_column("Published");
+
+      // document object identifier
+      var doi = $('d-byline').find('h3:contains("DOI")');
+      var doi_p = doi.next().empty();
+      if (!front_matter.doi) {
+        // if we have a citation and valid citationText then link to that
+        if ($('#citation').length > 0 && front_matter.citationText) {
+          doi.html('Citation');
+          $('<a href="#citation"></a>')
+            .text(front_matter.citationText)
+            .appendTo(doi_p);
+        } else {
+          hide_byline_column("DOI");
+        }
+      } else {
+        $('<a></a>')
+           .attr('href', "https://doi.org/" + front_matter.doi)
+           .html(front_matter.doi)
+           .appendTo(doi_p);
+      }
+
+       // change plural form of authors/affiliations
+      if (front_matter.authors.length === 1) {
+        var grid = $('.authors-affiliations');
+        grid.children('h3:contains("Authors")').text('Author');
+        grid.children('h3:contains("Affiliations")').text('Affiliation');
+      }
+
+      // remove d-appendix and d-footnote-list local styles
+      $('d-appendix > style:first-child').remove();
+      $('d-footnote-list > style:first-child').remove();
+
+      // move appendix-bottom entries to the bottom
+      $('.appendix-bottom').appendTo('d-appendix').children().unwrap();
+      $('.appendix-bottom').remove();
+
+      // hoverable references
+      $('span.citation[data-cites]').each(function() {
+        var refHtml = $('#ref-' + $(this).attr('data-cites')).html();
+        window.tippy(this, {
+          allowHTML: true,
+          content: refHtml,
+          maxWidth: 500,
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'light-border',
+          placement: 'bottom-start'
+        });
+      });
+
+      // clear polling timer
+      clearInterval(tid);
+
+      // show body now that everything is ready
+      on_load_complete();
+    }
+
+    var tid = setInterval(distill_post_process, 50);
+    distill_post_process();
+
+  }
+
+  function init_downlevel() {
+
+    init_common();
+
+     // insert hr after d-title
+    $('.d-title').after($('<hr class="section-separator"/>'));
+
+    // check if we have authors
+    var front_matter = JSON.parse($("#distill-front-matter").html());
+    var have_authors = front_matter.authors && front_matter.authors.length > 0;
+
+    // manage byline/border
+    if (!have_authors)
+      $('.d-byline').remove();
+    $('.d-byline').after($('<hr class="section-separator"/>'));
+    $('.d-byline a').remove();
+
+    // remove toc
+    $('.d-contents').remove();
+
+    // move appendix elements
+    $('h1.appendix, h2.appendix').each(function(i, val) {
+      $(this).changeElementType('h3');
+    });
+    $('h3.appendix').each(function(i, val) {
+      $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('.d-appendix'));
+    });
+
+
+    // inject headers into references and footnotes
+    var refs_header = $('<h3></h3>');
+    refs_header.text('References');
+    $('#refs').prepend(refs_header);
+
+    var footnotes_header = $('<h3></h3');
+    footnotes_header.text('Footnotes');
+    $('.footnotes').children('hr').first().replaceWith(footnotes_header);
+
+    // move appendix-bottom entries to the bottom
+    $('.appendix-bottom').appendTo('.d-appendix').children().unwrap();
+    $('.appendix-bottom').remove();
+
+    // remove appendix if it's empty
+    if ($('.d-appendix').children().length === 0)
+      $('.d-appendix').remove();
+
+    // prepend separator above appendix
+    $('.d-appendix').before($('<hr class="section-separator" style="clear: both"/>'));
+
+    // trim code
+    $('pre>code').each(function(i, val) {
+      $(this).html($.trim($(this).html()));
+    });
+
+    // move posts-container right before article
+    $('.posts-container').insertBefore($('.d-article'));
+
+    $('body').addClass('downlevel');
+
+    on_load_complete();
+  }
+
+
+  function init_common() {
+
+    // jquery plugin to change element types
+    (function($) {
+      $.fn.changeElementType = function(newType) {
+        var attrs = {};
+
+        $.each(this[0].attributes, function(idx, attr) {
+          attrs[attr.nodeName] = attr.nodeValue;
+        });
+
+        this.replaceWith(function() {
+          return $("<" + newType + "/>", attrs).append($(this).contents());
+        });
+      };
+    })(jQuery);
+
+    // prevent underline for linked images
+    $('a > img').parent().css({'border-bottom' : 'none'});
+
+    // mark non-body figures created by knitr chunks as 100% width
+    $('.layout-chunk').each(function(i, val) {
+      var figures = $(this).find('img, .html-widget');
+      if ($(this).attr('data-layout') !== "l-body") {
+        figures.css('width', '100%');
+      } else {
+        figures.css('max-width', '100%');
+        figures.filter("[width]").each(function(i, val) {
+          var fig = $(this);
+          fig.css('width', fig.attr('width') + 'px');
+        });
+
+      }
+    });
+
+    // auto-append index.html to post-preview links in file: protocol
+    // and in rstudio ide preview
+    $('.post-preview').each(function(i, val) {
+      if (window.location.protocol === "file:")
+        $(this).attr('href', $(this).attr('href') + "index.html");
+    });
+
+    // get rid of index.html references in header
+    if (window.location.protocol !== "file:") {
+      $('.distill-site-header a[href]').each(function(i,val) {
+        $(this).attr('href', $(this).attr('href').replace("index.html", "./"));
+      });
+    }
+
+    // add class to pandoc style tables
+    $('tr.header').parent('thead').parent('table').addClass('pandoc-table');
+    $('.kable-table').children('table').addClass('pandoc-table');
+
+    // add figcaption style to table captions
+    $('caption').parent('table').addClass("figcaption");
+
+    // initialize posts list
+    if (window.init_posts_list)
+      window.init_posts_list();
+
+    // implmement disqus comment link
+    $('.disqus-comment-count').click(function() {
+      window.headroom_prevent_pin = true;
+      $('#disqus_thread').toggleClass('hidden');
+      if (!$('#disqus_thread').hasClass('hidden')) {
+        var offset = $(this).offset();
+        $(window).resize();
+        $('html, body').animate({
+          scrollTop: offset.top - 35
+        });
+      }
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    if (is_downlevel_browser())
+      init_downlevel();
+    else
+      window.addEventListener('WebComponentsReady', init_distill);
+  });
+
+  </script>
+
+  <!--/radix_placeholder_distill-->
+  <script src="using-python-and-streamlit-to-dominate-wordle_files/header-attrs-2.6.6/header-attrs.js"></script>
+  <script src="using-python-and-streamlit-to-dominate-wordle_files/jquery-1.11.3/jquery.min.js"></script>
+  <script src="using-python-and-streamlit-to-dominate-wordle_files/popper-2.6.0/popper.min.js"></script>
+  <link href="using-python-and-streamlit-to-dominate-wordle_files/tippy-6.2.7/tippy.css" rel="stylesheet" />
+  <link href="using-python-and-streamlit-to-dominate-wordle_files/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
+  <script src="using-python-and-streamlit-to-dominate-wordle_files/tippy-6.2.7/tippy.umd.min.js"></script>
+  <script src="using-python-and-streamlit-to-dominate-wordle_files/anchor-4.2.2/anchor.min.js"></script>
+  <script src="using-python-and-streamlit-to-dominate-wordle_files/bowser-1.9.3/bowser.min.js"></script>
+  <script src="using-python-and-streamlit-to-dominate-wordle_files/webcomponents-2.0.0/webcomponents.js"></script>
+  <script src="using-python-and-streamlit-to-dominate-wordle_files/distill-2.2.21/template.v2.js"></script>
+  <!--radix_placeholder_site_in_header-->
+  <!--/radix_placeholder_site_in_header-->
+
+
+</head>
+
+<body>
+
+<!--radix_placeholder_front_matter-->
+
+<script id="distill-front-matter" type="text/json">
+{"title":"Using Python and Streamlit to Dominate Wordle","description":"We walk through the steps of using Python and the Streamlit dashboard library to build a data driven app to help play the puzzle game Wordle.","authors":[{"author":"Logan Lossing","authorURL":{},"affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2022-03-05T00:00:00.000+00:00","citationText":"Lossing, 2022"}
+</script>
+
+<!--/radix_placeholder_front_matter-->
+<!--radix_placeholder_navigation_before_body-->
+<!--/radix_placeholder_navigation_before_body-->
+<!--radix_placeholder_site_before_body-->
+<!--/radix_placeholder_site_before_body-->
+
+<div class="d-title">
+<h1>Using Python and Streamlit to Dominate Wordle</h1>
+<!--radix_placeholder_categories-->
+<div class="dt-tags">
+<div class="dt=tag">python</div>
+<div class="dt=tag">Data Science</div>
+<div class="dt=tag">dashboard</div>
+</div>
+<!--/radix_placeholder_categories-->
+<p><p>We walk through the steps of using Python and the Streamlit dashboard library to build a data driven app to help play the puzzle game Wordle.</p></p>
+</div>
+
+<div class="d-byline">
+  Logan Lossing true 
+  
+<br/>03-05-2022
+</div>
+
+<div class="d-article">
+<p><a href="https://en.wikipedia.org/wiki/Wordle">Wordle</a> is a popular word-based game where the ultimate goal is to guess a specific word. Typically, the game is played with 5 letter words but variations exist.</p>
+<p>You are required to make guesses of the target word using valid English words of the appropriate length, usually 5 letters in length.</p>
+<p>For each guess you are provided with the following information:</p>
+<ul>
+<li><p>the letter turns green if the target word has that specific letter in that particular location in the word</p></li>
+<li><p>the letter turns yellow if the target word contains that specific letter but in the target word, the letter appears in a different position</p></li>
+<li><p>the letter turns grey if the target word does not contain that specific letter</p></li>
+</ul>
+<p><img src="wordle_game_screenshot.png" alt="Screenshot from an New York Times Daily Wordle Game" /> In the screenshot, we can see that the first guess was ‘DEATH’ and since the <em>E</em> and the <em>H</em> are both YELLOW then we know the target word contains <em>E</em> and <em>H</em> but the <em>E</em> is not in the second position and the <em>H</em> is not in the fifth position. Further since the <em>D</em>, <em>A</em>, and <em>T</em> are grey, we know the target word does not contain any of them.</p>
+<p>The next guess was ‘ETHER’ and we now see that there are green <em>E</em> and <em>R</em> meaning that those letters are in the correct position. The <em>H</em> is yellow so we know that the <em>H</em> in the target word is not in the third location. The grey <em>T</em> shouldn’t suprise us, we already know from the first guess that no <em>T</em> existed in the target word and its presence in the second guess constitutes a <em>waste</em> of a guess. The second grey <em>E</em> signifies that the target word doesn’t have a second <em>E</em> in it other than the one that lives in the fourth location.</p>
+<p>From this example, we can determine that there are four pieces of information to keep track of:</p>
+<ol type="1">
+<li><p>Letters we know are contained in the target word. We could store such values in a list.</p></li>
+<li><p>Letters we know are not contained in the target word. We could store such values in a list.</p></li>
+<li><p>Letters we know can’t be in specific positions in the target word. For a specific position, there may be many known non-valid letters. We could store such values in a dictionary using the positions as keys and a list of non-valid letters as values.</p></li>
+<li><p>Letters we know to be in specific positions in the target word. For a specific position, there is only one possible valid letter. We could store such values in a dictionary using the positions as keys and a single valid letter as a value.</p></li>
+</ol>
+<h2 id="build-a-wordle-helper-function">Build a Wordle Helper Function</h2>
+<h3 id="data">Data</h3>
+<p>The first thing we need to generate are guesses. Each guess needs to be a valid English word of the right length.</p>
+<p>The <a href="https://www.kaggle.com/datasets/rtatman/english-word-frequency">Kaggle Data</a> contains “the counts of the 333,333 most commonly-used single words on the English language web, as derived from the Google Web Trillion Word Corpus.” One nice feature of these data is that there is a <em>count</em> column which we can use as a proxy for <em>word popularity</em>. Generally, the target word is most likely to be relatively close to the top of a table, sorted in decending order by <em>count</em>, containing the valid list of words currently meeting the known criteria.</p>
+<p>To make these data a little more helpful for a Wordle Helper app, we can add a few helpful fields:</p>
+<ul>
+<li><p>number of letters per word to easily grab words of the right length</p></li>
+<li><p>number of distinct letters per word to perhaps choose words with more distinct letters to maximize the information we receive from our guess</p></li>
+</ul>
+<p>This processing only needs to happen once. The code chuck below shows the contents of <a href="https://github.com/nagol/wordle_helper/blob/master/ETL_dictionary.py">ETL_dictionary.py</a>.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2"></a></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="co"># Load data with word, word freq over trillion word coupus</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a>word_dictionary <span class="op">=</span> pd.read_csv(<span class="st">&quot;./data/unigram_freq.csv&quot;</span>)</span>
+<span id="cb1-5"><a href="#cb1-5"></a></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="co"># remove null words</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a>word_dictionary <span class="op">=</span> word_dictionary[word_dictionary.word.notnull()]</span>
+<span id="cb1-8"><a href="#cb1-8"></a></span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="co"># create column with word lengths</span></span>
+<span id="cb1-10"><a href="#cb1-10"></a>word_dictionary[<span class="st">&#39;word_length&#39;</span>] <span class="op">=</span> word_dictionary.word.<span class="bu">str</span>.<span class="bu">len</span>().astype(<span class="bu">int</span>)</span>
+<span id="cb1-11"><a href="#cb1-11"></a>word_dictionary[<span class="st">&#39;distinct_letters&#39;</span>] <span class="op">=</span> word_dictionary.word.<span class="bu">apply</span>(<span class="kw">lambda</span> x: <span class="bu">len</span>(<span class="bu">set</span>(x)))</span>
+<span id="cb1-12"><a href="#cb1-12"></a></span>
+<span id="cb1-13"><a href="#cb1-13"></a><span class="co"># export transformed data</span></span>
+<span id="cb1-14"><a href="#cb1-14"></a>word_dictionary.to_csv(<span class="st">&quot;./data/transformed_dictionary.csv&quot;</span>, index <span class="op">=</span> <span class="va">False</span>)</span></code></pre></div>
+</div>
+<h3 id="program-logic">Program Logic</h3>
+<p>With the right data available, we need to create a function that help to filter the the words to the most likely valid words.</p>
+<p>The function below takes in all of the necessary inputs and eliminates words from the passed <code>english_dictionary</code> that are found to be impossible given the information we have discovered.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">def</span> get_possible_words(</span>
+<span id="cb2-2"><a href="#cb2-2"></a>    english_dictionary,</span>
+<span id="cb2-3"><a href="#cb2-3"></a>    word_length <span class="op">=</span> <span class="dv">5</span>, </span>
+<span id="cb2-4"><a href="#cb2-4"></a>    contains_list <span class="op">=</span> [], </span>
+<span id="cb2-5"><a href="#cb2-5"></a>    does_not_contain_list <span class="op">=</span> [], </span>
+<span id="cb2-6"><a href="#cb2-6"></a>    position_known_dict <span class="op">=</span> {}, </span>
+<span id="cb2-7"><a href="#cb2-7"></a>    position_not_known_dict <span class="op">=</span> {}):</span>
+<span id="cb2-8"><a href="#cb2-8"></a>    </span>
+<span id="cb2-9"><a href="#cb2-9"></a>    <span class="co">&#39;&#39;&#39;</span></span>
+<span id="cb2-10"><a href="#cb2-10"></a><span class="co">        english_dictionary - dictionary containing word and word metadata</span></span>
+<span id="cb2-11"><a href="#cb2-11"></a><span class="co">        word_length - integer indicating the word length for the puzzle (commonly 5 or 6)</span></span>
+<span id="cb2-12"><a href="#cb2-12"></a><span class="co">        contains_list - list of letters known to be in the target word (YELLOW or GREEN)</span></span>
+<span id="cb2-13"><a href="#cb2-13"></a><span class="co">            ex. [&#39;a&#39;, &#39;t&#39;]</span></span>
+<span id="cb2-14"><a href="#cb2-14"></a><span class="co">        does_not_contain_list - list of letters known to not be in target word (GREY)</span></span>
+<span id="cb2-15"><a href="#cb2-15"></a><span class="co">            ex. [&#39;h&#39;]</span></span>
+<span id="cb2-16"><a href="#cb2-16"></a><span class="co">        position_known_dict - dictionary with letter postions as keys (GREEN)</span></span>
+<span id="cb2-17"><a href="#cb2-17"></a><span class="co">            ex. {1:&#39;a&#39;, &#39;5:&#39;t&#39;}</span></span>
+<span id="cb2-18"><a href="#cb2-18"></a><span class="co">        position_not_known_dict - dictionary with letter position as keys and values</span></span>
+<span id="cb2-19"><a href="#cb2-19"></a><span class="co">            in a list since there may be many known non-letters for a given position</span></span>
+<span id="cb2-20"><a href="#cb2-20"></a><span class="co">            ex. {1:[&#39;b&#39;, &#39;c&#39;], 4: [&#39;t]}</span></span>
+<span id="cb2-21"><a href="#cb2-21"></a><span class="co">    &#39;&#39;&#39;</span></span>
+<span id="cb2-22"><a href="#cb2-22"></a>    </span>
+<span id="cb2-23"><a href="#cb2-23"></a>    <span class="co"># subset to desired length</span></span>
+<span id="cb2-24"><a href="#cb2-24"></a>    english_dictionary <span class="op">=</span> english_dictionary[(english_dictionary.word_length <span class="op">==</span> word_length)]</span>
+<span id="cb2-25"><a href="#cb2-25"></a></span>
+<span id="cb2-26"><a href="#cb2-26"></a>    <span class="co"># remove impossible words</span></span>
+<span id="cb2-27"><a href="#cb2-27"></a>    <span class="cf">if</span> contains_list:</span>
+<span id="cb2-28"><a href="#cb2-28"></a></span>
+<span id="cb2-29"><a href="#cb2-29"></a>        <span class="cf">for</span> letter <span class="kw">in</span> contains_list:</span>
+<span id="cb2-30"><a href="#cb2-30"></a>            english_dictionary <span class="op">=</span> english_dictionary[</span>
+<span id="cb2-31"><a href="#cb2-31"></a>                (english_dictionary.word.<span class="bu">str</span>.contains(letter, regex <span class="op">=</span> <span class="va">True</span>))</span>
+<span id="cb2-32"><a href="#cb2-32"></a>                ]</span>
+<span id="cb2-33"><a href="#cb2-33"></a></span>
+<span id="cb2-34"><a href="#cb2-34"></a>    <span class="cf">if</span> does_not_contain_list:</span>
+<span id="cb2-35"><a href="#cb2-35"></a></span>
+<span id="cb2-36"><a href="#cb2-36"></a>        <span class="cf">for</span> letter <span class="kw">in</span> does_not_contain_list:</span>
+<span id="cb2-37"><a href="#cb2-37"></a>            english_dictionary <span class="op">=</span> english_dictionary[</span>
+<span id="cb2-38"><a href="#cb2-38"></a>                (<span class="op">~</span>english_dictionary.word.<span class="bu">str</span>.contains(letter, regex <span class="op">=</span> <span class="va">True</span>))</span>
+<span id="cb2-39"><a href="#cb2-39"></a>                ]</span>
+<span id="cb2-40"><a href="#cb2-40"></a></span>
+<span id="cb2-41"><a href="#cb2-41"></a>    <span class="cf">if</span> position_known_dict:</span>
+<span id="cb2-42"><a href="#cb2-42"></a></span>
+<span id="cb2-43"><a href="#cb2-43"></a>        <span class="cf">for</span> key, value <span class="kw">in</span> position_known_dict.items():</span>
+<span id="cb2-44"><a href="#cb2-44"></a>             english_dictionary <span class="op">=</span> english_dictionary[</span>
+<span id="cb2-45"><a href="#cb2-45"></a>                (english_dictionary.word.<span class="bu">str</span>.<span class="bu">slice</span>(start <span class="op">=</span> key<span class="op">-</span><span class="dv">1</span>, stop <span class="op">=</span> key, step <span class="op">=</span> <span class="dv">1</span>) <span class="op">==</span> value)</span>
+<span id="cb2-46"><a href="#cb2-46"></a>                ]</span>
+<span id="cb2-47"><a href="#cb2-47"></a></span>
+<span id="cb2-48"><a href="#cb2-48"></a>    <span class="cf">if</span> position_not_known_dict:</span>
+<span id="cb2-49"><a href="#cb2-49"></a></span>
+<span id="cb2-50"><a href="#cb2-50"></a>        <span class="cf">for</span> key, value <span class="kw">in</span> position_not_known_dict.items():</span>
+<span id="cb2-51"><a href="#cb2-51"></a>            <span class="cf">for</span> letter <span class="kw">in</span> value:</span>
+<span id="cb2-52"><a href="#cb2-52"></a>                english_dictionary <span class="op">=</span> english_dictionary[</span>
+<span id="cb2-53"><a href="#cb2-53"></a>                    (english_dictionary.word.<span class="bu">str</span>.<span class="bu">slice</span>(start <span class="op">=</span> key<span class="op">-</span><span class="dv">1</span>, stop <span class="op">=</span> key, step <span class="op">=</span> <span class="dv">1</span>) <span class="op">!=</span> letter)</span>
+<span id="cb2-54"><a href="#cb2-54"></a>                    ]</span>
+<span id="cb2-55"><a href="#cb2-55"></a></span>
+<span id="cb2-56"><a href="#cb2-56"></a>    <span class="bu">print</span>(<span class="ss">f&quot;There are currently </span><span class="sc">{</span><span class="bu">len</span>(english_dictionary.index)<span class="sc">}</span><span class="ss"> possible words&quot;</span>)</span>
+<span id="cb2-57"><a href="#cb2-57"></a>    <span class="bu">print</span>(<span class="ss">f&quot;Here are the top 50 based on the information provided:&quot;</span>)</span>
+<span id="cb2-58"><a href="#cb2-58"></a>    <span class="bu">print</span>(english_dictionary.head(<span class="dv">50</span>))</span>
+<span id="cb2-59"><a href="#cb2-59"></a></span>
+<span id="cb2-60"><a href="#cb2-60"></a>    <span class="cf">return</span> english_dictionary</span></code></pre></div>
+</div>
+<p>One downside to this function is that it requires us to rerun the function with each guess and type in all the information. Maybe we can make the function interactive by wrapping the functionality up into a dashboard?</p>
+<h3 id="buidling-a-simple-streamlit-app">Buidling a Simple Streamlit App</h3>
+<p><a href="https://docs.streamlit.io/">Streamlit</a> is a very simple framework for quickly making data based web applications. The main thing to decide are what we want to control.</p>
+<p>The main function <code>get_possible_words()</code> contains the following arguments that should be turned into interactive inputs in the app. The list of available widgets are <a href="https://docs.streamlit.io/library/get-started/main-concepts">here</a>.</p>
+<ul>
+<li><p>word_length - a slider would work great for this. We only set this parameter once at the beginning of the game and leave it. Just for fun, let’s allow words as short as 1 and as long as 20.</p></li>
+<li><p>contains_list - a <em>multiselect</em> works great for this. We will have a list of possible values (letters of the alphabet) for the user to select from and the selected values will populate the list</p></li>
+<li><p>does_not_contain_list = a <em>multiselect</em> works great for this. We will have a list of possible values (letters of the alphabet) for the user to select from and the selected values will populate the list</p></li>
+<li><p>position_known_dict - a <em>selectbox</em> for each <em>letter position</em> would work, then we will be able to select only one value for each <em>letter position</em>. We need to dynamically add as a function of <code>word_length</code>.</p></li>
+<li><p>position_not_known_dict - a <em>multiselect</em> works great for this but we will need one for each <em>letter position</em>. We need to dynamically add as a function of <code>word_length</code>.</p></li>
+</ul>
+<p>Once the input controls are determined, we need to determine what output to create. For this app this is easy…we want to display the data meeting the requirements determined by the inputs. Streamlit makes this easy with Streamlit’s <em>write</em> method.</p>
+<p>The <a href="https://github.com/nagol/wordle_helper/blob/master/wordle_app.py">code for the Streamlit App</a> is available below:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="im">from</span> get_possible_words <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a></span>
+<span id="cb3-5"><a href="#cb3-5"></a>st.set_page_config(</span>
+<span id="cb3-6"><a href="#cb3-6"></a>    page_title<span class="op">=</span><span class="st">&quot;Wordle Helper&quot;</span>, </span>
+<span id="cb3-7"><a href="#cb3-7"></a>    page_icon<span class="op">=</span><span class="st">&quot;📊&quot;</span>, </span>
+<span id="cb3-8"><a href="#cb3-8"></a>    initial_sidebar_state<span class="op">=</span><span class="st">&quot;expanded&quot;</span></span>
+<span id="cb3-9"><a href="#cb3-9"></a>)</span>
+<span id="cb3-10"><a href="#cb3-10"></a></span>
+<span id="cb3-11"><a href="#cb3-11"></a><span class="co"># Load data with word, word freq over trillion word coupus</span></span>
+<span id="cb3-12"><a href="#cb3-12"></a>word_dictionary <span class="op">=</span> pd.read_csv(<span class="st">&quot;./data/transformed_dictionary.csv&quot;</span>)</span>
+<span id="cb3-13"><a href="#cb3-13"></a></span>
+<span id="cb3-14"><a href="#cb3-14"></a><span class="co"># Set helper variables</span></span>
+<span id="cb3-15"><a href="#cb3-15"></a>alphabet <span class="op">=</span> [<span class="st">&#39;&#39;</span>, <span class="st">&#39;a&#39;</span>,<span class="st">&#39;b&#39;</span>,<span class="st">&#39;c&#39;</span>,<span class="st">&#39;d&#39;</span>,<span class="st">&#39;e&#39;</span>,<span class="st">&#39;f&#39;</span>,<span class="st">&#39;g&#39;</span>,<span class="st">&#39;h&#39;</span>,<span class="st">&#39;i&#39;</span>,<span class="st">&#39;j&#39;</span>,<span class="st">&#39;k&#39;</span>,<span class="st">&#39;l&#39;</span>,<span class="st">&#39;m&#39;</span>,<span class="st">&#39;n&#39;</span>,<span class="st">&#39;o&#39;</span>,<span class="st">&#39;p&#39;</span>,<span class="st">&#39;q&#39;</span>,<span class="st">&#39;r&#39;</span>,<span class="st">&#39;s&#39;</span>,<span class="st">&#39;t&#39;</span>,<span class="st">&#39;u&#39;</span>,<span class="st">&#39;v&#39;</span>,<span class="st">&#39;w&#39;</span>,<span class="st">&#39;x&#39;</span>,<span class="st">&#39;y&#39;</span>,<span class="st">&#39;z&#39;</span>]</span>
+<span id="cb3-16"><a href="#cb3-16"></a>VERBOSE <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb3-17"><a href="#cb3-17"></a></span>
+<span id="cb3-18"><a href="#cb3-18"></a>st.write(</span>
+<span id="cb3-19"><a href="#cb3-19"></a>    <span class="st">&quot;&quot;&quot;</span></span>
+<span id="cb3-20"><a href="#cb3-20"></a><span class="st"># Wordle Helper</span></span>
+<span id="cb3-21"><a href="#cb3-21"></a><span class="st">*data + python to the rescue!*</span></span>
+<span id="cb3-22"><a href="#cb3-22"></a><span class="st">Use the sidebar filters to input information about the target word.</span></span>
+<span id="cb3-23"><a href="#cb3-23"></a><span class="st">Each guess at the target word provides new information about:</span></span>
+<span id="cb3-24"><a href="#cb3-24"></a><span class="st">+ letters that are contained in the target word [YELLOW and GREEN]</span></span>
+<span id="cb3-25"><a href="#cb3-25"></a><span class="st">+ letters that are not contained in the target word [GREY]</span></span>
+<span id="cb3-26"><a href="#cb3-26"></a><span class="st">+ letters in target word whose position are known [GREEN]</span></span>
+<span id="cb3-27"><a href="#cb3-27"></a><span class="st">+ letters in target word whose position is forbidden in a particular position [YELLOW]</span></span>
+<span id="cb3-28"><a href="#cb3-28"></a><span class="st">The table below contains words meeting the selected criteria **sorted by how common the word is in common usage**.</span></span>
+<span id="cb3-29"><a href="#cb3-29"></a><span class="st">You can use your best judgement about what word to actually use as your next guess but generally you will have</span></span>
+<span id="cb3-30"><a href="#cb3-30"></a><span class="st">very good results just by always choosing the most common word meeting the criteria selected.</span></span>
+<span id="cb3-31"><a href="#cb3-31"></a><span class="st">## Table of Words Meeting Criteria</span></span>
+<span id="cb3-32"><a href="#cb3-32"></a><span class="st">&quot;&quot;&quot;</span></span>
+<span id="cb3-33"><a href="#cb3-33"></a>)</span>
+<span id="cb3-34"><a href="#cb3-34"></a></span>
+<span id="cb3-35"><a href="#cb3-35"></a>st.sidebar.write(</span>
+<span id="cb3-36"><a href="#cb3-36"></a>    <span class="st">&quot;&quot;&quot;</span></span>
+<span id="cb3-37"><a href="#cb3-37"></a><span class="st">    # Parameters:</span></span>
+<span id="cb3-38"><a href="#cb3-38"></a><span class="st">&quot;&quot;&quot;</span></span>
+<span id="cb3-39"><a href="#cb3-39"></a>)</span>
+<span id="cb3-40"><a href="#cb3-40"></a></span>
+<span id="cb3-41"><a href="#cb3-41"></a>number <span class="op">=</span> st.sidebar.slider(</span>
+<span id="cb3-42"><a href="#cb3-42"></a>    <span class="st">&#39;How many letters in the puzzle?&#39;</span>,</span>
+<span id="cb3-43"><a href="#cb3-43"></a>    min_value <span class="op">=</span> <span class="dv">1</span>,</span>
+<span id="cb3-44"><a href="#cb3-44"></a>    max_value <span class="op">=</span> <span class="dv">20</span>,</span>
+<span id="cb3-45"><a href="#cb3-45"></a>    value <span class="op">=</span> <span class="dv">5</span>,</span>
+<span id="cb3-46"><a href="#cb3-46"></a>    step <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb3-47"><a href="#cb3-47"></a></span>
+<span id="cb3-48"><a href="#cb3-48"></a><span class="co"># get letters known to be in the target word</span></span>
+<span id="cb3-49"><a href="#cb3-49"></a>known_letters <span class="op">=</span> st.sidebar.multiselect(</span>
+<span id="cb3-50"><a href="#cb3-50"></a>     <span class="st">&#39;What letters are known to be included in the target word?&#39;</span>,</span>
+<span id="cb3-51"><a href="#cb3-51"></a>     alphabet,</span>
+<span id="cb3-52"><a href="#cb3-52"></a>     [])</span>
+<span id="cb3-53"><a href="#cb3-53"></a></span>
+<span id="cb3-54"><a href="#cb3-54"></a><span class="co"># get letters known to not be in the target word</span></span>
+<span id="cb3-55"><a href="#cb3-55"></a>known_nonletters <span class="op">=</span> st.sidebar.multiselect(</span>
+<span id="cb3-56"><a href="#cb3-56"></a>     <span class="st">&#39;What letters are known to NOT be included in the target word?&#39;</span>,</span>
+<span id="cb3-57"><a href="#cb3-57"></a>     alphabet,</span>
+<span id="cb3-58"><a href="#cb3-58"></a>     [])</span>
+<span id="cb3-59"><a href="#cb3-59"></a></span>
+<span id="cb3-60"><a href="#cb3-60"></a><span class="co"># get known position information</span></span>
+<span id="cb3-61"><a href="#cb3-61"></a>known_positions <span class="op">=</span> {index:<span class="st">&#39;&#39;</span> <span class="cf">for</span> index <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, number <span class="op">+</span> <span class="dv">1</span>)}</span>
+<span id="cb3-62"><a href="#cb3-62"></a><span class="cf">for</span> pos <span class="kw">in</span> known_positions:</span>
+<span id="cb3-63"><a href="#cb3-63"></a>    known_positions[pos] <span class="op">=</span> st.sidebar.selectbox(</span>
+<span id="cb3-64"><a href="#cb3-64"></a>        <span class="ss">f&quot;What letter is known for string index </span><span class="sc">{</span>pos<span class="sc">}</span><span class="ss">?&quot;</span>,</span>
+<span id="cb3-65"><a href="#cb3-65"></a>        alphabet,</span>
+<span id="cb3-66"><a href="#cb3-66"></a>        key <span class="op">=</span> <span class="st">&#39;known&#39;</span> <span class="op">+</span> <span class="bu">str</span>(pos))</span>
+<span id="cb3-67"><a href="#cb3-67"></a></span>
+<span id="cb3-68"><a href="#cb3-68"></a><span class="co"># get known non-position information</span></span>
+<span id="cb3-69"><a href="#cb3-69"></a>known_nonpositions <span class="op">=</span> {index:[] <span class="cf">for</span> index <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, number <span class="op">+</span> <span class="dv">1</span>)}</span>
+<span id="cb3-70"><a href="#cb3-70"></a><span class="cf">for</span> pos <span class="kw">in</span> known_nonpositions:</span>
+<span id="cb3-71"><a href="#cb3-71"></a>    </span>
+<span id="cb3-72"><a href="#cb3-72"></a>    known_nonpositions[pos] <span class="op">=</span> st.sidebar.multiselect(</span>
+<span id="cb3-73"><a href="#cb3-73"></a>        <span class="ss">f&quot;What letter(s) are forbidden for string index </span><span class="sc">{</span>pos<span class="sc">}</span><span class="ss">?&quot;</span>,</span>
+<span id="cb3-74"><a href="#cb3-74"></a>        alphabet,</span>
+<span id="cb3-75"><a href="#cb3-75"></a>        key <span class="op">=</span> <span class="st">&#39;unknown&#39;</span> <span class="op">+</span> <span class="bu">str</span>(pos))</span>
+<span id="cb3-76"><a href="#cb3-76"></a></span>
+<span id="cb3-77"><a href="#cb3-77"></a></span>
+<span id="cb3-78"><a href="#cb3-78"></a><span class="co"># convert the input data structures into form originally intended for get_possible_words()</span></span>
+<span id="cb3-79"><a href="#cb3-79"></a>known_position_dict <span class="op">=</span> {}</span>
+<span id="cb3-80"><a href="#cb3-80"></a><span class="cf">for</span> index <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, number <span class="op">+</span> <span class="dv">1</span>):</span>
+<span id="cb3-81"><a href="#cb3-81"></a>    <span class="cf">if</span> known_positions[index] <span class="op">!=</span> <span class="st">&#39;&#39;</span>:</span>
+<span id="cb3-82"><a href="#cb3-82"></a>        known_position_dict[index] <span class="op">=</span> known_positions[index]</span>
+<span id="cb3-83"><a href="#cb3-83"></a></span>
+<span id="cb3-84"><a href="#cb3-84"></a>known_nonpositions_dict <span class="op">=</span> {}</span>
+<span id="cb3-85"><a href="#cb3-85"></a><span class="cf">for</span> index <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, number <span class="op">+</span> <span class="dv">1</span>):</span>
+<span id="cb3-86"><a href="#cb3-86"></a>    <span class="cf">if</span> known_nonpositions[index] <span class="op">!=</span> []:</span>
+<span id="cb3-87"><a href="#cb3-87"></a>        known_nonpositions_dict[index] <span class="op">=</span> known_nonpositions[index]</span>
+<span id="cb3-88"><a href="#cb3-88"></a></span>
+<span id="cb3-89"><a href="#cb3-89"></a></span>
+<span id="cb3-90"><a href="#cb3-90"></a>dictionary_data <span class="op">=</span> get_possible_words(</span>
+<span id="cb3-91"><a href="#cb3-91"></a>    word_dictionary,</span>
+<span id="cb3-92"><a href="#cb3-92"></a>    word_length <span class="op">=</span> number,</span>
+<span id="cb3-93"><a href="#cb3-93"></a>    contains_list <span class="op">=</span> known_letters,</span>
+<span id="cb3-94"><a href="#cb3-94"></a>    does_not_contain_list <span class="op">=</span> known_nonletters,</span>
+<span id="cb3-95"><a href="#cb3-95"></a>    position_known_dict <span class="op">=</span> known_position_dict, </span>
+<span id="cb3-96"><a href="#cb3-96"></a>    position_not_known_dict <span class="op">=</span> known_nonpositions_dict</span>
+<span id="cb3-97"><a href="#cb3-97"></a>    )</span>
+<span id="cb3-98"><a href="#cb3-98"></a>st.write(dictionary_data, height <span class="op">=</span> <span class="dv">500</span>)</span>
+<span id="cb3-99"><a href="#cb3-99"></a></span>
+<span id="cb3-100"><a href="#cb3-100"></a>st.markdown(<span class="st">&quot;The data used is from [Kaggle](https://www.kaggle.com/datasets/rtatman/english-word-frequency).&quot;</span>)</span>
+<span id="cb3-101"><a href="#cb3-101"></a>st.markdown(<span class="st">&quot;The code to build this app are located [github](https://github.com/nagol/wordle_helper).&quot;</span>)</span>
+<span id="cb3-102"><a href="#cb3-102"></a><span class="co"># For debugging</span></span>
+<span id="cb3-103"><a href="#cb3-103"></a><span class="co">#&quot;st.session_state object&quot;, st.session_state</span></span>
+<span id="cb3-104"><a href="#cb3-104"></a></span>
+<span id="cb3-105"><a href="#cb3-105"></a><span class="cf">if</span> VERBOSE:</span>
+<span id="cb3-106"><a href="#cb3-106"></a>    st.write(<span class="st">&#39;Puzzle word size: &#39;</span>, number)</span>
+<span id="cb3-107"><a href="#cb3-107"></a>    st.write(<span class="st">&#39;Current known letters are:&#39;</span>, <span class="st">&#39;, &#39;</span>.join(known_letters))</span>
+<span id="cb3-108"><a href="#cb3-108"></a>    st.write(<span class="st">&#39;Current known non-letters are:&#39;</span>, <span class="st">&#39;, &#39;</span>.join(known_nonletters))</span>
+<span id="cb3-109"><a href="#cb3-109"></a>    </span>
+<span id="cb3-110"><a href="#cb3-110"></a>    <span class="cf">for</span> pos <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, number <span class="op">+</span> <span class="dv">1</span>):</span>
+<span id="cb3-111"><a href="#cb3-111"></a>        st.write(<span class="ss">f&quot;The letter in position </span><span class="sc">{</span>pos<span class="sc">}</span><span class="ss"> is known to be:&quot;</span>, known_positions[pos])</span>
+<span id="cb3-112"><a href="#cb3-112"></a>        st.write(<span class="ss">f&quot;The letter in position </span><span class="sc">{</span>pos<span class="sc">}</span><span class="ss"> is forbidden to be:&quot;</span>, <span class="st">&#39;, &#39;</span>.join(known_nonpositions[pos]))</span></code></pre></div>
+</div>
+<h3 id="publishing-the-app">Publishing the App</h3>
+<p>The app can be easily deployed for free using the <a href="https://streamlit.io/cloud">Streamlit Cloud</a>.</p>
+<p>After making an account you can deploy the app directly from Github.</p>
+<p><a href="https://share.streamlit.io/nagol/wordle_helper/wordle_app.py">Link to Final Streamlit App</a></p>
+<figure>
+<img src="wordle_app_screenshot.png" alt="" /><figcaption>Screenshot from the Final Wordle Helper App</figcaption>
+</figure>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<!--radix_placeholder_article_footer-->
+<!--/radix_placeholder_article_footer-->
+</div>
+
+<div class="d-appendix">
+</div>
+
+
+<!--radix_placeholder_site_after_body-->
+<!--/radix_placeholder_site_after_body-->
+<!--radix_placeholder_appendices-->
+<div class="appendix-bottom"></div>
+<!--/radix_placeholder_appendices-->
+<!--radix_placeholder_navigation_after_body-->
+<!--/radix_placeholder_navigation_after_body-->
+
+</body>
+
+</html>
