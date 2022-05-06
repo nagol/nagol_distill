@@ -2398,15 +2398,24 @@ d-appendix d-footnote-list a.footnote-backlink {
 <li><p>the letter turns yellow if the target word contains that specific letter but in the target word, the letter appears in a different position</p></li>
 <li><p>the letter turns grey if the target word does not contain that specific letter</p></li>
 </ul>
-<p><img src="wordle_game_screenshot.png" alt="Screenshot from an New York Times Daily Wordle Game" /> In the screenshot, we can see that the first guess was ‘DEATH’ and since the <em>E</em> and the <em>H</em> are both YELLOW then we know the target word contains <em>E</em> and <em>H</em> but the <em>E</em> is not in the second position and the <em>H</em> is not in the fifth position. Further since the <em>D</em>, <em>A</em>, and <em>T</em> are grey, we know the target word does not contain any of them.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="figure"><span id="fig:example"></span>
+<img src="wordle_game_screenshot.png" alt="Screenshot from an New York Times Daily Wordle Game" width="379" />
+<p class="caption">
+Figure 1: Screenshot from an New York Times Daily Wordle Game
+</p>
+</div>
+</div>
+<p>In the screenshot, we can see that the first guess was ‘DEATH’ and since the <em>E</em> and the <em>H</em> are both YELLOW then we know the target word contains <em>E</em> and <em>H</em> but the <em>E</em> is not in the second position and the <em>H</em> is not in the fifth position. Further since the <em>D</em>, <em>A</em>, and <em>T</em> are grey, we know the target word does not contain any of them.</p>
 <p>The next guess was ‘ETHER’ and we now see that there are green <em>E</em> and <em>R</em> meaning that those letters are in the correct position. The <em>H</em> is yellow so we know that the <em>H</em> in the target word is not in the third location. The grey <em>T</em> shouldn’t suprise us, we already know from the first guess that no <em>T</em> existed in the target word and its presence in the second guess constitutes a <em>waste</em> of a guess. The second grey <em>E</em> signifies that the target word doesn’t have a second <em>E</em> in it other than the one that lives in the fourth location.</p>
 <p>From this example, we can determine that there are four pieces of information to keep track of:</p>
 <ol type="1">
-<li><p>Letters we know are contained in the target word. We could store such values in a list.</p></li>
-<li><p>Letters we know are not contained in the target word. We could store such values in a list.</p></li>
-<li><p>Letters we know can’t be in specific positions in the target word. For a specific position, there may be many known non-valid letters. We could store such values in a dictionary using the positions as keys and a list of non-valid letters as values.</p></li>
-<li><p>Letters we know to be in specific positions in the target word. For a specific position, there is only one possible valid letter. We could store such values in a dictionary using the positions as keys and a single valid letter as a value.</p></li>
+<li><p>Letters we know are contained in the target word. We could store such values in a list. Example: <code>contains_list = ['E', 'H', 'R']</code></p></li>
+<li><p>Letters we know are not contained in the target word. We could store such values in a list. Example: <code>does_not_contain_list = ['D', 'A', 'T']</code></p></li>
+<li><p>Letters we know can’t be in specific positions in the target word. For a specific position, there may be many known non-valid letters. We could store such values in a dictionary using the positions as keys and a list of non-valid letters as values. <code>position_not_known_dict = {2: ['E'], 3:['H'], 5:['H']}</code></p></li>
+<li><p>Letters we know to be in specific positions in the target word. For a specific position, there is only one possible valid letter. We could store such values in a dictionary using the positions as keys and a single valid letter as a value. Example: <code>position_known_dict = {4: 'E', 5:'R'}</code></p></li>
 </ol>
+<p>For each word guessed, we can update these 4 data structures to capture all of the information about what is allowed for the target word.</p>
 <h2 id="build-a-wordle-helper-function">Build a Wordle Helper Function</h2>
 <h3 id="data">Data</h3>
 <p>The first thing we need to generate are guesses. Each guess needs to be a valid English word of the right length.</p>
@@ -2435,7 +2444,7 @@ d-appendix d-footnote-list a.footnote-backlink {
 </div>
 <h3 id="program-logic">Program Logic</h3>
 <p>With the right data available, we need to create a function that help to filter the the words to the most likely valid words.</p>
-<p>The function below takes in all of the necessary inputs and eliminates words from the passed <code>english_dictionary</code> that are found to be impossible given the information we have discovered.</p>
+<p>The function below takes in all of the necessary inputs and eliminates words from the passed <code>english_dictionary</code> (the data we prepared previously) that are found to be impossible given the information we have discovered.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">def</span> get_possible_words(</span>
 <span id="cb2-2"><a href="#cb2-2"></a>    english_dictionary,</span>
@@ -2509,7 +2518,7 @@ d-appendix d-footnote-list a.footnote-backlink {
 <li><p>position_known_dict - a <em>selectbox</em> for each <em>letter position</em> would work, then we will be able to select only one value for each <em>letter position</em>. We need to dynamically add as a function of <code>word_length</code>.</p></li>
 <li><p>position_not_known_dict - a <em>multiselect</em> works great for this but we will need one for each <em>letter position</em>. We need to dynamically add as a function of <code>word_length</code>.</p></li>
 </ul>
-<p>Once the input controls are determined, we need to determine what output to create. For this app this is easy…we want to display the data meeting the requirements determined by the inputs. Streamlit makes this easy with Streamlit’s <em>write</em> method.</p>
+<p>Once the input controls are determined, we need to determine what output to create. For this app this is easy…we want to display the data meeting the requirements determined by the inputs. The data will be the main display of the app, along with some commentary and useful links.</p>
 <p>The <a href="https://github.com/nagol/wordle_helper/blob/master/wordle_app.py">code for the Streamlit App</a> is available below:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
@@ -2629,9 +2638,14 @@ d-appendix d-footnote-list a.footnote-backlink {
 <p>The app can be easily deployed for free using the <a href="https://streamlit.io/cloud">Streamlit Cloud</a>.</p>
 <p>After making an account you can deploy the app directly from Github.</p>
 <p><a href="https://share.streamlit.io/nagol/wordle_helper/wordle_app.py">Link to Final Streamlit App</a></p>
-<figure>
-<img src="wordle_app_screenshot.png" alt="" /><figcaption>Screenshot from the Final Wordle Helper App</figcaption>
-</figure>
+<div class="layout-chunk" data-layout="l-body">
+<div class="figure"><span id="fig:app"></span>
+<img src="wordle_app_screenshot.png" alt="Screenshot from Final Wordle Helper App" width="1397" />
+<p class="caption">
+Figure 2: Screenshot from Final Wordle Helper App
+</p>
+</div>
+</div>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->

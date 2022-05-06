@@ -33,12 +33,15 @@ In order to be able to see any
 in such data we need to come up with a way to *easily* and
 *automatically* collect the data.
 
-![Figure from Github Repo: https://github.com/nagol/SLOPD_activity](final_time_series.png) 
+```{r example, echo=FALSE, fig.cap="Figure from Github Repo: https://github.com/nagol/SLOPD_activity"}
+knitr::include_graphics("final_time_series.png")
+```
+
 
 ## Git-Scraping
 
 Git-scraping is a fantastic solution for the automated scraping and storing
-of data. The term/conncept was pioneered by [Simon Willson in his article](https://simonwillison.net/2020/Oct/9/git-scraping/). His article is fantastic, short, and easy to follow with plenty of examples.
+of data. [The term/concept was pioneered by Simon Willson in his article ](https://simonwillison.net/2020/Oct/9/git-scraping/). His article is fantastic; short, and easy to follow with plenty of examples.
 
 The goal for this post was to try to write my own git-scraper from scratch. 
 [The resulting code for the project is available on Github](https://github.com/nagol/SLOPD_data)
@@ -93,6 +96,7 @@ updates their data, the scraper only run once a day Monday - Thursday.
   + run analysis.py
   
 + Commit changes with a timestamp in the commit message.
+
 
 ```{bash eval = FALSE}
 

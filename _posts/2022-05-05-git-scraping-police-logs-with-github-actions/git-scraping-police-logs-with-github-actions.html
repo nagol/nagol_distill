@@ -1484,11 +1484,16 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <div class="d-article">
 <p>I have become increasingly interested in publicly available data and what such data can provide. For example, the San Luis Obispo Police Department in San Luis Obispo, California publishes records about each call they respond to. The department publishes their data a few times a week but provides no historical data.</p>
 <p>In order to be able to see any <strong>interesting trends</strong> in such data we need to come up with a way to <em>easily</em> and <em>automatically</em> collect the data.</p>
-<figure>
-<img src="final_time_series.png" alt="" /><figcaption>Figure from Github Repo: <a href="https://github.com/nagol/SLOPD_activity" class="uri">https://github.com/nagol/SLOPD_activity</a></figcaption>
-</figure>
+<div class="layout-chunk" data-layout="l-body">
+<div class="figure"><span id="fig:example"></span>
+<img src="final_time_series.png" alt="Figure from Github Repo: https://github.com/nagol/SLOPD_activity" width="1089" />
+<p class="caption">
+Figure 1: Figure from Github Repo: <a href="https://github.com/nagol/SLOPD_activity" class="uri">https://github.com/nagol/SLOPD_activity</a>
+</p>
+</div>
+</div>
 <h2 id="git-scraping">Git-Scraping</h2>
-<p>Git-scraping is a fantastic solution for the automated scraping and storing of data. The term/conncept was pioneered by <a href="https://simonwillison.net/2020/Oct/9/git-scraping/">Simon Willson in his article</a>. His article is fantastic, short, and easy to follow with plenty of examples.</p>
+<p>Git-scraping is a fantastic solution for the automated scraping and storing of data. <a href="https://simonwillison.net/2020/Oct/9/git-scraping/">The term/concept was pioneered by Simon Willson in his article</a>. His article is fantastic; short, and easy to follow with plenty of examples.</p>
 <p>The goal for this post was to try to write my own git-scraper from scratch. <a href="https://github.com/nagol/SLOPD_data">The resulting code for the project is available on Github</a></p>
 <h2 id="getting-the-data">Getting the Data</h2>
 <p>The San Luis Obispo Police Department publishes their data at the following link <a href="https://www.slocity.org/government/department-directory/police-department/police-log">SLOPD Data</a>. According to the website, the data is updated by 3PM Monday - Thursday. The Monday data contains all of the weekend data as well.</p>

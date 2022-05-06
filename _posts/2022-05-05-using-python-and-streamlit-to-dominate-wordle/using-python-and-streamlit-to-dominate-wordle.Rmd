@@ -39,7 +39,11 @@ the target word, the letter appears in a different position
 
 + the letter turns grey if the target word does not contain that specific letter
 
-![Screenshot from an New York Times Daily Wordle Game](wordle_game_screenshot.png)
+```{r example, echo=FALSE, fig.cap="Screenshot from an New York Times Daily Wordle Game"}
+knitr::include_graphics("wordle_game_screenshot.png")
+```
+
+
 In the screenshot, we can see that the first guess was 'DEATH' and since the 
 *E* and the *H* are both YELLOW then we know the target word contains *E* and *H*
 but the *E* is not in the second position and the *H* is not in the fifth position.
@@ -56,18 +60,21 @@ From this example, we can determine that there are four pieces of information
 to keep track of:
 
 1. Letters we know are contained in the target word. We could store such values
-in a list.
+in a list. Example: `contains_list = ['E', 'H', 'R']`
 
 1. Letters we know are not contained in the target word. We could store such values
-in a list.
+in a list. Example: `does_not_contain_list = ['D', 'A', 'T']`
 
 1. Letters we know can't be in specific positions in the target word. For a specific position, there may be many known non-valid letters. We could store such values
 in a dictionary using the positions as keys and a list of non-valid letters as
-values.
+values. `position_not_known_dict = {2: ['E'], 3:['H'], 5:['H']}`
 
 1. Letters we know to be in specific positions in the target word. For a specific position, there is only one possible valid letter. We could store such values
 in a dictionary using the positions as keys and a single valid letter as a
-value.
+value. Example: `position_known_dict = {4: 'E', 5:'R'}`
+
+For each word guessed, we can update these 4 data structures to capture all
+of the information about what is allowed for the target word.
 
 ## Build a Wordle Helper Function
 
@@ -117,8 +124,9 @@ With the right data available, we need to create a function that help to filter
 the the words to the most likely valid words.
 
 The function below takes in all of the necessary inputs and eliminates words
-from the passed `english_dictionary` that are found to be impossible given the
-information we have discovered. 
+from the passed `english_dictionary` (the data we prepared previously)
+that are found to be impossible given the information we have discovered. 
+
 
 ```{python eval = FALSE}
 
@@ -216,7 +224,8 @@ for each *letter position*. We need to dynamically add as a function of `word_le
 
 Once the input controls are determined, we need to determine what output to create.
 For this app this is easy...we want to display the data meeting the requirements 
-determined by the inputs. Streamlit makes this easy with Streamlit's *write* method.
+determined by the inputs. The data will be the main display of the app, along with
+some commentary and useful links.
 
 The [code for the Streamlit App](https://github.com/nagol/wordle_helper/blob/master/wordle_app.py) is available
 below:
@@ -346,4 +355,8 @@ After making an account you can deploy the app directly from Github.
 
 [Link to Final Streamlit App](https://share.streamlit.io/nagol/wordle_helper/wordle_app.py)
 
-![Screenshot from the Final Wordle Helper App](wordle_app_screenshot.png)
+
+```{r app, echo=FALSE, fig.cap="Screenshot from Final Wordle Helper App"}
+knitr::include_graphics("wordle_app_screenshot.png")
+```
+
