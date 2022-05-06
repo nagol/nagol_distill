@@ -2390,13 +2390,13 @@ d-appendix d-footnote-list a.footnote-backlink {
 </div>
 
 <div class="d-article">
-<p>I have become increasingly interested in publicly available data and what such data can provide. For example, the San Luis Obispo Police Department in San Luis Obispo, California publishes records about each call they respond to. The department publishes their data a few times a week but provides no historical data.</p>
+<p>I have become increasingly interested in publicly available data and what insights such data can provide. For example, the San Luis Obispo Police Department in San Luis Obispo, California publishes records about each call they respond to. The department publishes their data a few times a week but provides no historical data.</p>
 <p>In order to be able to see any <strong>interesting trends</strong> in such data we need to come up with a way to <em>easily</em> and <em>automatically</em> collect the data.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="figure"><span id="fig:example"></span>
-<img src="final_time_series.png" alt="Figure from Github Repo: https://github.com/nagol/SLOPD_activity" width="1089" />
+<img src="final_time_series.png" alt="Figure from Github Repo: https://github.com/nagol/SLOPD_activity showing trend in Noise related calls" width="1089" />
 <p class="caption">
-Figure 1: Figure from Github Repo: <a href="https://github.com/nagol/SLOPD_activity" class="uri">https://github.com/nagol/SLOPD_activity</a>
+Figure 1: Figure from Github Repo: <a href="https://github.com/nagol/SLOPD_activity" class="uri">https://github.com/nagol/SLOPD_activity</a> showing trend in Noise related calls
 </p>
 </div>
 </div>
@@ -2406,7 +2406,7 @@ Figure 1: Figure from Github Repo: <a href="https://github.com/nagol/SLOPD_activ
 <h2 id="getting-the-data">Getting the Data</h2>
 <p>The San Luis Obispo Police Department publishes their data at the following link <a href="https://www.slocity.org/government/department-directory/police-department/police-log">SLOPD Data</a>. According to the website, the data is updated by 3PM Monday - Thursday. The Monday data contains all of the weekend data as well.</p>
 <p>Normally when we say ‘scraping data’ we mean using tools like R’s <code>rvest</code> or Python’s <code>beautiful soup</code> or <code>scrapy</code> to extract data from the DOM of a webpage. In this case the data is actually posted as an embedded flat-file text document.</p>
-<p>The ‘scraper’ in this case downloads the text file, breaks the file up into ‘chunks’ by exploiting the formatting of the data, iterates over the chunks (each of which represents a SLOPD incident), and parses out the data.</p>
+<p>The ‘scraper’ in this case downloads the text file, breaks the file up into ‘chunks’ by exploiting the formatting of the data, iterates over the chunks (each of which represents a SLOPD incident), and parses out the data. I tested the scraper for a few days locally to make sure the data could be parsed correctly before trying to any automating.</p>
 <p>The Python code to parse this file is located <a href="https://github.com/nagol/SLOPD_data/blob/main/scripts/slopd_scraper.py">here</a>.</p>
 <h2 id="automating-with-github-actions">Automating with Github Actions</h2>
 <p>The script works great for manually gathering data but I need this thing to run automatically. Further, we don’t want to introduce any data duplication.</p>

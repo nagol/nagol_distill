@@ -23,7 +23,7 @@ knitr::opts_chunk$set(echo = TRUE, messages = FALSE, warning = FALSE)
 ```
 
 
-I have become increasingly interested in publicly available data and what such data can provide. 
+I have become increasingly interested in publicly available data and what insights such data can provide. 
 For example, the San Luis Obispo Police Department in San Luis Obispo, California publishes records about each call they respond to. 
 The department publishes their data a few times a week but provides no 
 historical data. 
@@ -33,7 +33,7 @@ In order to be able to see any
 in such data we need to come up with a way to *easily* and
 *automatically* collect the data.
 
-```{r example, echo=FALSE, fig.cap="Figure from Github Repo: https://github.com/nagol/SLOPD_activity"}
+```{r example, echo=FALSE, fig.cap="Figure from Github Repo: https://github.com/nagol/SLOPD_activity showing trend in Noise related calls"}
 knitr::include_graphics("final_time_series.png")
 ```
 
@@ -57,9 +57,12 @@ In this case the data is actually posted as an embedded flat-file text document.
 
 The 'scraper' in this case downloads the text file, breaks the file up into
 'chunks' by exploiting the formatting of the data, iterates over the chunks
-(each of which represents a SLOPD incident), and parses out the data.
+(each of which represents a SLOPD incident), and parses out the data. I tested
+the scraper for a few days locally to make sure the data could be parsed correctly 
+before trying to any automating. 
 
-The Python code to parse this file is located [here](https://github.com/nagol/SLOPD_data/blob/main/scripts/slopd_scraper.py).
+The Python code to parse this file is located [here](https://github.com/nagol/SLOPD_data/blob/main/scripts/slopd_scraper.py). 
+
 
 ## Automating with Github Actions
 
