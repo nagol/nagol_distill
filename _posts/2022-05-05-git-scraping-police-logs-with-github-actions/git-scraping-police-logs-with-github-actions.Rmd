@@ -150,5 +150,32 @@ jobs:
 ```
 
 
+## Exploring the Data
+
+Now that the data ingestion has been automated we will slowly build up enough
+data to begin finding interesting patterns. The problem with data like these
+is that it can be difficult to understand. We have some hard details about dates,
+times, units involved but there are bizarre fields such as the 
+unstructured call comments input by the 911 operator (`call_comments`). 
+Though the SLOPD data is categorized by `type` the labels can often seem 
+random or classified in an unexpected way.
+
+### Building an Exploratory Dashboard
+
+To make the data a little easier to understand we can
+build an exploratory dashboard, a simple interface that makes it easy to view
+the data, filter for specific records, and have some helpful visuals.
+Since the data ingestion process stores the data in Github, the dashboard can
+just grab the most recent data each time a new session begins.
+
+For these data, I built a simple dashboard using `R`'s `Shiny` library. The README
+in the Github Repo linked below contains more detail about the tool and contains
+an example use case.
+
++ [Dashboard Code](https://github.com/nagol/SLOPD_activity)
+
++ [Dashboard - View the SLOPD Data](https://logan-lossing.shinyapps.io/slopd_activity/)
+
+
 
 

@@ -2479,6 +2479,15 @@ Figure 1: Figure from Github Repo: <a href="https://github.com/nagol/SLOPD_activ
 <span id="cb1-43"><a href="#cb1-43"></a>          <span class="ex">github_token</span>: ${{ secrets.GITHUB_TOKEN }}</span>
 <span id="cb1-44"><a href="#cb1-44"></a>          <span class="ex">branch</span>: main</span></code></pre></div>
 </div>
+<h2 id="exploring-the-data">Exploring the Data</h2>
+<p>Now that the data ingestion has been automated we will slowly build up enough data to begin finding interesting patterns. The problem with data like these is that it can be difficult to understand. We have some hard details about dates, times, units involved but there are bizarre fields such as the unstructured call comments input by the 911 operator (<code>call_comments</code>). Though the SLOPD data is categorized by <code>type</code> the labels can often seem random or classified in an unexpected way.</p>
+<h3 id="building-an-exploratory-dashboard">Building an Exploratory Dashboard</h3>
+<p>To make the data a little easier to understand we can build an exploratory dashboard, a simple interface that makes it easy to view the data, filter for specific records, and have some helpful visuals. Since the data ingestion process stores the data in Github, the dashboard can just grab the most recent data each time a new session begins.</p>
+<p>For these data, I built a simple dashboard using <code>R</code>’s <code>Shiny</code> library. The README in the Github Repo linked below contains more detail about the tool and contains an example use case.</p>
+<ul>
+<li><p><a href="https://github.com/nagol/SLOPD_activity">Dashboard Code</a></p></li>
+<li><p><a href="https://logan-lossing.shinyapps.io/slopd_activity/">Dashboard - View the SLOPD Data</a></p></li>
+</ul>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->

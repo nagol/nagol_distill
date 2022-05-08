@@ -110,7 +110,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","tags","categories","date","output","draft"]}},"value":[{"type":"character","attributes":{},"value":["Using Python and Streamlit to Dominate Wordle"]},{"type":"character","attributes":{},"value":["We walk through the steps of using Python and the Streamlit dashboard library to build a data driven app to help play the puzzle game Wordle.\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Logan Lossing"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":[]}},"value":[]}]}]},{"type":"character","attributes":{},"value":["python","Data Science","dashboard"]},{"type":"character","attributes":{},"value":["python","Data Science","dashboard"]},{"type":"character","attributes":{},"value":["03-05-2022"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]},{"type":"logical","attributes":{},"value":[false]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","tags","categories","date","output","draft"]}},"value":[{"type":"character","attributes":{},"value":["Using Python and Streamlit to Dominate Wordle"]},{"type":"character","attributes":{},"value":["We walk through the steps of using Python and the Streamlit dashboard library to build a data driven app to help play the puzzle game Wordle.\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Logan Lossing"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":[]}},"value":[]}]}]},{"type":"character","attributes":{},"value":["python","Data Science","dashboard"]},{"type":"character","attributes":{},"value":["python","Data Science","dashboard"]},{"type":"character","attributes":{},"value":["03-05-2022"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained","code_folding"]}},"value":[{"type":"logical","attributes":{},"value":[false]},{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"logical","attributes":{},"value":[false]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   
@@ -1491,6 +1491,13 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <li><p>the letter turns grey if the target word does not contain that specific letter</p></li>
 </ul>
 <div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>Show code</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"wordle_game_screenshot.png"</span><span class='op'>)</span>
+</code></pre>
+</div>
+</details>
 <div class="figure"><span id="fig:example"></span>
 <img src="wordle_game_screenshot.png" alt="Screenshot from an New York Times Daily Wordle Game" width="379" />
 <p class="caption">
@@ -1519,6 +1526,8 @@ Figure 1: Screenshot from an New York Times Daily Wordle Game
 </ul>
 <p>This processing only needs to happen once. The code chuck below shows the contents of <a href="https://github.com/nagol/wordle_helper/blob/master/ETL_dictionary.py">ETL_dictionary.py</a>.</p>
 <div class="layout-chunk" data-layout="l-body">
+<details>
+<p><summary>Show code</summary></p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2"></a></span>
 <span id="cb1-3"><a href="#cb1-3"></a><span class="co"># Load data with word, word freq over trillion word coupus</span></span>
@@ -1533,11 +1542,14 @@ Figure 1: Screenshot from an New York Times Daily Wordle Game
 <span id="cb1-12"><a href="#cb1-12"></a></span>
 <span id="cb1-13"><a href="#cb1-13"></a><span class="co"># export transformed data</span></span>
 <span id="cb1-14"><a href="#cb1-14"></a>word_dictionary.to_csv(<span class="st">&quot;./data/transformed_dictionary.csv&quot;</span>, index <span class="op">=</span> <span class="va">False</span>)</span></code></pre></div>
+</details>
 </div>
 <h3 id="program-logic">Program Logic</h3>
 <p>With the right data available, we need to create a function that help to filter the the words to the most likely valid words.</p>
 <p>The function below takes in all of the necessary inputs and eliminates words from the passed <code>english_dictionary</code> (the data we prepared previously) that are found to be impossible given the information we have discovered.</p>
 <div class="layout-chunk" data-layout="l-body">
+<details>
+<p><summary>Show code</summary></p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">def</span> get_possible_words(</span>
 <span id="cb2-2"><a href="#cb2-2"></a>    english_dictionary,</span>
 <span id="cb2-3"><a href="#cb2-3"></a>    word_length <span class="op">=</span> <span class="dv">5</span>, </span>
@@ -1598,6 +1610,7 @@ Figure 1: Screenshot from an New York Times Daily Wordle Game
 <span id="cb2-58"><a href="#cb2-58"></a>    <span class="bu">print</span>(english_dictionary.head(<span class="dv">50</span>))</span>
 <span id="cb2-59"><a href="#cb2-59"></a></span>
 <span id="cb2-60"><a href="#cb2-60"></a>    <span class="cf">return</span> english_dictionary</span></code></pre></div>
+</details>
 </div>
 <p>One downside to this function is that it requires us to rerun the function with each guess and type in all the information. Maybe we can make the function interactive by wrapping the functionality up into a dashboard?</p>
 <h3 id="buidling-a-simple-streamlit-app">Buidling a Simple Streamlit App</h3>
@@ -1613,6 +1626,8 @@ Figure 1: Screenshot from an New York Times Daily Wordle Game
 <p>Once the input controls are determined, we need to determine what output to create. For this app this is easy…we want to display the data meeting the requirements determined by the inputs. The data will be the main display of the app, along with some commentary and useful links.</p>
 <p>The <a href="https://github.com/nagol/wordle_helper/blob/master/wordle_app.py">code for the Streamlit App</a> is available below:</p>
 <div class="layout-chunk" data-layout="l-body">
+<details>
+<p><summary>Show code</summary></p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
 <span id="cb3-2"><a href="#cb3-2"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb3-3"><a href="#cb3-3"></a><span class="im">from</span> get_possible_words <span class="im">import</span> <span class="op">*</span></span>
@@ -1725,12 +1740,20 @@ Figure 1: Screenshot from an New York Times Daily Wordle Game
 <span id="cb3-110"><a href="#cb3-110"></a>    <span class="cf">for</span> pos <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, number <span class="op">+</span> <span class="dv">1</span>):</span>
 <span id="cb3-111"><a href="#cb3-111"></a>        st.write(<span class="ss">f&quot;The letter in position </span><span class="sc">{</span>pos<span class="sc">}</span><span class="ss"> is known to be:&quot;</span>, known_positions[pos])</span>
 <span id="cb3-112"><a href="#cb3-112"></a>        st.write(<span class="ss">f&quot;The letter in position </span><span class="sc">{</span>pos<span class="sc">}</span><span class="ss"> is forbidden to be:&quot;</span>, <span class="st">&#39;, &#39;</span>.join(known_nonpositions[pos]))</span></code></pre></div>
+</details>
 </div>
 <h3 id="publishing-the-app">Publishing the App</h3>
 <p>The app can be easily deployed for free using the <a href="https://streamlit.io/cloud">Streamlit Cloud</a>.</p>
 <p>After making an account you can deploy the app directly from Github.</p>
 <p><a href="https://share.streamlit.io/nagol/wordle_helper/wordle_app.py">Link to Final Streamlit App</a></p>
 <div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>Show code</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"wordle_app_screenshot.png"</span><span class='op'>)</span>
+</code></pre>
+</div>
+</details>
 <div class="figure"><span id="fig:app"></span>
 <img src="wordle_app_screenshot.png" alt="Screenshot from Final Wordle Helper App" width="1397" />
 <p class="caption">
